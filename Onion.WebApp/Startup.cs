@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
+using Onion.AppCore.Services;
 using Onion.Infrastructure.Data;
 using Onion.Infrastructure.Services;
 using System;
@@ -38,9 +39,9 @@ namespace Onion.WebApp
             //    {
             //        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
             //    });
-            //services.AddTransient<IGenericRepository<Document>, SQLRepository<Project>>();
+            services.AddTransient<IGenericRepository<Employee>, SQLRepository<Employee>>();
             //services.AddTransient<IGenericRepository<User>, SQLRepository<User>>();
-            //services.AddTransient<IDocument, DocumentService>();
+            services.AddTransient<IEmployee, EmployeeService>();
             //services.AddTransient<IUser, UserService>();
 
 
@@ -73,7 +74,7 @@ namespace Onion.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=NewEmployee}/{action=Create}/{id?}");
             });
         }
     }
