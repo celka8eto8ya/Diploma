@@ -12,11 +12,9 @@ namespace Onion.WebApp.Controllers
     public class NewEmployeeController : Controller
     {
         IGenericRepository<Employee> _Employees;
-        IGenericRepository<Department> _Departments;
-        public NewEmployeeController(IGenericRepository<Employee> Employees, IGenericRepository<Department> Departments)
+        public NewEmployeeController(IGenericRepository<Employee> Employees)
         {
             _Employees = Employees;
-            _Departments = Departments;
         }
 
 
@@ -34,7 +32,6 @@ namespace Onion.WebApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _Departments.Create(new Department() { Name="First"});
 
                 Employee emp = new Employee
                 {
