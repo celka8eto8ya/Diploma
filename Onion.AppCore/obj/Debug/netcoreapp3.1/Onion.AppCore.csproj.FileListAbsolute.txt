@@ -1,0 +1,10 @@
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\bin\Debug\netcoreapp3.1\Onion.AppCore.deps.json
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\bin\Debug\netcoreapp3.1\Onion.AppCore.dll
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\bin\Debug\netcoreapp3.1\Onion.AppCore.pdb
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.csproj.AssemblyReference.cache
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.AssemblyInfoInputs.cache
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.AssemblyInfo.cs
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.csproj.CoreCompileInputs.cache
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.dll
+C:\Users\kosty\source\repos\Diploma_PM\Onion.AppCore\obj\Debug\netcoreapp3.1\Onion.AppCore.pdb
