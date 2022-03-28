@@ -149,3 +149,13 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+main {
+    background-color: rgb(180, 135, 224);
+}
+
+.mainSize {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(180, 135, 224);
+}

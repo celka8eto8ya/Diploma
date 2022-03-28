@@ -1,0 +1,80 @@
+﻿@model Onion.WebApp.ViewModels.NewEmployeeModel
+
+
+
+<form asp-action="Create" asp-controller="Project" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+
+    <div class="container col-5 justify-content-center mt-5">
+        <h2 class="text-center">Create Employee</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Name">Name</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="TechStack">Technologies Stack</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="TechStack" class="form-control" asp-for="TechStack" />
+                <span asp-validation-for="TechStack" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Expirence">Expirence</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Expirence" class="form-control" asp-for="Expirence" />
+                <span asp-validation-for="Expirence" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Position">Position</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Position" class="form-control" asp-for="Position" />
+                <span asp-validation-for="Position" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Technologies">Technologies</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Technologies" class="form-control" asp-for="Technologies" />
+                <span asp-validation-for="Technologies" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Level">Level</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Level" class="form-control" asp-for="Level" />
+                <span asp-validation-for="Level" class="col-8"></span>
+            </div>
+        </div>
+
+
+        <div class="row  justify-content-center">
+            <input class="btn btn-primary mt-4 col-4" asp-page-handler="Upload" type="submit" value="Create">
+        </div>
+    </div>
+</form>

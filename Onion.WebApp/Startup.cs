@@ -43,6 +43,7 @@ namespace Onion.WebApp
             //services.AddTransient<IGenericRepository<User>, SQLRepository<User>>();
             services.AddTransient<IEmployee, EmployeeService>();
             //services.AddTransient<IUser, UserService>();
+            services.AddTransient<IGenericRepository<Project>, SQLRepository<Project>>();
 
 
 
@@ -74,7 +75,7 @@ namespace Onion.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=NewEmployee}/{action=Create}/{id?}");
+                    pattern: "{controller=Project}/{action=Show}/{id?}");
             });
         }
     }
