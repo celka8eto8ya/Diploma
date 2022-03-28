@@ -35,12 +35,12 @@ namespace Onion.WebApp.Controllers
 
                 Employee emp = new Employee
                 {
-                    Name = model.Name,
+                    FullName = model.FullName,
                     CreateDate = DateTime.Now,
                     // Name of tech stack (frontend developer)
-                    TechStack = model.TechStack,
+                    TechStackName = model.TechStackName,
                     // Years Amount 
-                    Expirence = model.Expirence,
+                    Experience = model.Experience,
                     Position = model.Position,
                     // List hard skills
                     Technologies = model.Technologies,

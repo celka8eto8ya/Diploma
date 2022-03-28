@@ -1,5 +1,4 @@
-﻿
-namespace Onion.AppCore.Entities
+﻿namespace Onion.AppCore.Entities
 {
     public class Authentication
     {

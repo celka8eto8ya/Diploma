@@ -6,17 +6,17 @@ namespace Onion.WebApp.ViewModels
     {
         [Required(ErrorMessage = "Enter Name, please !")]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Name length is [2;25] !")]
-        public string Name { get; set; }
+        public string FullName { get; set; }
        
         
         // Name of tech stack (frontend developer)
         [StringLength(25, MinimumLength = 2, ErrorMessage = "TechStack length is [2;25] !")]
         [Required(ErrorMessage = "Enter Technologies Stack, please !")] 
-        public string TechStack { get; set; }
+        public string TechStackName { get; set; }
         
         
         // Years Amount 
-        public double Expirence { get; set; }
+        public double Experience { get; set; }
       
         
         [Required(ErrorMessage = "Enter Position, please !")]
