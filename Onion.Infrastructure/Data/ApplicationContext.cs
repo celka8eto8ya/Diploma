@@ -5,8 +5,11 @@ namespace Onion.Infrastructure.Data
 {
     public class ApplicationContext: DbContext
     {
-        public DbSet<Project> Projects { get; set; }
+        public DbSet<Authentication> Authentications { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
                 : base(options)
         {
