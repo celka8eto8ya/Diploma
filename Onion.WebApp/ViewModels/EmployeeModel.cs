@@ -2,7 +2,7 @@
 
 namespace Onion.WebApp.ViewModels
 {
-    public class NewEmployeeModel
+    public class EmployeeModel
     {
         [Required(ErrorMessage = "Enter Name, please !")]
         [StringLength(25, MinimumLength = 2, ErrorMessage = "Name length is [2;25] !")]

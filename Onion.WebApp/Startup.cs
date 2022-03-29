@@ -40,10 +40,9 @@ namespace Onion.WebApp
             //        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
             //    });
             services.AddTransient<IGenericRepository<Employee>, SQLRepository<Employee>>();
-            //services.AddTransient<IGenericRepository<User>, SQLRepository<User>>();
             services.AddTransient<IEmployee, EmployeeService>();
-            //services.AddTransient<IUser, UserService>();
             services.AddTransient<IGenericRepository<Project>, SQLRepository<Project>>();
+            services.AddTransient<IProject, ProjectService>();
 
 
 

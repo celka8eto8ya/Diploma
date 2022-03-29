@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
-    public class NewEmployeeController : Controller
+    public class EmployeeController : Controller
     {
         IGenericRepository<Employee> _Employees;
-        public NewEmployeeController(IGenericRepository<Employee> Employees)
+        public EmployeeController(IGenericRepository<Employee> Employees)
         {
             _Employees = Employees;
         }
@@ -26,8 +26,8 @@ namespace Onion.WebApp.Controllers
 
 
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(NewEmployeeModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(EmployeeModel model)
         {
 
             if (ModelState.IsValid)
@@ -52,6 +52,8 @@ namespace Onion.WebApp.Controllers
                 _Employees.Create(emp);
                 ModelState.AddModelError("", "Employee is successfully created!");
                 //return RedirectToAction("Show");
+                //return Redirect("~/Home/About");
+                //return Redirect("http://microsoft.com")
             }
             else
                 ModelState.AddModelError("", "Not correct data!");

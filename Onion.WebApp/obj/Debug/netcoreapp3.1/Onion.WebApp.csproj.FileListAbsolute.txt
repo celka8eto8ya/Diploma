@@ -164,6 +164,6 @@ C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.W
 C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.dll
 C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.pdb
 C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.genruntimeconfig.cache
-C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\NewEmployee\Create.cshtml.g.cs
 C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Project\Show.cshtml.g.cs
 C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Project\Create.cshtml.g.cs
+C:\Users\kosty\source\repos\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Create.cshtml.g.cs
