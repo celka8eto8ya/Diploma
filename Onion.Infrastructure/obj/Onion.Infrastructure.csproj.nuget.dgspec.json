@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj": {}
+    "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj": {
+    "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj",
+        "projectUniqueName": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj",
         "projectName": "Onion.AppCore",
-        "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj",
+        "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj",
         "packagesPath": "C:\\Users\\kosty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\obj\\",
+        "outputPath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -62,14 +62,14 @@
         }
       }
     },
-    "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj": {
+    "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
         "projectName": "Onion.Infrastructure",
-        "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\kosty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -90,8 +90,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj": {
-                "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj"
+              "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj": {
+                "projectPath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.AppCore\\Onion.AppCore.csproj"
               }
             }
           }

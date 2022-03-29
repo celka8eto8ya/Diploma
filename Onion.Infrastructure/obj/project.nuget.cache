@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JSq4bWWfXNT5Lx/4nCDpfYL6g11lUZsc9OZcQnl/ap4qrJStnguiZwodIOfjzKzPZjw5WrK3SOzN42q/r7f8yw==",
+  "dgSpecHash": "SSVhGsqICJvfRXH5GMFA3d/f8e5izF5FwJHL31/UpZR8n0qii/c6k4USfn8z+WUwyAlToHwt505iXwRpihTmDA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\kosty\\source\\repos\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\kosty\\source\\repos\\Diploma0\\Diploma\\Onion.Infrastructure\\Onion.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kosty\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\kosty\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
