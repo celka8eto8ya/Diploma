@@ -93,15 +93,6 @@ body {
             text-decoration: solid;
         }
 
-.card {
-    background-color: #ffd0fe;
-    margin: 0 auto;
-}
-
-    .card :hover {
-        /* background-color: #fff;*/
-    }
-
 
 .icons {
     /* transform: scale(1.2); */
@@ -158,4 +149,7 @@ main {
     margin: 0;
     padding: 0;
     background-color: rgb(180, 135, 224);
+}
+.InputSuccess {
+color: #02b200;
 }

@@ -1,70 +1,78 @@
-﻿@*@model Onion.WebApp.ViewModels.EmployeeModel*@
+﻿@model Onion.AppCore.DTO.ProjectDTO
 
 
 
-<form role="form" @*asp-action="Create" asp-controller="Project"*@ @*asp-anti-forgery="true"*@ method="post" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="Project" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
     </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.Message</div>
+    </div>
 
-    <div class="container col-5 justify-content-center mt-5">
+    <div class="container col-5 justify-content-center mt-3">
         <h2 class="text-center">Create Project:</h2>
-
-
-        <!--Name = proj.Name,-->
-        @*Deadline = proj.Deadline,
-        StartDate = proj.StartDate,*@
-        <!--TechStack = proj.TechStack,-->
-       @* Cost = proj.Cost,*@
-        <!--// File .doc
-        Instruction = proj.Instruction,
-        UseArea = proj.UseArea-->
 
 
         <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Name">Name</label>
+                <label class="form-label" asp-for="Name">Name:</label>
             </div>
             <div class="col-9">
                 <input type="text" name="Name" class="form-control" asp-for="Name" />
-                <span asp-validation-for="Name" class="col-8"></span>
+                <span asp-validation-for="Name" class="col-8" />
             </div>
         </div>
 
-        @*<div class="row mt-1 justify-content-start">
+
+        <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Deadline">Deadline</label>
+                <label class="form-label" asp-for="Deadline">Deadline:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Deadline" class="form-control" asp-for="Deadline" />
-                <span asp-validation-for="Deadline" class="col-8"></span>
+                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" />
+                <span asp-validation-for="Deadline" class="col-8" />
             </div>
         </div>
 
-        <div class="row mt-1 justify-content-start">
+
+        <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Deadline">Deadline</label>
+                <label class="form-label" asp-for="StartDate">Start Date:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Deadline" class="form-control" asp-for="Deadline" />
-                <span asp-validation-for="Deadline" class="col-8"></span>
+                <input type="date" name="StartDate" class="form-control" asp-for="StartDate" />
+                <span asp-validation-for="StartDate" class="col-8" />
             </div>
-        </div>*@
+        </div>
 
-        <div class="row mt-1 justify-content-start">
+
+        <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="TechStack">TechStack</label>
+                <label class="form-label" asp-for="TechStack">Tech. Stack:</label>
             </div>
             <div class="col-9">
                 <input type="text" name="TechStack" class="form-control" asp-for="TechStack" />
-                <span asp-validation-for="TechStack" class="col-8"></span>
+                <span asp-validation-for="TechStack" class="col-8" />
             </div>
         </div>
 
+
         <div class="row mt-1 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Instruction">Instruction</label>
+                <label class="form-label" asp-for="Cost">Cost:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Cost" class="form-control" asp-for="Cost" />
+                <span asp-validation-for="Cost" class="col-8"></span>
+            </div>
+        </div>
+
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Instruction">Instruction:</label>
             </div>
             <div class="col-9">
                 <input type="text" name="Instruction" class="form-control" asp-for="Instruction" />
@@ -72,11 +80,28 @@
             </div>
         </div>
 
-       
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="UseArea">Use Area:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="UseArea" class="form-control" asp-for="UseArea" />
+                <span asp-validation-for="UseArea" class="col-8"></span>
+            </div>
+        </div>
 
 
-        <div class="row  justify-content-center">
+        <div class="row  justify-content-center mb-5">
             <input class="btn btn-primary mt-4 col-4" @*asp-page-handler="Upload"*@ type="submit" value="Create">
         </div>
     </div>
 </form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

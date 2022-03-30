@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Onion.AppCore.Entities;
+using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 
 namespace Onion.WebApp.Controllers
@@ -25,24 +25,28 @@ namespace Onion.WebApp.Controllers
         {
             return View();
         }
-        
-        [HttpPost]
+
+
         //[ValidateAntiForgeryToken]
-        public IActionResult Create(Project proj)
+        [HttpPost]
+        public IActionResult Create(ProjectDTO proj)
         {
             if (ModelState.IsValid)
             {
                 _ProjServ.Create(proj);
-                ModelState.AddModelError("", "Employee is successfully created!");
+                ViewBag.Message = "Project is successfully created!";
                 //return RedirectToAction("Show");
                 //return Redirect("~/Home/About");
                 //return Redirect("http://microsoft.com")
             }
             else
+            {
                 ModelState.AddModelError("", "Not correct data!");
+                ViewBag.Message = "Not correct data!";
+            }
 
             return View();
         }
-       
+
     }
 }

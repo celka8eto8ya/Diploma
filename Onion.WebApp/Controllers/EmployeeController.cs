@@ -11,11 +11,11 @@ namespace Onion.WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        IGenericRepository<Employee> _Employees;
-        public EmployeeController(IGenericRepository<Employee> Employees)
-        {
-            _Employees = Employees;
-        }
+        //IGenericRepository<Employee> _Employees;
+        //public EmployeeController(IGenericRepository<Employee> Employees)
+        //{
+        //    _Employees = Employees;
+        //}
 
 
         [HttpGet]
@@ -25,41 +25,55 @@ namespace Onion.WebApp.Controllers
         }
 
 
+        //[ValidateAntiForgeryToken]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EmployeeModel model)
+        public IActionResult Create(EmployeeModel model)
         {
-
             if (ModelState.IsValid)
             {
-
-                Employee emp = new Employee
-                {
-                    FullName = model.FullName,
-                    CreateDate = DateTime.Now,
-                    // Name of tech stack (frontend developer)
-                    TechStackName = model.TechStackName,
-                    // Years Amount 
-                    Experience = model.Experience,
-                    Position = model.Position,
-                    // List hard skills
-                    Technologies = model.Technologies,
-                    // Jun, Middle, Senior
-                    Level = model.Level,
-
-                    DepartmentId = 1
-                };
-                _Employees.Create(emp);
-                ModelState.AddModelError("", "Employee is successfully created!");
-                //return RedirectToAction("Show");
-                //return Redirect("~/Home/About");
-                //return Redirect("http://microsoft.com")
+                return Redirect("~/Project/Show");
             }
             else
-                ModelState.AddModelError("", "Not correct data!");
+                ModelState.AddModelError("", "Problem with entered data !");
 
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create(EmployeeModel model)
+        //{
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        Employee emp = new Employee
+        //        {
+        //            FullName = model.FullName,
+        //            CreateDate = DateTime.Now,
+        //            // Name of tech stack (frontend developer)
+        //            TechStackName = model.TechStackName,
+        //            // Years Amount 
+        //            Experience = model.Experience,
+        //            Position = model.Position,
+        //            // List hard skills
+        //            Technologies = model.Technologies,
+        //            // Jun, Middle, Senior
+        //            Level = model.Level,
+
+        //            DepartmentId = 1
+        //        };
+        //        _Employees.Create(emp);
+        //        ModelState.AddModelError("", "Employee is successfully created!");
+        //        //return RedirectToAction("Show");
+        //        //return Redirect("~/Home/About");
+        //        //return Redirect("http://microsoft.com")
+        //    }
+        //    else
+        //        ModelState.AddModelError("", "Not correct data!");
+
+        //    return View();
+        //}
 
     }
 }

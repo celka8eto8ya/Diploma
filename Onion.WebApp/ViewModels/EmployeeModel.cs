@@ -15,24 +15,24 @@ namespace Onion.WebApp.ViewModels
         public string TechStackName { get; set; }
         
         
-        // Years Amount 
-        public double Experience { get; set; }
+        //// Years Amount 
+        //public double Experience { get; set; }
       
         
-        [Required(ErrorMessage = "Enter Position, please !")]
-        [StringLength(25, MinimumLength = 2, ErrorMessage = "Position length is [2;25] !")]
-        public string Position { get; set; }
+        //[Required(ErrorMessage = "Enter Position, please !")]
+        //[StringLength(25, MinimumLength = 2, ErrorMessage = "Position length is [2;25] !")]
+        //public string Position { get; set; }
 
 
-        // List hard skills
-        [StringLength(70, MinimumLength = 0, ErrorMessage = "Technologies length is [0;70] !")]
-        public string Technologies { get; set; }
+        //// List hard skills
+        //[StringLength(70, MinimumLength = 0, ErrorMessage = "Technologies length is [0;70] !")]
+        //public string Technologies { get; set; }
 
 
-        // Jun, Middle, Senior
-        [Required(ErrorMessage = "Enter Level, please !")]
-        [StringLength(8, MinimumLength = 5, ErrorMessage = "Level length is [5;8] !")]
-        public string Level { get; set; }
+        //// Jun, Middle, Senior
+        //[Required(ErrorMessage = "Enter Level, please !")]
+        //[StringLength(8, MinimumLength = 5, ErrorMessage = "Level length is [5;8] !")]
+        //public string Level { get; set; }
 
         
     }

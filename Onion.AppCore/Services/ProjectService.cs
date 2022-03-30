@@ -1,4 +1,5 @@
-﻿using Onion.AppCore.Entities;
+﻿using Onion.AppCore.DTO;
+using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,24 +19,24 @@ namespace Onion.AppCore.Services
             return _Projects.GetList();
         }
 
-        public void Create(Project proj)
+        public void Create(ProjectDTO proj)
         {
             Project project = new Project
             {
                 Name = proj.Name,
-                //Deadline = proj.Deadline,
-                //StartDate = proj.StartDate,
-                CreateDate = DateTime.Now,
-                UpdateDate = DateTime.Now,
+                Deadline = proj.Deadline,
+                StartDate = proj.StartDate,
+                CreateDate = DateTime.Now.Date,
+                UpdateDate = DateTime.Now.Date,
                 TechStack = proj.TechStack,
                 EmployeeAmount = 0,
-                //Cost = proj.Cost,
+                Cost = proj.Cost,
                 // File .doc
                 Instruction = proj.Instruction,
-                //UseArea = proj.UseArea
+                UseArea = proj.UseArea
             };
 
-            _Projects.Create(proj);
+            _Projects.Create(project);
         }
 
         public void Delete(int id)

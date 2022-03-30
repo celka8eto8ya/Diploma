@@ -42,7 +42,7 @@
                             <li><a class="dropdown-item" href="#">Employees</a></li>
                             <li><a class="dropdown-item" href="#">Roles</a></li>
                             <li><a class="dropdown-item" href="#">DepartmentTypes</a></li>
-                            
+
                         </ul>
                     </div>
 
@@ -73,11 +73,11 @@
     </header>
     @*<div class="container col-12">
         <main role="main" class="pb-3">*@
-            @RenderBody()
-        @*</main>
-    </div>*@
+    @RenderBody()
+    @*</main>
+        </div>*@
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-3">
         <div class="container">
             &copy; 2022 - Onion.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -86,5 +86,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>
