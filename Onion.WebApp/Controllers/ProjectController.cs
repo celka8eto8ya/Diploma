@@ -34,18 +34,35 @@ namespace Onion.WebApp.Controllers
             if (ModelState.IsValid)
             {
                 _ProjServ.Create(proj);
-                ViewBag.Message = "Project is successfully created!";
-                //return RedirectToAction("Show");
-                //return Redirect("~/Home/About");
-                //return Redirect("http://microsoft.com")
+                ViewBag.CreateResult = "Project is successfully created!";
             }
             else
             {
                 ModelState.AddModelError("", "Not correct data!");
                 ViewBag.Message = "Not correct data!";
             }
-
             return View();
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(_ProjServ.GetByIdDTO(id));
+        }
+
+
+        [HttpPost]
+        public IActionResult Edit(int id, ProjectDTO proj)
+        {
+            //ViewBag.ProjCurId = id;
+            _ProjServ.Update(id, proj);
+            return Redirect("~/Project/Show");
+        }
+
+        //[HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _ProjServ.Delete(id);
+            return Redirect("~/Project/Show");
         }
 
     }

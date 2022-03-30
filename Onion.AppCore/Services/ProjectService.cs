@@ -44,14 +44,45 @@ namespace Onion.AppCore.Services
             _Projects.Delete(id);
         }
 
+        public ProjectDTO GetByIdDTO(int id)
+        {
+            Project proj = _Projects.GetById(id);
+            ProjectDTO project = new ProjectDTO()
+            {
+                Name = proj.Name,
+                Deadline = proj.Deadline,
+                StartDate = proj.StartDate,
+                TechStack = proj.TechStack,
+                Cost = proj.Cost,
+                // File .doc
+                Instruction = proj.Instruction,
+                UseArea = proj.UseArea
+            };
+
+            return project;
+        }
+
         public Project GetById(int id)
         {
             return _Projects.GetById(id);
         }
 
-        public void Update(Project proj)
+        public void Update(int id, ProjectDTO proj)
         {
-            _Projects.Update(proj);
+            Project project = GetById(id);
+            if (project != null)
+            {
+                project.Name = proj.Name;
+                project.Deadline = proj.Deadline;
+                project.StartDate = proj.StartDate;
+                project.TechStack = proj.TechStack;
+                project.Cost = proj.Cost;
+                // File .doc
+                project.Instruction = proj.Instruction;
+                project.UseArea = proj.UseArea;
+            }
+
+            _Projects.Update(project);
         }
     }
 }

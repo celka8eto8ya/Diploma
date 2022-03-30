@@ -252,3 +252,4 @@ C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.dll
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.pdb
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.genruntimeconfig.cache
+C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Project\Edit.cshtml.g.cs

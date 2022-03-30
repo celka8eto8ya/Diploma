@@ -2,17 +2,17 @@
 
 
 
-<form asp-action="Create" asp-controller="Project" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Project" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
     </div>
-    <div class="container col-10 ">
-        <div class="InputSuccess">@ViewBag.CreateResult</div>
-    </div>
+    @*<div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.Message</div>
+    </div>*@
 
     <div class="container col-5 justify-content-center mt-3 ">
-        <h2 class="text-center">Create Project:</h2>
+        <h2 class="text-center">Edit Project:</h2>
 
 
         <div class="row mt-4 justify-content-start">
@@ -20,7 +20,7 @@
                 <label class="form-label" asp-for="Name">Name:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <input type="text" name="Name" class="form-control" asp-for="Name"  />
                 <span asp-validation-for="Name" class="col-8" />
             </div>
         </div>
@@ -93,7 +93,7 @@
 
 
         <div class="row  justify-content-center mb-5">
-            <input class="btn btn-primary mt-4 col-4" @*asp-page-handler="Upload"*@ type="submit" value="Create">
+            <input class="btn btn-primary mt-4 col-4"  type="submit" value="Edit">
         </div>
     </div>
 </form>

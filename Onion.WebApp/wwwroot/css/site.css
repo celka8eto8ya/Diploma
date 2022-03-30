@@ -144,19 +144,28 @@ input[type="checkbox"].input-validation-error {
 
 
 .InputSuccess {
-color: #02b200;
+    color: #02b200;
 }
+
 .CreateProj {
     display: block;
-    height:600px;
-    overflow-y: scroll;
+   /* height: 600px;
+    overflow-y: scroll;*/
+   
 }
+
 .NewProject {
-   display:block;
+    display: block;
     margin: 0 auto;
 }
+
 .mainSize {
     margin: 0;
     padding: 0;
     background-color: #c9a0fc;
+}
+
+.rowSize {
+    padding-right: 0;
+    margin-right:0;
 }
