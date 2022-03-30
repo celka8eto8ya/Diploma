@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Onion.AppCore.Entities.Project>
 
 <div class="container mainSize col-12">
-    <div class="row col-12">
+    <div class="row ">
         <aside class=" col-3 mt-3">
 
             <div class="list-group">
@@ -29,17 +29,22 @@
                         <h6 class="mb-1">SubTasks</h6>
                     </div>
 
-                </a> <a href="#" class="list-group-item list-group-item-action">
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
                         <h6 class="mb-1">Conditions</h6>
                     </div>
-
                 </a>
             </div>
+            <div class="row  mt-4 justify-content-center">
+                <a href="~/Project/Create" class="btn btn-primary col-9 NewProject ">New Project</a>
+            </div>
         </aside>
-        <div class=" col-9">
 
-            <a  href="~/Project/Create" class="btn btn-primary col-4 mt-4 " >+ New Project</a>
+
+        <div class=" col-9 CreateProj">
+
+           
 
 
             <table class="table table-striped table-hover mt-4 col-11">
@@ -49,41 +54,41 @@
                             №
                         </th>
                         <th scope="col">
-                            <a class="m-1" asp-action="List">Name</a>
+                            <a class="m-1">Name</a>
                         </th>
                         <th scope="col">
-                            <a class="m-1" asp-action="List">
+                            <a class="m-1">
                                 CreateDate
                             </a>
                         </th>
                         <th scope="col">
-                            <a class="m-1" asp-action="List">Cost</a>
+                            <a class="m-1">Cost</a>
                         </th>
                         <th scope="col">
-                            <a class="m-1" asp-action="List">EmpAmount</a>
+                            <a class="m-1">EmpAmount</a>
                         </th>
                         <th scope="col">
-                            <a class="m-1" asp-action="List">TechStack</a>
+                            <a class="m-1">TechStack</a>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @{ int i = 1;
 
-                    foreach (var proj in Model)
-                    {
-                    <tr>
+                        foreach (var proj in Model)
+                        {
+                            <tr>
 
 
-                        <td scope="row">@i</td>
-                        <td scope="row">@proj.Name</td>
-                        <td scope="row">@proj.CreateDate</td>
-                        <td scope="row">@proj.Cost</td>
-                        <td scope="row">@proj.EmployeeAmount</td>
-                        <td class="col-2 px-4">@proj.TechStack</td>
-                    </tr>
-                    i++;
-                    } }
+                                <td scope="row">@i</td>
+                                <td scope="row">@proj.Name</td>
+                                <td scope="row">@proj.CreateDate</td>
+                                <td scope="row">@proj.Cost</td>
+                                <td scope="row">@proj.EmployeeAmount</td>
+                                <td class="col-2 px-4">@proj.TechStack</td>
+                            </tr>
+                            i++;
+                        } }
                 </tbody>
             </table>
         </div>

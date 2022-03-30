@@ -141,15 +141,22 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-main {
-    background-color: rgb(180, 135, 224);
-}
 
+
+.InputSuccess {
+color: #02b200;
+}
+.CreateProj {
+    display: block;
+    height:600px;
+    overflow-y: scroll;
+}
+.NewProject {
+   display:block;
+    margin: 0 auto;
+}
 .mainSize {
     margin: 0;
     padding: 0;
-    background-color: rgb(180, 135, 224);
-}
-.InputSuccess {
-color: #02b200;
+    background-color: #c9a0fc;
 }
