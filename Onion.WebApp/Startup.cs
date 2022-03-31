@@ -45,6 +45,10 @@ namespace Onion.WebApp
             services.AddTransient<IProject, ProjectService>();
             services.AddTransient<IGenericRepository<Team>, SQLRepository<Team>>();
             services.AddTransient<ITeam, TeamService>();
+            services.AddTransient<IGenericRepository<Department>, SQLRepository<Department>>();
+            services.AddTransient<IDepartment, DepartmentService>();
+            services.AddTransient<IGenericRepository<DepartmentType>, SQLRepository<DepartmentType>>();
+            services.AddTransient<IDepartmentType, DepartmentTypeService>();
 
 
 

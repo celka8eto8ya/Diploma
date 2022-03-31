@@ -41,7 +41,7 @@ namespace Onion.AppCore.Services
                 CreateDate = DateTime.Now.Date,
                 EmployeeAmount = 0,
                 Technologies = team.Technologies,
-                ProjectId = team.ProjectId,
+                ProjectId = team.ProjectId
             };
 
             _Teams.Create(team0);
@@ -65,13 +65,6 @@ namespace Onion.AppCore.Services
             return team;
         }
 
-
-
-        //public Project GetById(int id)
-        //{
-        //    return _Projects.GetById(id);
-        //}
-
         public void Update(int id, TeamDTO team0)
         {
             Team team = _Teams.GetById(id);
@@ -82,8 +75,7 @@ namespace Onion.AppCore.Services
                 team.Technologies = team0.Technologies;
                 _Teams.Update(team);
             }
-
-
         }
+
     }
 }
