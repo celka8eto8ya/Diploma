@@ -52,45 +52,38 @@ namespace Onion.AppCore.Services
             _Teams.Delete(id);
         }
 
-        //public ProjectDTO GetByIdDTO(int id)
-        //{
-        //    Project proj = _Projects.GetById(id);
-        //    ProjectDTO project = new ProjectDTO()
-        //    {
-        //        Name = proj.Name,
-        //        Deadline = proj.Deadline,
-        //        StartDate = proj.StartDate,
-        //        TechStack = proj.TechStack,
-        //        Cost = proj.Cost,
-        //        // File .doc
-        //        Instruction = proj.Instruction,
-        //        UseArea = proj.UseArea
-        //    };
+        public TeamDTO GetByIdDTO(int id)
+        {
+            Team team0 = _Teams.GetById(id);
+            TeamDTO team = new TeamDTO()
+            {
+                Name = team0.Name,
+                HeadName = team0.HeadName,
+                Technologies = team0.Technologies
+            };
 
-        //    return project;
-        //}
+            return team;
+        }
+
+
 
         //public Project GetById(int id)
         //{
         //    return _Projects.GetById(id);
         //}
 
-        //public void Update(int id, ProjectDTO proj)
-        //{
-        //    Project project = GetById(id);
-        //    if (project != null)
-        //    {
-        //        project.Name = proj.Name;
-        //        project.Deadline = proj.Deadline;
-        //        project.StartDate = proj.StartDate;
-        //        project.TechStack = proj.TechStack;
-        //        project.Cost = proj.Cost;
-        //        // File .doc
-        //        project.Instruction = proj.Instruction;
-        //        project.UseArea = proj.UseArea;
-        //    }
+        public void Update(int id, TeamDTO team0)
+        {
+            Team team = _Teams.GetById(id);
+            if (team != null)
+            {
+                team.Name = team0.Name;
+                team.HeadName = team0.HeadName;
+                team.Technologies = team0.Technologies;
+                _Teams.Update(team);
+            }
 
-        //    _Projects.Update(project);
-        //}
+
+        }
     }
 }

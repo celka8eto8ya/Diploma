@@ -36,51 +36,28 @@ namespace Onion.WebApp.Controllers
             return Redirect("~/Team/Show");
         }
 
-
-
-      
-
-
-        // GET: TeamController/Edit/5
-        public ActionResult Edit(int id)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            return View();
+            return View(_TeamServ.GetByIdDTO(id));
         }
 
-        // POST: TeamController/Edit/5
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, TeamDTO proj)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            //ViewBag.ProjCurId = id;
+            _TeamServ.Update(id, proj);
+            return Redirect("~/Team/Show");
         }
 
-        // GET: TeamController/Delete/5
-        public ActionResult Delete(int id)
+        //[HttpDelete]
+        public IActionResult Delete(int id)
         {
-            return View();
+            _TeamServ.Delete(id);
+            return Redirect("~/Team/Show");
         }
 
-        // POST: TeamController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

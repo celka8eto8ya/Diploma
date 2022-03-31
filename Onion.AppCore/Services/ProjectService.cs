@@ -62,14 +62,11 @@ namespace Onion.AppCore.Services
             return project;
         }
 
-        public Project GetById(int id)
-        {
-            return _Projects.GetById(id);
-        }
+     
 
         public void Update(int id, ProjectDTO proj)
         {
-            Project project = GetById(id);
+            Project project = _Projects.GetById(id);
             if (project != null)
             {
                 project.Name = proj.Name;
@@ -80,9 +77,11 @@ namespace Onion.AppCore.Services
                 // File .doc
                 project.Instruction = proj.Instruction;
                 project.UseArea = proj.UseArea;
+                
+                _Projects.Update(project);
             }
 
-            _Projects.Update(project);
+            
         }
     }
 }
