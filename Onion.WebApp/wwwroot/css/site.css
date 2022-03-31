@@ -149,23 +149,65 @@ input[type="checkbox"].input-validation-error {
 
 .CreateProj {
     display: block;
-   /* height: 600px;
+    /* height: 600px;
     overflow-y: scroll;*/
-   
 }
+
+
+
+.mainSize {
+    margin: 0;
+    padding: 0;
+    background-color: #ffebff;
+}
+
+.rowSize {
+    padding-right: 0;
+    margin-right: 0;
+}
+
+.bodyStyle {
+    background-color: #ffebff;
+    /*background-color: #caa5ee;*/
+}
+
 
 .NewProject {
     display: block;
     margin: 0 auto;
 }
 
-.mainSize {
-    margin: 0;
-    padding: 0;
-    background-color: #c9a0fc;
+.HeaderItem {
+    background-color: none;
+    color: black;
+    border: 1px solid black;
+    font-weight: 500;
+    transition: all .25s linear;
+    /*background-color: #caa5ee;*/
 }
 
-.rowSize {
-    padding-right: 0;
-    margin-right:0;
+.footerStyle, .footerStyle > .container, .headerStyle > nav, .headerStyle {
+    /*background-color: #a97dd4;*/
+    background-color: #e3a9df;
+    color: black;
+}
+
+.list-group > .active, .NewProject {
+    background-color: #1e25ff;
+}
+
+
+.HeaderItem:hover {
+    background-color: #1e25ff;
+    color: #FFF;
+    /*border: 1px solid #fff;*/
+    /*background-color: #caa5ee;*/
+}
+
+.Logo {
+    font-weight: 600;
+    /*text-decoration: underline;*/
+    display: inline;
+    border-bottom: 1px solid #1e25ff;
+    border-top: 1px solid #1e25ff;
 }

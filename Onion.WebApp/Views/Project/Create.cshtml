@@ -26,18 +26,7 @@
         </div>
 
 
-        <div class="row mt-4 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="Deadline">Deadline:</label>
-            </div>
-            <div class="col-9">
-                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" />
-                <span asp-validation-for="Deadline" class="col-8" />
-            </div>
-        </div>
-
-
-        <div class="row mt-4 justify-content-start">
+        <div class="row mt-3 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="StartDate">Start Date:</label>
             </div>
@@ -48,7 +37,18 @@
         </div>
 
 
-        <div class="row mt-4 justify-content-start">
+        <div class="row mt-3 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Deadline">Deadline:</label>
+            </div>
+            <div class="col-9">
+                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" />
+                <span asp-validation-for="Deadline" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-3 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="TechStack">Tech. Stack:</label>
             </div>
@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="row mt-1 justify-content-start">
+        <div class="row mt-3 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="Cost">Cost:</label>
             </div>
@@ -70,7 +70,7 @@
         </div>
 
 
-        <div class="row mt-1 justify-content-start">
+        <div class="row mt-3 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="Instruction">Instruction:</label>
             </div>
@@ -81,7 +81,7 @@
         </div>
 
 
-        <div class="row mt-1 justify-content-start">
+        <div class="row mt-3 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="UseArea">Use Area:</label>
             </div>
@@ -93,7 +93,7 @@
 
 
         <div class="row  justify-content-center mb-5">
-            <input class="btn btn-primary mt-4 col-4" @*asp-page-handler="Upload"*@ type="submit" value="Create">
+            <input class="btn btn-primary mt-4 col-4 NewProject"  type="submit" value="Create">
         </div>
     </div>
 </form>

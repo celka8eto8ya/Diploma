@@ -253,3 +253,5 @@ C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.pdb
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Onion.WebApp.genruntimeconfig.cache
 C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Project\Edit.cshtml.g.cs
+C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Team\Show.cshtml.g.cs
+C:\Users\kosty\source\repos\Diploma0\Diploma\Onion.WebApp\obj\Debug\netcoreapp3.1\Razor\Views\Team\Create.cshtml.g.cs
