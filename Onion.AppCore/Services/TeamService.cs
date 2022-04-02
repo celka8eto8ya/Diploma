@@ -3,77 +3,76 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Onion.AppCore.Services
 {
     public class TeamService : ITeam
     {
-
-        IGenericRepository<Team> _Teams;
-        IGenericRepository<Project> _Projects;
-        public TeamService(IGenericRepository<Team> Teams, IGenericRepository<Project> Projects)
+        private readonly IGenericRepository<Team> _teamRepository;
+        private readonly IGenericRepository<Project> _projectRepository;
+     
+        public TeamService(IGenericRepository<Team> teamRepository, IGenericRepository<Project> projectRepository)
         {
-            _Teams = Teams;
-            _Projects = Projects;
+            _teamRepository = teamRepository;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Team> GetList()
         {
-            return _Teams.GetList();
+            return _teamRepository.GetList();
         }
 
-        public TeamDTO GetListProjectsDTO()
+        public TeamDTO GetListTeams()
         {
-            TeamDTO team = new TeamDTO()
+            TeamDTO teamDTO = new TeamDTO()
             {
-                AllProjects = _Projects.GetList()
+                AllProjects = _projectRepository.GetList()
             };
-            return team;
+            return teamDTO;
         }
 
-        public void Create(TeamDTO team)
+        public void Create(TeamDTO teamDTO)
         {
-            Team team0 = new Team()
+            Team team = new Team()
             {
-                Name = team.Name,
-                HeadName = team.HeadName,
+                Name = teamDTO.Name,
+                HeadName = teamDTO.HeadName,
                 CreateDate = DateTime.Now.Date,
                 EmployeeAmount = 0,
-                Technologies = team.Technologies,
-                ProjectId = team.ProjectId
+                Technologies = teamDTO.Technologies,
+                ProjectId = teamDTO.ProjectId
             };
 
-            _Teams.Create(team0);
+            _teamRepository.Create(team);
         }
 
         public void Delete(int id)
         {
-            _Teams.Delete(id);
+            _teamRepository.Delete(id);
         }
 
-        public TeamDTO GetByIdDTO(int id)
+        public TeamDTO GetById(int id)
         {
-            Team team0 = _Teams.GetById(id);
-            TeamDTO team = new TeamDTO()
+            Team team = _teamRepository.GetById(id);
+            TeamDTO teamDTO = new TeamDTO()
             {
-                Name = team0.Name,
-                HeadName = team0.HeadName,
-                Technologies = team0.Technologies
+                Name = team.Name,
+                HeadName = team.HeadName,
+                Technologies = team.Technologies
             };
 
-            return team;
+            return teamDTO;
         }
 
-        public void Update(int id, TeamDTO team0)
+        public void Update(int id, TeamDTO teamDTO)
         {
-            Team team = _Teams.GetById(id);
+            Team team = _teamRepository.GetById(id);
             if (team != null)
             {
-                team.Name = team0.Name;
-                team.HeadName = team0.HeadName;
-                team.Technologies = team0.Technologies;
-                _Teams.Update(team);
+                team.Name = teamDTO.Name;
+                team.HeadName = teamDTO.HeadName;
+                team.Technologies = teamDTO.Technologies;
+                _teamRepository.Update(team);
             }
         }
 

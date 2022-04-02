@@ -1,27 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
     public class DepartmentTypeController : Controller
     {
-
-        IDepartmentType _DepTypeServ;
-        public DepartmentTypeController(IDepartmentType DepTypeServ)
+        private readonly IDepartmentType _departmentTypeService;
+      
+        public DepartmentTypeController(IDepartmentType departmentTypeService)
         {
-            _DepTypeServ = DepTypeServ;
+            _departmentTypeService = departmentTypeService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
-            return View(_DepTypeServ.GetList());
+            return View(_departmentTypeService.GetList());
         }
 
 
@@ -34,11 +30,11 @@ namespace Onion.WebApp.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(DepartmentTypeDTO depType)
+        public IActionResult Create(DepartmentTypeDTO departmentTypeDTO)
         {
             if (ModelState.IsValid)
             {
-                _DepTypeServ.Create(depType);
+                _departmentTypeService.Create(departmentTypeDTO);
                 ViewBag.CreateResult = "Project is successfully created!";
             }
             else
@@ -52,22 +48,22 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_DepTypeServ.GetByIdDTO(id));
+            return View(_departmentTypeService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, DepartmentTypeDTO dep)
+        public IActionResult Edit(int id, DepartmentTypeDTO departmentTypeDTO)
         {
             //ViewBag.ProjCurId = id;
-            _DepTypeServ.Update(id, dep);
+            _departmentTypeService.Update(id, departmentTypeDTO);
             return Redirect("~/DepartmentType/Show");
         }
 
         //[HttpDelete]
         public IActionResult Delete(int id)
         {
-            _DepTypeServ.Delete(id);
+            _departmentTypeService.Delete(id);
             return Redirect("~/DepartmentType/Show");
         }
     }

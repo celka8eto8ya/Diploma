@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Onion.AppCore.DTO
 {
@@ -14,13 +13,11 @@ namespace Onion.AppCore.DTO
         public string HeadName { get; set; }
         public DateTime CreateDate { get; set; }
         public int EmployeeAmount { get; set; }
-        // List hard skills
         public string Technologies { get; set; }
         public IEnumerable<Project> AllProjects { get; set; }
 
         
         [Required(ErrorMessage = "Enter Project Name, please !")]
-        public int ProjectId { get; set; } // foreign key
-
+        public int ProjectId { get; set; } 
     }
 }

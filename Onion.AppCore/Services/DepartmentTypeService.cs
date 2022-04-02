@@ -8,64 +8,66 @@ namespace Onion.AppCore.Services
 {
     public class DepartmentTypeService : IDepartmentType
     {
-        IGenericRepository<DepartmentType> _DepartmentTypes;
-        public DepartmentTypeService(IGenericRepository<DepartmentType> DepartmentTypes)
+        private readonly IGenericRepository<DepartmentType> _departmentTypeRepository;
+      
+        public DepartmentTypeService(IGenericRepository<DepartmentType> departmentTypeRepository)
         {
-            _DepartmentTypes = DepartmentTypes;
+            _departmentTypeRepository = departmentTypeRepository;
         }
 
         public IEnumerable<DepartmentType> GetList()
         {
-            return _DepartmentTypes.GetList();
+            return _departmentTypeRepository.GetList();
         }
 
-        public void Create(DepartmentTypeDTO depType)
+        public void Create(DepartmentTypeDTO departmentTypeDTO)
         {
             DepartmentType departmentType = new DepartmentType
             {
-                Name = depType.Name,
-                Functions = depType.Functions,
-                Description = depType.Description,
+                Name = departmentTypeDTO.Name,
+                Functions = departmentTypeDTO.Functions,
+                Description = departmentTypeDTO.Description,
                 CreateDate = DateTime.Now.Date,
                 UpdateDate = DateTime.Now.Date
             };
 
-            _DepartmentTypes.Create(departmentType);
+            _departmentTypeRepository.Create(departmentType);
         }
 
         public void Delete(int id)
         {
-            _DepartmentTypes.Delete(id);
+            _departmentTypeRepository.Delete(id);
         }
 
-        public DepartmentTypeDTO GetByIdDTO(int id)
+        public DepartmentTypeDTO GetById(int id)
         {
-            DepartmentType depType = _DepartmentTypes.GetById(id);
-            DepartmentTypeDTO departmentType = new DepartmentTypeDTO()
+            DepartmentType departmentType = _departmentTypeRepository.GetById(id);
+            DepartmentTypeDTO departmentTypeDTO = new DepartmentTypeDTO()
             {
-                Name = depType.Name,
-                Functions = depType.Functions,
-                Description = depType.Description,
-                CreateDate = depType.CreateDate,
-                UpdateDate = depType.UpdateDate
+                Name = departmentType.Name,
+                Functions = departmentType.Functions,
+                Description = departmentType.Description,
+                CreateDate = departmentType.CreateDate,
+                UpdateDate = departmentType.UpdateDate
             };
 
-            return departmentType;
+            return departmentTypeDTO;
         }
 
 
-        public void Update(int id, DepartmentTypeDTO depType)
+        public void Update(int id, DepartmentTypeDTO departmentTypeDTO)
         {
-            DepartmentType departmentType = _DepartmentTypes.GetById(id);
+            DepartmentType departmentType = _departmentTypeRepository.GetById(id);
             if (departmentType != null)
             {
-                departmentType.Name = depType.Name;
-                departmentType.Functions = depType.Functions;
-                departmentType.Description = depType.Description;
+                departmentType.Name = departmentTypeDTO.Name;
+                departmentType.Functions = departmentTypeDTO.Functions;
+                departmentType.Description = departmentTypeDTO.Description;
                 departmentType.UpdateDate = DateTime.Now;
 
-                _DepartmentTypes.Update(departmentType);
+                _departmentTypeRepository.Update(departmentType);
             }
         }
+
     }
 }

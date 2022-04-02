@@ -3,83 +3,81 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Onion.AppCore.Services
 {
     public class DepartmentService : IDepartment
     {
-        IGenericRepository<Department> _Departments;
-        IGenericRepository<DepartmentType> _DepTypes;
-        public DepartmentService(IGenericRepository<Department> Departments, IGenericRepository<DepartmentType> DepTypes)
+        private readonly IGenericRepository<Department> _departmentRepository;
+        private readonly IGenericRepository<DepartmentType> _departmentTypeRepository;
+        public DepartmentService(IGenericRepository<Department> departmentRepository, IGenericRepository<DepartmentType> departmentTypeRepository)
         {
-            _Departments = Departments;
-            _DepTypes = DepTypes;
+            _departmentRepository = departmentRepository;
+            _departmentTypeRepository = departmentTypeRepository;
         }
 
         public IEnumerable<Department> GetList()
         {
-            return _Departments.GetList();
+            return _departmentRepository.GetList();
         }
 
-        public void Create(DepartmentDTO dep)
+        public void Create(DepartmentDTO departmentDTO)
         {
             Department department = new Department
             {
-                Name = dep.Name,
-                Description = dep.Description,
+                Name = departmentDTO.Name,
+                Description = departmentDTO.Description,
                 CreateDate = DateTime.Now.Date,
                 UpdateDate = DateTime.Now.Date,
                 EmployeeAmount = 0,
-                DepartmentTypeId = dep.DepartmentTypeId
+                DepartmentTypeId = departmentDTO.DepartmentTypeId
             };
 
-            _Departments.Create(department);
+            _departmentRepository.Create(department);
         }
 
         public void Delete(int id)
         {
-            _Departments.Delete(id);
+            _departmentRepository.Delete(id);
         }
 
-        public DepartmentDTO GetByIdDTO(int id)
+        public DepartmentDTO GetById(int id)
         {
-            Department dep = _Departments.GetById(id);
-            DepartmentDTO department = new DepartmentDTO()
+            Department department = _departmentRepository.GetById(id);
+            DepartmentDTO departmentDTO = new DepartmentDTO()
             {
-                Name = dep.Name,
-                Description = dep.Description,
-                CreateDate = dep.CreateDate,
-                UpdateDate = dep.UpdateDate,
-                EmployeeAmount = dep.EmployeeAmount
+                Name = department.Name,
+                Description = department.Description,
+                CreateDate = department.CreateDate,
+                UpdateDate = department.UpdateDate,
+                EmployeeAmount = department.EmployeeAmount
             };
 
-            return department;
+            return departmentDTO;
         }
 
 
-
-        public void Update(int id, DepartmentDTO dep)
+        public void Update(int id, DepartmentDTO departmentDTO)
         {
-            Department department = _Departments.GetById(id);
+            Department department = _departmentRepository.GetById(id);
             if (department != null)
             {
 
-                department.Name = dep.Name;
-                department.Description = dep.Description;
+                department.Name = departmentDTO.Name;
+                department.Description = departmentDTO.Description;
                 department.UpdateDate = DateTime.Now;
 
-                _Departments.Update(department);
+                _departmentRepository.Update(department);
             }
         }
-
-        public DepartmentDTO GetListDepTypesDTO()
+        
+        public DepartmentDTO GetListDepartmentTypes()
         {
-            DepartmentDTO dep = new DepartmentDTO()
+            DepartmentDTO departmentDTO = new DepartmentDTO()
             {
-                AllDepartmentTypes = _DepTypes.GetList()
+                AllDepartmentTypes = _departmentTypeRepository.GetList()
             };
-            return dep;
+            return departmentDTO;
         }
 
     }

@@ -6,10 +6,10 @@ namespace Onion.AppCore.Interfaces
 {
     public interface IProject
     {
-        IEnumerable<Project> GetList(); // получение всех объектов
-        ProjectDTO GetByIdDTO(int id); // получение одного объекта по id
-        void Create(ProjectDTO proj); // создание объекта
-        void Update(int id, ProjectDTO proj); // обновление объекта
-        void Delete(int id); // удаление объекта по id
+        IEnumerable<Project> GetList(); 
+        ProjectDTO GetById(int id); 
+        void Create(ProjectDTO projectDTO); 
+        void Update(int id, ProjectDTO projectDTO); 
+        void Delete(int id); 
     }
 }

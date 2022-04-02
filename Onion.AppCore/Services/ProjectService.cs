@@ -8,80 +8,80 @@ namespace Onion.AppCore.Services
 {
     public class ProjectService : IProject
     {
-        IGenericRepository<Project> _Projects;
-        public ProjectService(IGenericRepository<Project> Projects)
+        private readonly IGenericRepository<Project> _projectRepository;
+        
+        public ProjectService(IGenericRepository<Project> projectRepository)
         {
-            _Projects = Projects;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Project> GetList()
         {
-            return _Projects.GetList();
+            return _projectRepository.GetList();
         }
 
-        public void Create(ProjectDTO proj)
+        public void Create(ProjectDTO projectDTO)
         {
             Project project = new Project
             {
-                Name = proj.Name,
-                Deadline = proj.Deadline,
-                StartDate = proj.StartDate,
+                Name = projectDTO.Name,
+                Deadline = projectDTO.Deadline,
+                StartDate = projectDTO.StartDate,
                 CreateDate = DateTime.Now.Date,
                 UpdateDate = DateTime.Now.Date,
-                TechStack = proj.TechStack,
+                TechStack = projectDTO.TechStack,
                 EmployeeAmount = 0,
-                Cost = proj.Cost,
+                Cost = projectDTO.Cost,
                 // File .doc
-                Instruction = proj.Instruction,
-                UseArea = proj.UseArea
+                Instruction = projectDTO.Instruction,
+                UseArea = projectDTO.UseArea
             };
 
-            _Projects.Create(project);
+            _projectRepository.Create(project);
         }
 
         public void Delete(int id)
         {
-            _Projects.Delete(id);
+            _projectRepository.Delete(id);
         }
 
-        public ProjectDTO GetByIdDTO(int id)
+        public ProjectDTO GetById(int id)
         {
-            Project proj = _Projects.GetById(id);
-            ProjectDTO project = new ProjectDTO()
+            Project project = _projectRepository.GetById(id);
+            ProjectDTO projectDTO = new ProjectDTO()
             {
-                Name = proj.Name,
-                Deadline = proj.Deadline,
-                StartDate = proj.StartDate,
-                TechStack = proj.TechStack,
-                Cost = proj.Cost,
+                Name = project.Name,
+                Deadline = project.Deadline,
+                StartDate = project.StartDate,
+                TechStack = project.TechStack,
+                Cost = project.Cost,
                 // File .doc
-                Instruction = proj.Instruction,
-                UseArea = proj.UseArea
+                Instruction = project.Instruction,
+                UseArea = project.UseArea
             };
 
-            return project;
+            return projectDTO;
         }
 
      
 
-        public void Update(int id, ProjectDTO proj)
+        public void Update(int id, ProjectDTO projectDTO)
         {
-            Project project = _Projects.GetById(id);
+            Project project = _projectRepository.GetById(id);
             if (project != null)
             {
-                project.Name = proj.Name;
-                project.Deadline = proj.Deadline;
-                project.StartDate = proj.StartDate;
-                project.TechStack = proj.TechStack;
-                project.Cost = proj.Cost;
+                project.Name = projectDTO.Name;
+                project.Deadline = projectDTO.Deadline;
+                project.StartDate = projectDTO.StartDate;
+                project.TechStack = projectDTO.TechStack;
+                project.Cost = projectDTO.Cost;
                 // File .doc
-                project.Instruction = proj.Instruction;
-                project.UseArea = proj.UseArea;
-                
-                _Projects.Update(project);
-            }
+                project.Instruction = projectDTO.Instruction;
+                project.UseArea = projectDTO.UseArea;
 
-            
+                _projectRepository.Update(project);
+            }
         }
+
     }
 }

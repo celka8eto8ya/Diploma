@@ -6,17 +6,18 @@ namespace Onion.WebApp.Controllers
 {
     public class ProjectController : Controller
     {
-        IProject _ProjServ;
-        public ProjectController(IProject ProjServ)
+        private readonly IProject _projectService;
+
+        public ProjectController(IProject projectService)
         {
-            _ProjServ = ProjServ;
+            _projectService = projectService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
-            return View(_ProjServ.GetList());
+            return View(_projectService.GetList());
         }
 
 
@@ -29,11 +30,11 @@ namespace Onion.WebApp.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(ProjectDTO proj)
+        public IActionResult Create(ProjectDTO projectDTO)
         {
             if (ModelState.IsValid)
             {
-                _ProjServ.Create(proj);
+                _projectService.Create(projectDTO);
                 ViewBag.CreateResult = "Project is successfully created!";
             }
             else
@@ -46,22 +47,21 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_ProjServ.GetByIdDTO(id));
+            return View(_projectService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, ProjectDTO proj)
+        public IActionResult Edit(int id, ProjectDTO projectDTO)
         {
             //ViewBag.ProjCurId = id;
-            _ProjServ.Update(id, proj);
+            _projectService.Update(id, projectDTO);
             return Redirect("~/Project/Show");
         }
 
-        //[HttpDelete]
         public IActionResult Delete(int id)
         {
-            _ProjServ.Delete(id);
+            _projectService.Delete(id);
             return Redirect("~/Project/Show");
         }
 

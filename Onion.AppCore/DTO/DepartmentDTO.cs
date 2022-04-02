@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace Onion.AppCore.DTO
 {
@@ -17,6 +16,6 @@ namespace Onion.AppCore.DTO
         public IEnumerable<DepartmentType> AllDepartmentTypes { get; set; }
 
 
-        public int DepartmentTypeId { get; set; } // foreign key
+        public int DepartmentTypeId { get; set; } 
     }
 }

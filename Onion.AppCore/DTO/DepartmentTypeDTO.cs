@@ -9,7 +9,6 @@ namespace Onion.AppCore.DTO
         public string Name { get; set; }
         [Required(ErrorMessage = "Enter Functions, please !")]
         public string Functions { get; set; }
-        // Like functions
         public string Description { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }

@@ -51,8 +51,6 @@ namespace Onion.WebApp
             services.AddTransient<IDepartmentType, DepartmentTypeService>();
 
 
-
-
             services.AddControllersWithViews();
         }
 
@@ -70,7 +68,6 @@ namespace Onion.WebApp
 
             app.UseAuthentication();    // аутентификация
             app.UseAuthorization();     // авторизация
-
 
             app.UseEndpoints(endpoints =>
             {

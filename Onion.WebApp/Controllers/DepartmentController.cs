@@ -1,63 +1,61 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
     public class DepartmentController : Controller
     {
-        IDepartment _DepServ;
-        public DepartmentController(IDepartment DepServ)
+        private readonly IDepartment _departmentService;
+       
+        public DepartmentController(IDepartment departmentService)
         {
-            _DepServ = DepServ;
+            _departmentService = departmentService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
-            return View(_DepServ.GetList());
+            return View(_departmentService.GetList());
         }
 
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View(_DepServ.GetListDepTypesDTO());
+            return View(_departmentService.GetListDepartmentTypes());
         }
 
 
         [HttpPost]
-        public ActionResult Create(DepartmentDTO dep)
+        public ActionResult Create(DepartmentDTO departmentDTO)
         {
-            _DepServ.Create(dep);
+            _departmentService.Create(departmentDTO);
             return Redirect("~/Department/Show");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_DepServ.GetByIdDTO(id));
+            return View(_departmentService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, DepartmentDTO dep)
+        public IActionResult Edit(int id, DepartmentDTO departmentDTO)
         {
             //ViewBag.ProjCurId = id;
-            _DepServ.Update(id, dep);
+            _departmentService.Update(id, departmentDTO);
             return Redirect("~/Department/Show");
         }
 
         //[HttpDelete]
         public IActionResult Delete(int id)
         {
-            _DepServ.Delete(id);
+            _departmentService.Delete(id);
             return Redirect("~/Department/Show");
         }
+
     }
 }

@@ -5,10 +5,10 @@ namespace Onion.AppCore.Services
 {
    public class EmployeeService : IEmployee
     {
-        IGenericRepository<Employee> _dbEmployees;
-        public EmployeeService(IGenericRepository<Employee> dbEmployees)
+        private readonly IGenericRepository<Employee> _employeeRepository;
+        public EmployeeService(IGenericRepository<Employee> employeeRepository)
         {
-            _dbEmployees = dbEmployees;
+            _employeeRepository = employeeRepository;
         }
 
         public void Create() 
@@ -17,7 +17,7 @@ namespace Onion.AppCore.Services
             { 
             
             };
-            _dbEmployees.Create(emp);
+            _employeeRepository.Create(emp);
         }
 
     }

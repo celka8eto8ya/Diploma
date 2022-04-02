@@ -9,10 +9,8 @@ namespace Onion.AppCore.DTO
         [StringLength(30, MinimumLength = 8, ErrorMessage = "Name length is [8;30] !")]
         public string Name { get; set; }
 
-      
         [Required(ErrorMessage = "Enter Deadline, please !")]
         public DateTime Deadline { get; set; }
-
       
         [Required(ErrorMessage = "Enter Start Date, please !")]
         public DateTime StartDate { get; set; }
