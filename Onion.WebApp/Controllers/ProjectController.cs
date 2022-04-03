@@ -55,7 +55,7 @@ namespace Onion.WebApp.Controllers
         public IActionResult Edit(int id, ProjectDTO projectDTO)
         {
             //ViewBag.ProjCurId = id;
-            _projectService.Update(id, projectDTO);
+            _projectService.Update(projectDTO);
             return Redirect("~/Project/Show");
         }
 

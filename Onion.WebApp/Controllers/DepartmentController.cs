@@ -43,10 +43,9 @@ namespace Onion.WebApp.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int id, DepartmentDTO departmentDTO)
+        public IActionResult Edit(DepartmentDTO departmentDTO)
         {
-            //ViewBag.ProjCurId = id;
-            _departmentService.Update(id, departmentDTO);
+            _departmentService.Update(departmentDTO);
             return Redirect("~/Department/Show");
         }
 

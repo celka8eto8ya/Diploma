@@ -10,7 +10,7 @@ namespace Onion.AppCore.Services
     {
         private readonly IGenericRepository<Team> _teamRepository;
         private readonly IGenericRepository<Project> _projectRepository;
-     
+
         public TeamService(IGenericRepository<Team> teamRepository, IGenericRepository<Project> projectRepository)
         {
             _teamRepository = teamRepository;
@@ -56,25 +56,29 @@ namespace Onion.AppCore.Services
             Team team = _teamRepository.GetById(id);
             TeamDTO teamDTO = new TeamDTO()
             {
+                Id = team.Id,
                 Name = team.Name,
                 HeadName = team.HeadName,
-                Technologies = team.Technologies
+                CreateDate = team.CreateDate,
+                EmployeeAmount = team.EmployeeAmount,
+                Technologies = team.Technologies,
+                ProjectId = team.ProjectId
             };
 
             return teamDTO;
         }
 
-        public void Update(int id, TeamDTO teamDTO)
-        {
-            Team team = _teamRepository.GetById(id);
-            if (team != null)
+        public void Update(TeamDTO teamDTO)
+            => _teamRepository.Update(new Team()
             {
-                team.Name = teamDTO.Name;
-                team.HeadName = teamDTO.HeadName;
-                team.Technologies = teamDTO.Technologies;
-                _teamRepository.Update(team);
-            }
-        }
+                Id = teamDTO.Id,
+                Name = teamDTO.Name,
+                HeadName = teamDTO.HeadName,
+                CreateDate = teamDTO.CreateDate,
+                EmployeeAmount = teamDTO.EmployeeAmount,
+                Technologies = teamDTO.Technologies,
+                ProjectId = teamDTO.ProjectId
+            });
 
     }
 }

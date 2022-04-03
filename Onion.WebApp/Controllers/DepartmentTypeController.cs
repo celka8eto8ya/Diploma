@@ -28,7 +28,6 @@ namespace Onion.WebApp.Controllers
         }
 
 
-        //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Create(DepartmentTypeDTO departmentTypeDTO)
         {
@@ -53,10 +52,10 @@ namespace Onion.WebApp.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(int id, DepartmentTypeDTO departmentTypeDTO)
+        public IActionResult Edit(DepartmentTypeDTO departmentTypeDTO)
         {
             //ViewBag.ProjCurId = id;
-            _departmentTypeService.Update(id, departmentTypeDTO);
+            _departmentTypeService.Update(departmentTypeDTO);
             return Redirect("~/DepartmentType/Show");
         }
 

@@ -9,7 +9,7 @@ namespace Onion.AppCore.Services
     public class DepartmentTypeService : IDepartmentType
     {
         private readonly IGenericRepository<DepartmentType> _departmentTypeRepository;
-      
+
         public DepartmentTypeService(IGenericRepository<DepartmentType> departmentTypeRepository)
         {
             _departmentTypeRepository = departmentTypeRepository;
@@ -44,30 +44,30 @@ namespace Onion.AppCore.Services
             DepartmentType departmentType = _departmentTypeRepository.GetById(id);
             DepartmentTypeDTO departmentTypeDTO = new DepartmentTypeDTO()
             {
+                Id = departmentType.Id,
                 Name = departmentType.Name,
                 Functions = departmentType.Functions,
                 Description = departmentType.Description,
-                CreateDate = departmentType.CreateDate,
-                UpdateDate = departmentType.UpdateDate
+                UpdateDate = departmentType.UpdateDate,
+                CreateDate = departmentType.CreateDate
             };
 
             return departmentTypeDTO;
         }
 
 
-        public void Update(int id, DepartmentTypeDTO departmentTypeDTO)
-        {
-            DepartmentType departmentType = _departmentTypeRepository.GetById(id);
-            if (departmentType != null)
+        public void Update(DepartmentTypeDTO departmentTypeDTO)
+            => _departmentTypeRepository.Update(new DepartmentType()
             {
-                departmentType.Name = departmentTypeDTO.Name;
-                departmentType.Functions = departmentTypeDTO.Functions;
-                departmentType.Description = departmentTypeDTO.Description;
-                departmentType.UpdateDate = DateTime.Now;
 
-                _departmentTypeRepository.Update(departmentType);
-            }
-        }
+                Id = departmentTypeDTO.Id,
+                Name = departmentTypeDTO.Name,
+                Functions = departmentTypeDTO.Functions,
+                Description = departmentTypeDTO.Description,
+                UpdateDate = DateTime.Now,
+                CreateDate = departmentTypeDTO.CreateDate
+            });
+
 
     }
 }

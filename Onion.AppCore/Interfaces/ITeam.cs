@@ -9,7 +9,7 @@ namespace Onion.AppCore.Interfaces
         IEnumerable<Team> GetList(); 
         TeamDTO GetListTeams(); 
         void Create(TeamDTO teamDTO);
-        void Update(int id, TeamDTO teamDTO);
+        void Update(TeamDTO teamDTO);
         void Delete(int id);
         TeamDTO GetById(int id); 
     }

@@ -9,7 +9,7 @@ namespace Onion.AppCore.Services
     public class ProjectService : IProject
     {
         private readonly IGenericRepository<Project> _projectRepository;
-        
+
         public ProjectService(IGenericRepository<Project> projectRepository)
         {
             _projectRepository = projectRepository;
@@ -50,10 +50,14 @@ namespace Onion.AppCore.Services
             Project project = _projectRepository.GetById(id);
             ProjectDTO projectDTO = new ProjectDTO()
             {
+                Id = project.Id,
                 Name = project.Name,
                 Deadline = project.Deadline,
                 StartDate = project.StartDate,
+                CreateDate = project.CreateDate,
+                UpdateDate = project.UpdateDate,
                 TechStack = project.TechStack,
+                EmployeeAmount = project.EmployeeAmount,
                 Cost = project.Cost,
                 // File .doc
                 Instruction = project.Instruction,
@@ -63,25 +67,26 @@ namespace Onion.AppCore.Services
             return projectDTO;
         }
 
-     
 
-        public void Update(int id, ProjectDTO projectDTO)
-        {
-            Project project = _projectRepository.GetById(id);
-            if (project != null)
+
+        public void Update(ProjectDTO projectDTO)
+            => _projectRepository.Update(new Project()
             {
-                project.Name = projectDTO.Name;
-                project.Deadline = projectDTO.Deadline;
-                project.StartDate = projectDTO.StartDate;
-                project.TechStack = projectDTO.TechStack;
-                project.Cost = projectDTO.Cost;
+                Id = projectDTO.Id,
+                Name = projectDTO.Name,
+                Deadline = projectDTO.Deadline,
+                StartDate = projectDTO.StartDate,
+                CreateDate = projectDTO.CreateDate,
+                UpdateDate = DateTime.Now,
+                TechStack = projectDTO.TechStack,
+                EmployeeAmount = projectDTO.EmployeeAmount,
+                Cost = projectDTO.Cost,
                 // File .doc
-                project.Instruction = projectDTO.Instruction;
-                project.UseArea = projectDTO.UseArea;
-
-                _projectRepository.Update(project);
-            }
-        }
+                Instruction = projectDTO.Instruction,
+                UseArea = projectDTO.UseArea
+            });
 
     }
+
 }
+

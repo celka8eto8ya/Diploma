@@ -7,6 +7,8 @@ namespace Onion.AppCore.DTO
 {
    public class TeamDTO
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Enter Name, please !")]
         [StringLength(30, MinimumLength = 5, ErrorMessage = "Name length is [5;30] !")]
         public string Name { get; set; }

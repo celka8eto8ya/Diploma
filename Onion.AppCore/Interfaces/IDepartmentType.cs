@@ -8,8 +8,8 @@ namespace Onion.AppCore.Interfaces
     {
         IEnumerable<DepartmentType> GetList(); 
         DepartmentTypeDTO GetById(int id); 
-        void Create(DepartmentTypeDTO departmnetType); 
-        void Update(int id, DepartmentTypeDTO departmnetType); 
+        void Create(DepartmentTypeDTO departmnetTypeDTO); 
+        void Update(DepartmentTypeDTO departmnetTypeDTO); 
         void Delete(int id); 
     }
 }

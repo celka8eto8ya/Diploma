@@ -46,31 +46,33 @@ namespace Onion.AppCore.Services
             Department department = _departmentRepository.GetById(id);
             DepartmentDTO departmentDTO = new DepartmentDTO()
             {
+                Id = department.Id,
                 Name = department.Name,
                 Description = department.Description,
-                CreateDate = department.CreateDate,
                 UpdateDate = department.UpdateDate,
-                EmployeeAmount = department.EmployeeAmount
+                CreateDate = department.CreateDate,
+                EmployeeAmount = department.EmployeeAmount,
+                DepartmentTypeId = department.DepartmentTypeId
             };
 
             return departmentDTO;
         }
 
 
-        public void Update(int id, DepartmentDTO departmentDTO)
-        {
-            Department department = _departmentRepository.GetById(id);
-            if (department != null)
+        public void Update(DepartmentDTO departmentDTO) =>
+            _departmentRepository.Update(new Department
             {
+                Id = departmentDTO.Id,
+                Name = departmentDTO.Name,
+                Description = departmentDTO.Description,
+                UpdateDate = DateTime.Now,
+                CreateDate = departmentDTO.CreateDate,
+                EmployeeAmount = departmentDTO.EmployeeAmount,
+                DepartmentTypeId = departmentDTO.DepartmentTypeId
+            });
 
-                department.Name = departmentDTO.Name;
-                department.Description = departmentDTO.Description;
-                department.UpdateDate = DateTime.Now;
 
-                _departmentRepository.Update(department);
-            }
-        }
-        
+
         public DepartmentDTO GetListDepartmentTypes()
         {
             DepartmentDTO departmentDTO = new DepartmentDTO()

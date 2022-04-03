@@ -38,10 +38,9 @@ namespace Onion.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, TeamDTO teamDTO)
+        public IActionResult Edit(TeamDTO teamDTO)
         {
-            //ViewBag.ProjCurId = id;
-            _teamService.Update(id, teamDTO);
+            _teamService.Update(teamDTO);
             return Redirect("~/Team/Show");
         }
 

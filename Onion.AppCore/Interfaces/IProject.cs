@@ -9,7 +9,7 @@ namespace Onion.AppCore.Interfaces
         IEnumerable<Project> GetList(); 
         ProjectDTO GetById(int id); 
         void Create(ProjectDTO projectDTO); 
-        void Update(int id, ProjectDTO projectDTO); 
+        void Update(ProjectDTO projectDTO); 
         void Delete(int id); 
     }
 }
