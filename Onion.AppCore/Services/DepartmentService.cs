@@ -9,11 +9,9 @@ namespace Onion.AppCore.Services
     public class DepartmentService : IDepartment
     {
         private readonly IGenericRepository<Department> _departmentRepository;
-        private readonly IGenericRepository<DepartmentType> _departmentTypeRepository;
-        public DepartmentService(IGenericRepository<Department> departmentRepository, IGenericRepository<DepartmentType> departmentTypeRepository)
+        public DepartmentService(IGenericRepository<Department> departmentRepository)
         {
             _departmentRepository = departmentRepository;
-            _departmentTypeRepository = departmentTypeRepository;
         }
 
         public IEnumerable<Department> GetList()
@@ -70,17 +68,6 @@ namespace Onion.AppCore.Services
                 EmployeeAmount = departmentDTO.EmployeeAmount,
                 DepartmentTypeId = departmentDTO.DepartmentTypeId
             });
-
-
-
-        public DepartmentDTO GetListDepartmentTypes()
-        {
-            DepartmentDTO departmentDTO = new DepartmentDTO()
-            {
-                AllDepartmentTypes = _departmentTypeRepository.GetList()
-            };
-            return departmentDTO;
-        }
 
     }
 }

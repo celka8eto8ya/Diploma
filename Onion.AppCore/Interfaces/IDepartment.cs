@@ -11,6 +11,5 @@ namespace Onion.AppCore.Interfaces
         void Create(DepartmentDTO departmnetDTO); 
         void Update(DepartmentDTO departmnetDTO); 
         void Delete(int id); 
-        DepartmentDTO GetListDepartmentTypes(); 
     }
 }

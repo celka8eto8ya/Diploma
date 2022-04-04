@@ -16,7 +16,6 @@ namespace Onion.AppCore.DTO
         public DateTime CreateDate { get; set; }
         public int EmployeeAmount { get; set; }
         public string Technologies { get; set; }
-        public IEnumerable<Project> AllProjects { get; set; }
 
         
         [Required(ErrorMessage = "Enter Project Name, please !")]

@@ -9,12 +9,10 @@ namespace Onion.AppCore.Services
     public class TeamService : ITeam
     {
         private readonly IGenericRepository<Team> _teamRepository;
-        private readonly IGenericRepository<Project> _projectRepository;
 
-        public TeamService(IGenericRepository<Team> teamRepository, IGenericRepository<Project> projectRepository)
+        public TeamService(IGenericRepository<Team> teamRepository)
         {
             _teamRepository = teamRepository;
-            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Team> GetList()
@@ -22,14 +20,6 @@ namespace Onion.AppCore.Services
             return _teamRepository.GetList();
         }
 
-        public TeamDTO GetListTeams()
-        {
-            TeamDTO teamDTO = new TeamDTO()
-            {
-                AllProjects = _projectRepository.GetList()
-            };
-            return teamDTO;
-        }
 
         public void Create(TeamDTO teamDTO)
         {

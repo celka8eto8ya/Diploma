@@ -7,10 +7,12 @@ namespace Onion.WebApp.Controllers
     public class DepartmentController : Controller
     {
         private readonly IDepartment _departmentService;
-       
-        public DepartmentController(IDepartment departmentService)
+        private readonly IDepartmentType _departmentTypeService;
+
+        public DepartmentController(IDepartment departmentService, IDepartmentType departmentTypeService)
         {
             _departmentService = departmentService;
+            _departmentTypeService = departmentTypeService;
         }
 
 
@@ -20,13 +22,12 @@ namespace Onion.WebApp.Controllers
             return View(_departmentService.GetList());
         }
 
-
         [HttpGet]
         public IActionResult Create()
         {
-            return View(_departmentService.GetListDepartmentTypes());
+            ViewBag.DepartmentTypes = _departmentTypeService.GetList();
+            return View();
         }
-
 
         [HttpPost]
         public ActionResult Create(DepartmentDTO departmentDTO)

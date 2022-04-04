@@ -15,7 +15,6 @@ namespace Onion.AppCore.DTO
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }
         public int EmployeeAmount { get; set; }
-        public IEnumerable<DepartmentType> AllDepartmentTypes { get; set; }
 
 
         public int DepartmentTypeId { get; set; } 

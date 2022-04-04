@@ -24,8 +24,8 @@
                 <span asp-validation-for="Name" class="col-8" />
             </div>
         </div>
-        
-        
+
+
         <div class="row mt-4 justify-content-start">
             <div class="col-3">
                 <label class="form-label" asp-for="Description">Description:</label>
@@ -36,25 +36,26 @@
             </div>
         </div>
 
+
         <div class="row  mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="DepartmentTypeId">Department Type:</label>
+                <label class="form-label" asp-for="DepartmentTypeId">Department Type (ViewBag):</label>
             </div>
             <div class="col-9">
 
                 <select class="form-select form-control" aria-label="Select" asp-for="DepartmentTypeId">
                     @{
 
-                        foreach (var dep in Model.AllDepartmentTypes)
+                        foreach (var departmentType in ViewBag.DepartmentTypes)
                         {
-                            <option class="form-control" selected value="@dep.Id">@dep.Name</option>
+                            <option class="form-control" selected value="@departmentType.Id">@departmentType.Name</option>
                         }
                     }
                 </select>
                 <span asp-validation-for="DepartmentTypeId" class="col-8"></span>
             </div>
         </div>
-
+       
 
         <div class="row  justify-content-center mb-5">
             <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Create">

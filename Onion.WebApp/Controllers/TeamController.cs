@@ -7,9 +7,11 @@ namespace Onion.WebApp.Controllers
     public class TeamController : Controller
     {
         private readonly ITeam _teamService;
-        public TeamController(ITeam teamService)
+        private readonly IProject _projectService;
+        public TeamController(ITeam teamService, IProject projectService)
         {
             _teamService = teamService;
+            _projectService = projectService;
         }
 
         [HttpGet]
@@ -21,7 +23,8 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View(_teamService.GetListTeams());
+            ViewBag.ProjectList = _projectService.GetList();
+            return View();
         }
         
         [HttpPost]

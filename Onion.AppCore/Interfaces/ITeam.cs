@@ -7,7 +7,6 @@ namespace Onion.AppCore.Interfaces
     public interface ITeam
     {
         IEnumerable<Team> GetList(); 
-        TeamDTO GetListTeams(); 
         void Create(TeamDTO teamDTO);
         void Update(TeamDTO teamDTO);
         void Delete(int id);
