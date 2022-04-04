@@ -3,25 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] Project Manajer 2.0</title>
+    <title>@ViewData["Title"] Project Manajer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href='https://fonts.googleapis.com/css?family=Vibur:400' rel='stylesheet' type='text/css'>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container justify-content-center">
-                <div class="row col-2">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PM</a>
+<body class="bodyStyle">
+    <header class="headerStyle">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm @*navbar-light bg-white*@ border-bottom box-shadow">
+            <div class="container justify-content-between">
+                <div class="row col-3">
+                    <a class="navbar-brand Logo neonText" asp-controller="Project" asp-action="Show">Project Manager</a>
                 </div>
 
                 <div class="row col-6 justify-content-between mr-4">
                     <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                             Projects
                         </a>
 
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
                             <li><a class="dropdown-item" href="#">Steps</a></li>
                             <li><a class="dropdown-item" href="#">Tasks</a></li>
@@ -32,31 +33,31 @@
 
 
                     <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        <a class="btn  dropdown-toggle HeaderItem" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                             Teams
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="#">Teams</a></li>
-                            <li><a class="dropdown-item" href="#">Departments</a></li>
+                            <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
+                            <li><a class="dropdown-item" href="~/Department/Show">Departments</a></li>
                             <li><a class="dropdown-item" href="#">Employees</a></li>
                             <li><a class="dropdown-item" href="#">Roles</a></li>
-                            <li><a class="dropdown-item" href="#">DepartmentTypes</a></li>
-                            
+                            <li><a class="dropdown-item" href="~/DepartmentType/Show">DepartmentTypes</a></li>
+
                         </ul>
                     </div>
 
 
-                    <a class="btn btn-secondary " href="#" role="button">
+                    <a class="btn  HeaderItem" href="#" role="button">
                         Customers
                     </a>
-                    <a class="btn btn-secondary " href="#" role="button">
+                    <a class="btn HeaderItem HeaderItem" href="#" role="button">
                         Effect.
                     </a>
 
 
                     <div class="dropdown">
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                        <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                             Other
                         </a>
 
@@ -71,20 +72,21 @@
             </div>
         </nav>
     </header>
-    @*<div class="container col-12">
-        <main role="main" class="pb-3">*@
-            @RenderBody()
-        @*</main>
-    </div>*@
+    <div class=" mainSize">
+        <!--<main role="main" class="pb-3">-->@*  *@
+    @RenderBody()
+    @*</main>*@
+        </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted mt-3 footerStyle">
         <div class="container">
-            &copy; 2022 - Onion.WebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - Polessu, PM.
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
 </body>
 </html>

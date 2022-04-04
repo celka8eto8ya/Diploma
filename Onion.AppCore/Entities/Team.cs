@@ -9,7 +9,6 @@ namespace Onion.AppCore.Entities
         public string HeadName { get; set; }
         public DateTime CreateDate { get; set; }
         public int EmployeeAmount { get; set; }
-        // List hard skills
         public string Technologies { get; set; }
 
 

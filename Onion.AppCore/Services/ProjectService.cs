@@ -1,4 +1,5 @@
-﻿using Onion.AppCore.Entities;
+﻿using Onion.AppCore.DTO;
+using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,50 +8,85 @@ namespace Onion.AppCore.Services
 {
     public class ProjectService : IProject
     {
-        IGenericRepository<Project> _Projects;
-        public ProjectService(IGenericRepository<Project> Projects)
+        private readonly IGenericRepository<Project> _projectRepository;
+
+        public ProjectService(IGenericRepository<Project> projectRepository)
         {
-            _Projects = Projects;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<Project> GetList()
         {
-            return _Projects.GetList();
+            return _projectRepository.GetList();
         }
 
-        public void Create(Project proj)
+        public void Create(ProjectDTO projectDTO)
         {
             Project project = new Project
             {
-                Name = proj.Name,
-                //Deadline = proj.Deadline,
-                //StartDate = proj.StartDate,
-                CreateDate = DateTime.Now,
-                UpdateDate = DateTime.Now,
-                TechStack = proj.TechStack,
+                Name = projectDTO.Name,
+                Deadline = projectDTO.Deadline,
+                StartDate = projectDTO.StartDate,
+                CreateDate = DateTime.Now.Date,
+                UpdateDate = DateTime.Now.Date,
+                TechStack = projectDTO.TechStack,
                 EmployeeAmount = 0,
-                //Cost = proj.Cost,
+                Cost = projectDTO.Cost,
                 // File .doc
-                Instruction = proj.Instruction,
-                //UseArea = proj.UseArea
+                Instruction = projectDTO.Instruction,
+                UseArea = projectDTO.UseArea
             };
 
-            _Projects.Create(proj);
+            _projectRepository.Create(project);
         }
 
         public void Delete(int id)
         {
-            _Projects.Delete(id);
+            _projectRepository.Delete(id);
         }
 
-        public Project GetById(int id)
+        public ProjectDTO GetById(int id)
         {
-            return _Projects.GetById(id);
+            Project project = _projectRepository.GetById(id);
+            ProjectDTO projectDTO = new ProjectDTO()
+            {
+                Id = project.Id,
+                Name = project.Name,
+                Deadline = project.Deadline,
+                StartDate = project.StartDate,
+                CreateDate = project.CreateDate,
+                UpdateDate = project.UpdateDate,
+                TechStack = project.TechStack,
+                EmployeeAmount = project.EmployeeAmount,
+                Cost = project.Cost,
+                // File .doc
+                Instruction = project.Instruction,
+                UseArea = project.UseArea
+            };
+
+            return projectDTO;
         }
 
-        public void Update(Project proj)
-        {
-            _Projects.Update(proj);
-        }
+
+
+        public void Update(ProjectDTO projectDTO)
+            => _projectRepository.Update(new Project()
+            {
+                Id = projectDTO.Id,
+                Name = projectDTO.Name,
+                Deadline = projectDTO.Deadline,
+                StartDate = projectDTO.StartDate,
+                CreateDate = projectDTO.CreateDate,
+                UpdateDate = DateTime.Now,
+                TechStack = projectDTO.TechStack,
+                EmployeeAmount = projectDTO.EmployeeAmount,
+                Cost = projectDTO.Cost,
+                // File .doc
+                Instruction = projectDTO.Instruction,
+                UseArea = projectDTO.UseArea
+            });
+
     }
+
 }
+

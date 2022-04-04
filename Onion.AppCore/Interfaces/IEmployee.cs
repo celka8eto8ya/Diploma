@@ -1,8 +1,4 @@
-﻿using Onion.AppCore.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace Onion.AppCore.Interfaces
 {
     public interface IEmployee

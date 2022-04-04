@@ -5,9 +5,9 @@ namespace Onion.AppCore.Entities
     public class Role
     {
         public int Id { get; set; }
-       // PM, HR, developer 
+        // PM, HR, developer 
         public string Name { get; set; }
-        // F e high, medium, low
+        // For example: high, medium, low
         public string AccessLevel { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }

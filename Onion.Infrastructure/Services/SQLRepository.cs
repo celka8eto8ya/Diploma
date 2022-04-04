@@ -8,8 +8,8 @@ namespace Onion.Infrastructure.Services
 {
     public class SQLRepository<T> : IGenericRepository<T> where T : class
     {
-        ApplicationContext _context;
-        DbSet<T> _dbSet;
+        private readonly ApplicationContext _context;
+        private readonly DbSet<T> _dbSet;
 
         public SQLRepository(ApplicationContext context)
         {
@@ -47,5 +47,6 @@ namespace Onion.Infrastructure.Services
                 _context.SaveChanges();
             }
         }
+
     }
 }

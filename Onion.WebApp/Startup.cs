@@ -43,8 +43,12 @@ namespace Onion.WebApp
             services.AddTransient<IEmployee, EmployeeService>();
             services.AddTransient<IGenericRepository<Project>, SQLRepository<Project>>();
             services.AddTransient<IProject, ProjectService>();
-
-
+            services.AddTransient<IGenericRepository<Team>, SQLRepository<Team>>();
+            services.AddTransient<ITeam, TeamService>();
+            services.AddTransient<IGenericRepository<Department>, SQLRepository<Department>>();
+            services.AddTransient<IDepartment, DepartmentService>();
+            services.AddTransient<IGenericRepository<DepartmentType>, SQLRepository<DepartmentType>>();
+            services.AddTransient<IDepartmentType, DepartmentTypeService>();
 
 
             services.AddControllersWithViews();
@@ -53,22 +57,17 @@ namespace Onion.WebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+            // обработка ошибок HTTP
+            app.UseStatusCodePages();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();    // аутентификация
+            app.UseAuthorization();     // авторизация
 
             app.UseEndpoints(endpoints =>
             {

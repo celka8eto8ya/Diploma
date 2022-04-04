@@ -1,0 +1,82 @@
+﻿@model Onion.AppCore.DTO.TeamDTO
+
+
+
+<form asp-action="Create" asp-controller="Team" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Create Team:</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Name">Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="HeadName">Head Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="HeadName" class="form-control" asp-for="HeadName" />
+                <span asp-validation-for="HeadName" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Technologies">Technologies:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Technologies" class="form-control" asp-for="Technologies" />
+                <span asp-validation-for="Technologies" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row  mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ProjectId">For project (Name):</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="ProjectId">
+                    @{
+
+                        foreach (var project in ViewBag.ProjectList)
+                        {
+                            <option class="form-control" selected value="@project.Id">@project.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ProjectId" class="col-8"></span>
+            </div>
+        </div>
+
+
+        <div class="row  justify-content-center mb-5">
+            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Create">
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

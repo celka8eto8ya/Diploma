@@ -1,83 +1,78 @@
-﻿@model IEnumerable<Onion.AppCore.Entities.Project>
+﻿@model IEnumerable<Onion.AppCore.Entities.DepartmentType>
 
 <div class="container mainSize col-12">
     <div class="row rowSize">
         <aside class=" col-3 mt-3">
 
             <div class="list-group">
-                <a href="~/Project/Show" class="list-group-item list-group-item-action active" aria-current="true">
+                <a href="~/Team/Show" class="list-group-item list-group-item-action " aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Projects</h5>
-                        <small>Now</small>
+                        <h6 class="mb-1">Teams</h6>
+
                     </div>
 
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="~/Department/Show" class="list-group-item list-group-item-action ">
                     <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Steps</h6>
+                        <h6 class="mb-1">Departments</h6>
                     </div>
 
                 </a>
                 <a href="#" class="list-group-item list-group-item-action ">
                     <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Tasks</h6>
+                        <h6 class="mb-1">Employees</h6>
                     </div>
+                  
 
                 </a>
                 <a href="#" class="list-group-item list-group-item-action">
                     <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">SubTasks</h6>
+                        <h6 class="mb-1">Roles</h6>
                     </div>
 
                 </a>
-                <a href="#" class="list-group-item list-group-item-action">
+                <a href="~/DepartmentType/Show" class="list-group-item list-group-item-action active">
                     <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">Conditions</h6>
+                        <h5 class="mb-1">Department Types</h5>
                     </div>
+                    <small>Now</small>
                 </a>
             </div>
             <div class="row  mt-4 justify-content-center">
-                <a href="~/Project/Create" class="btn btn-primary col-9 NewProject ">New Project</a>
+                <a href="~/DepartmentType/Create" class="btn btn-primary col-9 NewProject ">New Department Type</a>
             </div>
         </aside>
 
 
         <div class=" col-9 CreateProj">
 
-
-
-
-            <table class="table table-striped table-hover @*table-sm*@ border-dark mt-4 col-11 ">
+         
+            <table class="table table-striped table-hover mt-4 col-11">
                 <thead>
                     <tr>
                         <th scope="col">
                             №
                         </th>
+
                         <th scope="col">
                             <a class="m-1">Name</a>
                         </th>
+
                         <th scope="col">
-                            <a class="m-1">
-                                Start Date
-                            </a>
+                            <a class="m-1">Functions </a>
                         </th>
                         <th scope="col">
-                            <a class="m-1">
-                                Deadline
-                            </a>
+                            <a class="m-1"> Description  </a>
                         </th>
+
                         <th scope="col">
-                            <a class="m-1">Cost</a>
+                            <a class="m-1">CreateDate </a>
                         </th>
+
                         <th scope="col">
-                            <a class="m-1">Emp.</a>
+                            <a class="m-1">UpdateDate</a>
                         </th>
-                        <th scope="col">
-                            <a class="m-1">Tech. Stack</a>
-                        </th>
-                        <th scope="col">
-                            <a class="m-1">Use Area</a>
-                        </th>
+
                         <th scope="col">
                             <a class="m-1">Options</a>
                         </th>
@@ -86,23 +81,20 @@
                 <tbody>
                     @{ int i = 1;
 
-                        foreach (var proj in Model)
+                        foreach (var depType in Model)
                         {
                                         <tr>
 
-
                                             <td scope="row">@i</td>
-                                            <td scope="row">@proj.Name</td>
-                                            <td scope="row">@proj.StartDate.ToShortDateString()</td>
-                                            <td scope="row">@proj.Deadline.ToShortDateString()</td>
-                                            <td scope="row">@proj.Cost</td>
-                                            <td scope="row">@proj.EmployeeAmount</td>
-                                            <td scope="row">@proj.TechStack</td>
-                                            <td scope="row">@proj.UseArea</td>
+                                            <td scope="row">@depType.Name</td>
+                                            <td scope="row">@depType.Functions</td>
+                                            <td scope="row">@depType.Description</td>
+                                            <td scope="row">@depType.CreateDate.ToShortDateString()</td>
+                                            <td scope="row">@depType.UpdateDate.ToShortDateString()</td>
                                             <td class="col-2 px-4">
 
 
-                                                <a class="icons" asp-action="Edit" asp-route-id="@proj.Id" asp-controller="Project">
+                                                <a class="icons" asp-action="Edit" asp-route-id="@depType.Id" asp-controller="DepartmentType">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                                          class="bi bi-pencil-square" viewBox="0 0 20 20">
                                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
@@ -111,7 +103,7 @@
                                                     </svg>
                                                 </a>
 
-                                                <a class="icons third" asp-controller="Project" asp-route-id="@proj.Id" asp-action="Delete">
+                                                <a class="icons third" asp-controller="DepartmentType" asp-route-id="@depType.Id" asp-action="Delete">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                                          class="bi bi-trash" viewBox="0 0 20 20">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />

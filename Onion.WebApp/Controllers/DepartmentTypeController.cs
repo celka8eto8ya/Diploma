@@ -4,20 +4,20 @@ using Onion.AppCore.Interfaces;
 
 namespace Onion.WebApp.Controllers
 {
-    public class ProjectController : Controller
+    public class DepartmentTypeController : Controller
     {
-        private readonly IProject _projectService;
-
-        public ProjectController(IProject projectService)
+        private readonly IDepartmentType _departmentTypeService;
+      
+        public DepartmentTypeController(IDepartmentType departmentTypeService)
         {
-            _projectService = projectService;
+            _departmentTypeService = departmentTypeService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
-            return View(_projectService.GetList());
+            return View(_departmentTypeService.GetList());
         }
 
 
@@ -28,13 +28,12 @@ namespace Onion.WebApp.Controllers
         }
 
 
-        //[ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult Create(ProjectDTO projectDTO)
+        public IActionResult Create(DepartmentTypeDTO departmentTypeDTO)
         {
             if (ModelState.IsValid)
             {
-                _projectService.Create(projectDTO);
+                _departmentTypeService.Create(departmentTypeDTO);
                 ViewBag.CreateResult = "Project is successfully created!";
             }
             else
@@ -44,26 +43,27 @@ namespace Onion.WebApp.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_projectService.GetById(id));
+            return View(_departmentTypeService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, ProjectDTO projectDTO)
+        public IActionResult Edit(DepartmentTypeDTO departmentTypeDTO)
         {
             //ViewBag.ProjCurId = id;
-            _projectService.Update(projectDTO);
-            return Redirect("~/Project/Show");
+            _departmentTypeService.Update(departmentTypeDTO);
+            return Redirect("~/DepartmentType/Show");
         }
 
+        //[HttpDelete]
         public IActionResult Delete(int id)
         {
-            _projectService.Delete(id);
-            return Redirect("~/Project/Show");
+            _departmentTypeService.Delete(id);
+            return Redirect("~/DepartmentType/Show");
         }
-
     }
 }

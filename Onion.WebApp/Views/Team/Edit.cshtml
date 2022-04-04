@@ -1,0 +1,65 @@
+﻿@model Onion.AppCore.DTO.TeamDTO
+
+
+
+
+<form asp-action="Edit" asp-controller="Team" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
+    <input type="text" name="EmployeeAmount" asp-for="EmployeeAmount" hidden />
+    <input type="text" name="ProjectId" asp-for="ProjectId" hidden />
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Edit Team:</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Name">Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="HeadName">Head Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="HeadName" class="form-control" asp-for="HeadName" />
+                <span asp-validation-for="HeadName" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Technologies">Technologies:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Technologies" class="form-control" asp-for="Technologies" />
+                <span asp-validation-for="Technologies" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row  justify-content-center mb-5">
+            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Edit">
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

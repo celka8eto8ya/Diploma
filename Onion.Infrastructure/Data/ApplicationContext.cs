@@ -15,12 +15,10 @@ namespace Onion.Infrastructure.Data
         public DbSet<Team> Teams { get; set; }
 
 
-
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
                 : base(options)
         {
-            //Database.EnsureCreated();
-            Database.Migrate();  // миграция
+            Database.Migrate();  
         }
 
     }
