@@ -1,5 +1,7 @@
-﻿using Onion.AppCore.Entities;
+﻿using Onion.AppCore.DTO;
+using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
+using System.Collections.Generic;
 
 namespace Onion.AppCore.Services
 {
@@ -11,13 +13,24 @@ namespace Onion.AppCore.Services
             _employeeRepository = employeeRepository;
         }
 
-        public void Create() 
+        public IEnumerable<Employee> GetList()
         {
-            Employee emp = new Employee()
-            { 
-            
+            return _employeeRepository.GetList();
+        }
+
+        public void Create(EmployeeDTO employeeDTO)
+        {
+            Employee employee = new Employee
+            {
+                //Name = employeeDTO.Name,
+                //Description = employeeDTO.Description,
+                //CreateDate = employeeDTO.Now.Date,
+                //UpdateDate = employeeDTO.Now.Date,
+                //EmployeeAmount = 0,
+                //DepartmentTypeId = employeeDTO.DepartmentTypeId
             };
-            _employeeRepository.Create(emp);
+
+            _employeeRepository.Create(employee);
         }
 
     }

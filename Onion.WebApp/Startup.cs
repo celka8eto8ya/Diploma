@@ -49,6 +49,8 @@ namespace Onion.WebApp
             services.AddTransient<IDepartment, DepartmentService>();
             services.AddTransient<IGenericRepository<DepartmentType>, SQLRepository<DepartmentType>>();
             services.AddTransient<IDepartmentType, DepartmentTypeService>();
+            services.AddTransient<IGenericRepository<Role>, SQLRepository<Role>>();
+            services.AddTransient<IRole, RoleService>();
 
 
             services.AddControllersWithViews();
