@@ -1,8 +1,8 @@
-﻿@model Onion.AppCore.DTO.EmployeeDTO
+﻿@model Onion.AppCore.DTO.FullEmployeeDTO
 
 
 
-<form asp-action="Create" asp-controller="Project" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+<form asp-action="Create" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
@@ -12,84 +12,133 @@
     </div>
 
     <div class="container col-5 justify-content-center mt-3 ">
-        <h2 class="text-center">Create Project:</h2>
+        <h2 class="text-center">Create Employee:</h2>
 
-
-        @*<div class="row mt-4 justify-content-start">
+        <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Name">Name:</label>
+                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Name" class="form-control" asp-for="Name" />
-                <span asp-validation-for="Name" class="col-8" />
+                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
+                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="StartDate">Start Date:</label>
+                <label class="form-label" asp-for="AuthenticationDTO.Email">Login:</label>
             </div>
             <div class="col-9">
-                <input type="date" name="StartDate" class="form-control" asp-for="StartDate" />
-                <span asp-validation-for="StartDate" class="col-8" />
+                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
+                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
+            </div>
+            <div class="col-9">
+                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
+                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
+                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
+                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Deadline">Deadline:</label>
+                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
             </div>
             <div class="col-9">
-                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" />
-                <span asp-validation-for="Deadline" class="col-8" />
+                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
+                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="TechStack">Tech. Stack:</label>
+                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="TechStack" class="form-control" asp-for="TechStack" />
-                <span asp-validation-for="TechStack" class="col-8" />
+                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
+                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Cost">Cost:</label>
+                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Cost" class="form-control" asp-for="Cost" />
-                <span asp-validation-for="Cost" class="col-8"></span>
+                <input type="text" name="EmployeeDTO.Level" class="form-control" asp-for="EmployeeDTO.Level" />
+                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row  mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Instruction">Instruction:</label>
+                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Instruction" class="form-control" asp-for="Instruction" />
-                <span asp-validation-for="Instruction" class="col-8"></span>
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
+                    @{
+
+                        foreach (var department in ViewBag.Departments)
+                        {
+                            <option class="form-control" selected value="@department.Id">@department.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
             </div>
         </div>
 
 
-        <div class="row mt-3 justify-content-start">
+        <div class="row  mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="UseArea">Use Area:</label>
+                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="UseArea" class="form-control" asp-for="UseArea" />
-                <span asp-validation-for="UseArea" class="col-8"></span>
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
+                    @{
+
+                        foreach (var role in ViewBag.Roles)
+                        {
+                            <option class="form-control" selected value="@role.Id">@role.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
             </div>
-        </div>*@
+        </div>
+
+
 
 
         <div class="row  justify-content-center mb-5">

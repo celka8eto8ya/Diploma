@@ -1,6 +1,4 @@
-﻿using Onion.AppCore.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Onion.AppCore.DTO

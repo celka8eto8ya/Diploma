@@ -1,13 +1,11 @@
 ﻿using System;
 
-namespace Onion.AppCore.Entities
+namespace Onion.AppCore.DTO
 {
-    public class Role
+    public class RoleDTO
     {
         public int Id { get; set; }
-        // PM, employee, customer, 
         public string Name { get; set; }
-        // For example: high, medium, low (0, 1, 2)
         public string AccessLevel { get; set; }
         public DateTime CreateDate { get; set; }
     }

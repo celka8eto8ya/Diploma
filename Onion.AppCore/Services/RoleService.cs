@@ -1,5 +1,7 @@
-﻿using Onion.AppCore.Entities;
+﻿using Onion.AppCore.DTO;
+using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,22 +24,37 @@ namespace Onion.AppCore.Services
             {
                 _roleRepository.Create(new Role()
                 {
-                    Name = "Project Manager",
-                    AccessLevel = "High"
+                    Name = Enums.Roles.ProjectManager.ToString(),
+                    AccessLevel = Enums.AccessLevel.High.ToString(),
+                    CreateDate = DateTime.Now
                 });
 
                 _roleRepository.Create(new Role()
                 {
-                    Name = "Employee",
-                    AccessLevel = "Medium"
+                    Name = Enums.Roles.Employee.ToString(),
+                    AccessLevel = Enums.AccessLevel.Medium.ToString(),
+                    CreateDate = DateTime.Now
                 });
 
                 _roleRepository.Create(new Role()
                 {
-                    Name = "Customer",
-                    AccessLevel = "Low"
+                    Name = Enums.Roles.Customer.ToString(),
+                    AccessLevel = Enums.AccessLevel.Low.ToString(),
+                    CreateDate = DateTime.Now
                 });
             }
+        }
+
+
+        public IEnumerable<RoleDTO> GetList()
+        {
+            return _roleRepository.GetList().Select(x => new RoleDTO
+            {
+                Id = x.Id,
+                Name = x.Name,
+                AccessLevel = x.AccessLevel,
+                CreateDate = x.CreateDate,
+            });
         }
 
     }
