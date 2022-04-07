@@ -91,5 +91,45 @@ namespace Onion.AppCore.Services
 
         }
 
+        public void Delete(int id)
+             => _employeeRepository.Delete(id);
+
+        public void Update(EmployeeDTO employeeDTO)
+            => _employeeRepository.Update(new Employee
+            {
+                Id = employeeDTO.Id,
+                FullName = employeeDTO.FullName,
+                CreateDate = employeeDTO.CreateDate,
+                TechStackName = employeeDTO.TechStackName,
+                Experience = employeeDTO.Experience,
+                Position = employeeDTO.Position,
+                Technologies = employeeDTO.Technologies,
+                Level = employeeDTO.Level,
+
+                DepartmentId = employeeDTO.DepartmentId,
+                RoleId = employeeDTO.RoleId,
+                TeamId = employeeDTO.TeamId
+            });
+
+        public EmployeeDTO GetById(int id)
+        {
+            Employee employee = _employeeRepository.GetById(id);
+            return new EmployeeDTO()
+            {
+                Id = employee.Id,
+                FullName = employee.FullName,
+                CreateDate = employee.CreateDate,
+                TechStackName = employee.TechStackName,
+                Experience = employee.Experience,
+                Position = employee.Position,
+                Technologies = employee.Technologies,
+                Level = employee.Level,
+
+                DepartmentId = employee.DepartmentId,
+                RoleId = employee.RoleId,
+                TeamId = employee.TeamId
+            };
+        }
+
     }
 }

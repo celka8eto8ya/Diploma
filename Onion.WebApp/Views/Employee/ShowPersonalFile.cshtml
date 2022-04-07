@@ -1,0 +1,150 @@
+﻿@model Onion.AppCore.DTO.PersonalFileDTO
+
+
+
+
+<form class="mb-5 " asp-action="ShowPersonalFile" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="EmployeeId" asp-for="EmployeeId" hidden />
+
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Personal File:</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ProjectsDone">Projects Done:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="ProjectsDone" class="form-control" asp-for="ProjectsDone" />
+                <span asp-validation-for="ProjectsDone" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-4">
+                <label class="form-label" asp-for="TotalTimeInProjects">Total Time In Projects:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" name="TotalTimeInProjects" class="form-control" asp-for="TotalTimeInProjects" />
+                <span asp-validation-for="TotalTimeInProjects" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-4">
+                <label class="form-label" asp-for="AVGProjectTime">AVG Project Time:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" name="AVGProjectTime" class="form-control" asp-for="AVGProjectTime" readonly/>
+                <span asp-validation-for="AVGProjectTime" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-4">
+                <label class="form-label" asp-for="SetProjectDate">Set Project Date:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" name="SetProjectDate" class="form-control" asp-for="SetProjectDate" readonly/>
+                <span asp-validation-for="SetProjectDate" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-6">
+                <label class="form-label" asp-for="SuccessTaskCompletion">Success Task Completion (%):</label>
+            </div>
+            <div class="col-6">
+                <input type="text" name="SuccessTaskCompletion" class="form-control" asp-for="SuccessTaskCompletion" readonly/>
+                <span asp-validation-for="SuccessTaskCompletion" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-6">
+                <label class="form-label" asp-for="AVGTaskCompletionPerMonth">AVG Task Completion Per Month:</label>
+            </div>
+            <div class="col-6">
+                <input type="text" name="AVGTaskCompletionPerMonth" class="form-control" asp-for="AVGTaskCompletionPerMonth" />
+                <span asp-validation-for="AVGTaskCompletionPerMonth" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AVGSalary">AVG Salary:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="AVGSalary" class="form-control" asp-for="AVGSalary" />
+                <span asp-validation-for="AVGSalary" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AVGTaskCost">AVG Task Cost:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="AVGTaskCost" class="form-control" asp-for="AVGTaskCost" readonly/>
+                <span asp-validation-for="AVGTaskCost" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-5">
+                <label class="form-label" asp-for="AVGTaskOverdueTime">AVG Task Overdue Time:</label>
+            </div>
+            <div class="col-7">
+                <input type="text" name="AVGTaskOverdueTime" class="form-control" asp-for="AVGTaskOverdueTime" readonly/>
+                <span asp-validation-for="AVGTaskOverdueTime" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-4">
+                <label class="form-label" asp-for="AVGTaskComplexity">AVG Task Complexity:</label>
+            </div>
+            <div class="col-8">
+                <input type="text" name="AVGTaskComplexity" class="form-control" asp-for="AVGTaskComplexity" readonly />
+                <span asp-validation-for="AVGTaskComplexity" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-5">
+                <label class="form-label" asp-for="AVGTaskCompletionTime">AVG Task Completion Time:</label>
+            </div>
+            <div class="col-7">
+                <input type="text" name="AVGTaskCompletionTime" class="form-control" asp-for="AVGTaskCompletionTime" readonly/>
+                <span asp-validation-for="AVGTaskCompletionTime" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a href="~/Employee/Show" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

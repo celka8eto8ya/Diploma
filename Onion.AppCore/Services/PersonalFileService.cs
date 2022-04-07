@@ -14,30 +14,47 @@ namespace Onion.AppCore.Services
             _personalFileRepository = personalFileRepository;
         }
 
-        public IEnumerable<PersonalFileDTO> GetList()
+        public PersonalFileDTO GetByEmployeeId(int id)
         {
-            return _personalFileRepository.GetList().Select(x => new PersonalFileDTO
+            PersonalFile personalFile = _personalFileRepository.GetById(
+                _personalFileRepository.GetList().First(x => x.EmployeeId == id).Id);
+            return new PersonalFileDTO()
             {
-                Id = x.Id,
-                ProjectsDone = x.ProjectsDone,
-                TotalTimeInProjects = x.TotalTimeInProjects,
-                SetProjectDate = x.SetProjectDate,
-                SuccessTaskCompletion = x.SuccessTaskCompletion,
-                AVGTaskCompletionPerMonth = x.AVGTaskCompletionPerMonth,
-                AVGSalary = x.AVGSalary,
-                AVGTaskCost = x.AVGTaskCost,
-                AVGTaskOverdueTime = x.AVGTaskOverdueTime,
-                AVGTaskComplexity = x.AVGTaskComplexity,
-                AVGTaskCompletionTime = x.AVGTaskCompletionTime,
-                EmployeeId = x.EmployeeId
-            });
+                Id = personalFile.Id,
+                ProjectsDone = personalFile.ProjectsDone,
+                TotalTimeInProjects = personalFile.TotalTimeInProjects,
+                AVGProjectTime = personalFile.AVGProjectTime,
+                SetProjectDate = personalFile.SetProjectDate,
+                SuccessTaskCompletion = personalFile.SuccessTaskCompletion,
+                AVGTaskCompletionPerMonth = personalFile.AVGTaskCompletionPerMonth,
+                AVGSalary = personalFile.AVGSalary,
+                AVGTaskCost = personalFile.AVGTaskCost,
+                AVGTaskOverdueTime = personalFile.AVGTaskOverdueTime,
+                AVGTaskComplexity = personalFile.AVGTaskComplexity,
+                AVGTaskCompletionTime = personalFile.AVGTaskCompletionTime,
+
+                EmployeeId = personalFile.EmployeeId
+            };
         }
 
         public void Update(PersonalFileDTO personalFileDTO)
-        {
-           
+          => _personalFileRepository.Update(new PersonalFile
+          {
+              Id = _personalFileRepository.GetList().First(x => x.EmployeeId == personalFileDTO.Id).Id,
+              ProjectsDone = personalFileDTO.ProjectsDone,
+              TotalTimeInProjects = personalFileDTO.TotalTimeInProjects,
+              AVGProjectTime = personalFileDTO.AVGProjectTime,
+              SetProjectDate = personalFileDTO.SetProjectDate,
+              SuccessTaskCompletion = personalFileDTO.SuccessTaskCompletion,
+              AVGTaskCompletionPerMonth = personalFileDTO.AVGTaskCompletionPerMonth,
+              AVGSalary = personalFileDTO.AVGSalary,
+              AVGTaskCost = personalFileDTO.AVGTaskCost,
+              AVGTaskOverdueTime = personalFileDTO.AVGTaskOverdueTime,
+              AVGTaskComplexity = personalFileDTO.AVGTaskComplexity,
+              AVGTaskCompletionTime = personalFileDTO.AVGTaskCompletionTime,
 
-        }
+              EmployeeId = personalFileDTO.EmployeeId
+          });
 
     }
 }
