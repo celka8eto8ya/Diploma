@@ -19,8 +19,8 @@ namespace Onion.WebApp
 
                 try
                 {
-                    var context = services.GetRequiredService<IRole>();
-                    context.Initialize();
+                    var context = services.GetRequiredService<IInitializing>();
+                    context.InitializeRoles();
                 }
                 catch (Exception ex)
                 {

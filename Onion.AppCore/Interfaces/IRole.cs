@@ -5,7 +5,7 @@ namespace Onion.AppCore.Interfaces
 {
    public interface IRole
     {
-        void Initialize();
+        //void Initialize();
         IEnumerable<RoleDTO> GetList();
     }
 }

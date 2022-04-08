@@ -54,6 +54,7 @@ namespace Onion.WebApp
             services.AddTransient<IGenericRepository<Authentication>, SQLRepository<Authentication>>();
             services.AddTransient<IGenericRepository<PersonalFile>, SQLRepository<PersonalFile>>();
             services.AddTransient<IPersonalFile, PersonalFileService>();
+            services.AddTransient<IInitializing, InitializingService>();
 
 
             services.AddControllersWithViews();

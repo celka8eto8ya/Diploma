@@ -67,7 +67,7 @@ namespace Onion.WebApp.Controllers
                 return View(_employeeService.GetById(id));
             else
             {
-                ModelState.AddModelError("", "Employee doesn`t exists!");
+                ModelState.AddModelError("", "Eror 400 - Bad Request!");
                 return View();
             }
         }
@@ -90,7 +90,7 @@ namespace Onion.WebApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Employee doesn`t exists!");
+                ModelState.AddModelError("", "Eror 400 - Bad Request!");
                 return View();
             }
         }
