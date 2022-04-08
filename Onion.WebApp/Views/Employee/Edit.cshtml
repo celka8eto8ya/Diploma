@@ -1,0 +1,96 @@
+﻿@model Onion.AppCore.DTO.EmployeeDTO
+
+
+
+
+<form asp-action="Edit" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
+    <input type="text" name="DepartmentId" asp-for="DepartmentId" hidden />
+    <input type="text" name="RoleId" asp-for="RoleId" hidden />
+    <input type="text" name="TeamId" asp-for="TeamId" hidden />
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Edit Employee:</h2>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="FullName">Full Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="FullName" class="form-control" asp-for="FullName" />
+                <span asp-validation-for="FullName" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="TechStackName">Tech. Stack:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="TechStackName" class="form-control" asp-for="TechStackName" />
+                <span asp-validation-for="TechStackName" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Experience">Experience:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Experience" class="form-control" asp-for="Experience" />
+                <span asp-validation-for="Experience" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Position">Position:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Position" class="form-control" asp-for="Position" />
+                <span asp-validation-for="Position" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Technologies">Technologies:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Technologies" class="form-control" asp-for="Technologies" />
+                <span asp-validation-for="Technologies" class="col-8" />
+            </div>
+        </div>
+        
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Level">Level:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Level" class="form-control" asp-for="Level" />
+                <span asp-validation-for="Level" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row  justify-content-center mb-5">
+            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Edit">
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

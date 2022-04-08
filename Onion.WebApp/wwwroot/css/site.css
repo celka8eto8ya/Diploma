@@ -94,7 +94,7 @@ body {
     padding: 0;
     text-decoration: none;
     margin-right: 8px;
-    transition: all .15s ease-in-out;
+    transition: all .05s linear;
 }
 
 .third {
@@ -105,6 +105,19 @@ body {
     text-decoration: none;
     color: #ba54b7;
 }
+    .icons:hover::after {
+        content: attr(data-title); /* Выводим текст */
+        position: absolute; /* Абсолютное позиционирование */
+        left: 20%;
+        top: -30%; /* Положение подсказки */
+        z-index: 1; /* Отображаем подсказку поверх других элементов */
+        background: rgba(255,255,230,0.9); /* Полупрозрачный цвет фона */
+        font-family: Arial, sans-serif; /* Гарнитура шрифта */
+        font-size: 12px; /* Размер текста подсказки */
+        padding: 5px 10px; /* Поля */
+        border: 1px solid #333; /* Параметры рамки */
+        border-radius:5px;
+    }
 
 .field-validation-error {
     color: #b94a48;
@@ -180,6 +193,7 @@ input[type="checkbox"].input-validation-error {
 .HeaderItem:hover {
     background-color: #1e25ff;
     color: #FFF;
+   
 }
 
 .Logo {

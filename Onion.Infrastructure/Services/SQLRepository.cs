@@ -32,6 +32,13 @@ namespace Onion.Infrastructure.Services
             _context.SaveChanges();
         }
 
+        public T CreateEntity(T item)
+        {
+            _dbSet.Add(item);
+            _context.SaveChanges();
+            return item;
+        }
+
         public void Update(T item)
         {
             _context.Entry(item).State = EntityState.Modified;

@@ -13,6 +13,7 @@ namespace Onion.Infrastructure.Data
         public DbSet<DepartmentType> DepartmentTypes { get; set; }
         public DbSet<Condition> Conditions { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<PersonalFile> PersonalFiles { get; set; }
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)

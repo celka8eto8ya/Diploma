@@ -1,159 +1,156 @@
-﻿
+﻿@model Onion.AppCore.DTO.FullEmployeeDTO
 
 
-<form asp-action="Create" asp-controller="Employee" asp-anti-forgery="true">
-    <div class="validation" asp-validation-summary="ModelOnly"></div>
-    <div class="container">
-        <h2>Registration</h2>
 
-        @*<div class="row mt-4 justify-content-start">
-            <div class="col-2">
-                <label class="form-label" asp-for="FirstName">First Name</label>
+<form asp-action="Create" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Create Employee:</h2>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
             </div>
-            <div class="row col-6">
-                <input type="text" class="form-control col-6" asp-for="FirstName" />
-                <span asp-validation-for="FirstName" class="col-6" />
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
+                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
             </div>
         </div>
 
-        <div class="row  mt-1 justify-content-start">
-            <div class="col-2">
-                <label asp-for="LastName">Last Name</label>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AuthenticationDTO.Email">Login:</label>
             </div>
-            <div class="row col-6">
-                <input type="text" class="form-control col-6" asp-for="LastName" />
-                <span class="col-6" asp-validation-for="LastName"></span>
+            <div class="col-9">
+                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
+                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
             </div>
         </div>
 
-        <div class="row mt-1  justify-content-start">
-            <div class="col-2">
-                <label asp-for="PhoneNumber">Phone Number</label>
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
             </div>
-            <div class="row col-6">
-                <input type="tel" class="form-control col-6" asp-for="PhoneNumber" />
-                <span class="col-6" asp-validation-for="PhoneNumber"></span>
-            </div>
-        </div>
-
-        <div class="row mt-1  justify-content-start">
-            <div class="col-2">
-                <label asp-for="Email">Введите Email</label>
-            </div>
-            <div class="row col-6">
-                <input type="text" class="form-control col-6" asp-for="Email" />
-                <span class="col-6" asp-validation-for="Email"></span>
+            <div class="col-9">
+                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
+                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
             </div>
         </div>
 
-        <div class="row mt-1  justify-content-start">
-            <div class="col-2">
-                <label asp-for="Password">Password</label>
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
             </div>
-            <div class="row col-6">
-                <input class="form-control col-6" asp-for="Password" />
-                <span class="col-6" asp-validation-for="Password"></span>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
+                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
             </div>
         </div>
 
-        <div class="row mt-1  justify-content-start">
-            <div class="col-2">
-                <label asp-for="ConfirmPassword">Confirm Password</label>
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience:</label>
             </div>
-            <div class="row col-6">
-                <input class="form-control col-6" asp-for="ConfirmPassword" />
-                <span class="col-6" asp-validation-for="ConfirmPassword"></span>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
+                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
             </div>
-        </div>*@
+        </div>
 
-        <div class="row col-5 justify-content-center">
-            <input class="btn btn-primary mt-4" type="submit" value="Registration">
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
+                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
+                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Level" class="form-control" asp-for="EmployeeDTO.Level" />
+                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row  mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
+                    @{
+
+                        foreach (var department in ViewBag.Departments)
+                        {
+                            <option class="form-control" selected value="@department.Id">@department.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
+            </div>
+        </div>
+
+
+        <div class="row  mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
+                    @{
+
+                        foreach (var role in ViewBag.Roles)
+                        {
+                            <option class="form-control" selected value="@role.Id">@role.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
+            </div>
+        </div>
+
+
+
+
+        <div class="row  justify-content-center mb-5 pb-4">
+            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Create">
         </div>
     </div>
 </form>
+
+
 
 @section scripts{
 
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
-
-
-@*<form asp-action="Create" asp-controller="Employee"
-    asp-anti-forgery="true" method="post" enctype="multipart/form-data">
-
-        <div class="container col-10 ">
-            <div class="validation" asp-validation-summary="ModelOnly"></div>
-        </div>
-
-        <div class="container col-5 justify-content-center mt-5">
-            <h2 class="text-center">Create Employee</h2>
-
-
-            <div class="row mt-4 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="Name">Name</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="Name" class="form-control" asp-for="Name" />
-                    <span  class="col-8" asp-validation-for="Name"></span>
-                </div>
-            </div>
-
-            <div class="row mt-1 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="TechStack">Technologies Stack</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="TechStack" class="form-control" asp-for="TechStack" />
-                    <span asp-validation-for="TechStack" class="col-8"></span>
-                </div>
-            </div>
-
-            <div class="row mt-1 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="Expirence">Expirence</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="Expirence" class="form-control" asp-for="Expirence" />
-                    <span asp-validation-for="Expirence" class="col-8"></span>
-                </div>
-            </div>
-
-            <div class="row mt-1 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="Position">Position</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="Position" class="form-control" asp-for="Position" />
-                    <span asp-validation-for="Position" class="col-8"></span>
-                </div>
-            </div>
-
-            <div class="row mt-1 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="Technologies">Technologies</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="Technologies" class="form-control" asp-for="Technologies" />
-                    <span asp-validation-for="Technologies" class="col-8"></span>
-                </div>
-            </div>
-
-            <div class="row mt-1 justify-content-start">
-                <div class="col-3">
-                    <label class="form-label" asp-for="Level">Level</label>
-                </div>
-                <div class="col-9">
-                    <input type="text" name="Level" class="form-control" asp-for="Level" />
-                    <span asp-validation-for="Level" class="col-8"></span>
-                </div>
-            </div>
-
-
-            <div class="row  justify-content-center">
-                <input class="btn btn-primary mt-4 col-4" asp-page-handler="Upload" type="submit" value="Create">
-            </div>
-        </div>
-    </form>*@
-

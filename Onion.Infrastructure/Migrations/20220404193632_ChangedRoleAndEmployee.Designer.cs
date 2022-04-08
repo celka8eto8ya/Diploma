@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onion.Infrastructure.Data;
 
 namespace Onion.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220404193632_ChangedRoleAndEmployee")]
+    partial class ChangedRoleAndEmployee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,7 +169,7 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("int");
 
                     b.Property<string>("TechStackName")
@@ -185,56 +187,6 @@ namespace Onion.Infrastructure.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.PersonalFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("AVGProjectTime")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGSalary")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGTaskCompletionPerMonth")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGTaskCompletionTime")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGTaskComplexity")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGTaskCost")
-                        .HasColumnType("float");
-
-                    b.Property<double>("AVGTaskOverdueTime")
-                        .HasColumnType("float");
-
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectsDone")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("SetProjectDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("SuccessTaskCompletion")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalTimeInProjects")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("PersonalFiles");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Project", b =>
@@ -289,11 +241,11 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<string>("AccessLevel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SetDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -381,24 +333,15 @@ namespace Onion.Infrastructure.Migrations
 
                     b.HasOne("Onion.AppCore.Entities.Team", "Team")
                         .WithMany()
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("Role");
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.PersonalFile", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Team", b =>
