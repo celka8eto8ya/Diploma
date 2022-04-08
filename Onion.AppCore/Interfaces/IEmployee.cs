@@ -7,10 +7,10 @@ namespace Onion.AppCore.Interfaces
     {
         IEnumerable<EmployeeDTO> GetList();
         void Create(FullEmployeeDTO fullEmployeeDTO);
-        bool UniqueFullEmployee(FullEmployeeDTO fullEmployeeDTO);
+        bool IsUniqueFullEmployee(FullEmployeeDTO fullEmployeeDTO);
         void Delete(int id);
         void Update(EmployeeDTO employeeDTO);
         EmployeeDTO GetById(int id);
-        bool UniqueEmployee(EmployeeDTO employeeDTO);
+        bool IsUniqueEmployee(EmployeeDTO employeeDTO);
     }
 }

@@ -39,7 +39,7 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public ActionResult Create(FullEmployeeDTO fullEmployeeDTO)
         {
-            if (!_employeeService.UniqueFullEmployee(fullEmployeeDTO))
+            if (!_employeeService.IsUniqueFullEmployee(fullEmployeeDTO))
             {
                 _employeeService.Create(fullEmployeeDTO);
                 return Redirect("~/Employee/Show");
@@ -77,7 +77,7 @@ namespace Onion.WebApp.Controllers
         {
             if (_employeeService.GetList().Any(x => x.Id == employeeDTO.Id) && employeeDTO.Id > 0)
             {
-                if (!_employeeService.UniqueEmployee(employeeDTO))
+                if (!_employeeService.IsUniqueEmployee(employeeDTO))
                 {
                     _employeeService.Update(employeeDTO);
                     return Redirect("~/Employee/Show");

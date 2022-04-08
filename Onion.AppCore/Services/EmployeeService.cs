@@ -56,11 +56,11 @@ namespace Onion.AppCore.Services
             return sb.ToString();
         }
 
-        public bool UniqueFullEmployee(FullEmployeeDTO fullEmployeeDTO)
+        public bool IsUniqueFullEmployee(FullEmployeeDTO fullEmployeeDTO)
             => _authenticationRepository.GetList().Any(x => x.Email == fullEmployeeDTO.AuthenticationDTO.Email)
             || _employeeRepository.GetList().Any(x => x.FullName == fullEmployeeDTO.EmployeeDTO.FullName);
 
-        public bool UniqueEmployee(EmployeeDTO employeeDTO)
+        public bool IsUniqueEmployee(EmployeeDTO employeeDTO)
            => _employeeRepository.GetList().Any(x => x.FullName == employeeDTO.FullName && x.Id != employeeDTO.Id);
 
 
@@ -69,7 +69,7 @@ namespace Onion.AppCore.Services
 
         public void Create(FullEmployeeDTO fullEmployeeDTO)
         {
-            _employeeRepository.Create(new Employee()
+           Employee employee = _employeeRepository.CreateEntity(new Employee()
             {
                 FullName = fullEmployeeDTO.EmployeeDTO.FullName,
                 CreateDate = DateTime.Now,
@@ -83,19 +83,16 @@ namespace Onion.AppCore.Services
                 RoleId = fullEmployeeDTO.EmployeeDTO.RoleId
             });
 
-            int employeeLastId = _employeeRepository.GetList().LastOrDefault().Id;
-
             _authenticationRepository.Create(new Authentication()
             {
                 Email = fullEmployeeDTO.AuthenticationDTO.Email,
                 Password = CalculateMD5Hash(fullEmployeeDTO.AuthenticationDTO.Password),
-                EmployeeId = employeeLastId,
+                EmployeeId = employee.Id,
             });
             _personalFileRepository.Create(new PersonalFile()
             {
-                EmployeeId = employeeLastId,
+                EmployeeId = employee.Id,
             });
-
         }
 
         public void Delete(int id)
