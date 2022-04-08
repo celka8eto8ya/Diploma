@@ -56,10 +56,15 @@ namespace Onion.AppCore.Services
             return sb.ToString();
         }
 
-        public bool UniqueEmployee(FullEmployeeDTO fullEmployeeDTO)
+        public bool UniqueFullEmployee(FullEmployeeDTO fullEmployeeDTO)
             => _authenticationRepository.GetList().Any(x => x.Email == fullEmployeeDTO.AuthenticationDTO.Email)
             || _employeeRepository.GetList().Any(x => x.FullName == fullEmployeeDTO.EmployeeDTO.FullName);
-        
+
+        public bool UniqueEmployee(EmployeeDTO employeeDTO)
+           => _employeeRepository.GetList().Any(x => x.FullName == employeeDTO.FullName && x.Id != employeeDTO.Id);
+
+
+
 
 
         public void Create(FullEmployeeDTO fullEmployeeDTO)

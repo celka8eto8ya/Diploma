@@ -2,6 +2,7 @@
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System;
+using System.Linq;
 
 namespace Onion.WebApp.Controllers
 {
@@ -38,7 +39,7 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public ActionResult Create(FullEmployeeDTO fullEmployeeDTO)
         {
-            if (!_employeeService.UniqueEmployee(fullEmployeeDTO))
+            if (!_employeeService.UniqueFullEmployee(fullEmployeeDTO))
             {
                 _employeeService.Create(fullEmployeeDTO);
                 return Redirect("~/Employee/Show");
@@ -61,15 +62,37 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Edit(int id)
-            => View(_employeeService.GetById(id));
-
-
+        {
+            if (_employeeService.GetList().Any(x => x.Id == id) && id>0)
+                return View(_employeeService.GetById(id));
+            else
+            {
+                ModelState.AddModelError("", "Employee doesn`t exists!");
+                return View();
+            }
+        }
 
         [HttpPost]
         public IActionResult Edit(EmployeeDTO employeeDTO)
         {
-            _employeeService.Update(employeeDTO);
-            return Redirect("~/Employee/Show");
+            if (_employeeService.GetList().Any(x => x.Id == employeeDTO.Id) && employeeDTO.Id > 0)
+            {
+                if (!_employeeService.UniqueEmployee(employeeDTO))
+                {
+                    _employeeService.Update(employeeDTO);
+                    return Redirect("~/Employee/Show");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Employee already exists!");
+                    return View();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Employee doesn`t exists!");
+                return View();
+            }
         }
 
         [HttpGet]
