@@ -38,14 +38,14 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public ActionResult Create(FullEmployeeDTO fullEmployeeDTO)
         {
-            if (!_employeeService.UniqueEmail(fullEmployeeDTO))
+            if (!_employeeService.UniqueEmployee(fullEmployeeDTO))
             {
                 _employeeService.Create(fullEmployeeDTO);
                 return Redirect("~/Employee/Show");
             }
             else
             {
-                ModelState.AddModelError("", "Email isn`t unique!");
+                ModelState.AddModelError("", "Employee already exists!");
                 ViewBag.Roles = _roleService.GetList();
                 ViewBag.Departments = _departmentService.GetList();
                 return View();
