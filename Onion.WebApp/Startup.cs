@@ -55,6 +55,8 @@ namespace Onion.WebApp
             services.AddTransient<IGenericRepository<PersonalFile>, SQLRepository<PersonalFile>>();
             services.AddTransient<IPersonalFile, PersonalFileService>();
             services.AddTransient<IInitializing, InitializingService>();
+            services.AddTransient<IGenericRepository<DashBoard>, SQLRepository<DashBoard>>();
+            services.AddTransient<IDashBoard, DashBoardService>();
 
 
             services.AddControllersWithViews();

@@ -14,6 +14,7 @@ namespace Onion.Infrastructure.Data
         public DbSet<Condition> Conditions { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<PersonalFile> PersonalFiles { get; set; }
+        public DbSet<DashBoard> DashBoards { get; set; }
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
