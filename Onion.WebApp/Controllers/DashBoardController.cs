@@ -27,7 +27,16 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Show()
-            => View(_dashBoardService.GetFullList());
+         =>   View(_dashBoardService.GetFullList());
+    
+        
+        [HttpGet]
+        public IActionResult ShowAll()
+        {
+            View(_dashBoardService.GetFullList());
+            var resurces = _dashBoardService.GetFullList().Select(x => new { id = x.Id, title = x.Employee });
+            return new JsonResult(resurces);
+        }
 
 
         [HttpGet]
