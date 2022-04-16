@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onion.Infrastructure.Data;
 
 namespace Onion.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220416131345_AddedCondition")]
+    partial class AddedCondition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +55,9 @@ namespace Onion.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReviewStage")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -268,9 +273,6 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ReviewStageId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("date");
 
@@ -287,27 +289,7 @@ namespace Onion.Infrastructure.Migrations
 
                     b.HasIndex("ConditionId");
 
-                    b.HasIndex("ReviewStageId");
-
                     b.ToTable("Projects");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.ReviewStage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ReviewStages");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Role", b =>
@@ -440,15 +422,7 @@ namespace Onion.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Onion.AppCore.Entities.ReviewStage", "ReviewStage")
-                        .WithMany()
-                        .HasForeignKey("ReviewStageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Condition");
-
-                    b.Navigation("ReviewStage");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Team", b =>

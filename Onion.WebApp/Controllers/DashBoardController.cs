@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
 using System.Linq;
 
 namespace Onion.WebApp.Controllers
@@ -27,16 +26,23 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Show()
-         =>   View(_dashBoardService.GetFullList());
-    
-        
+            => View(_dashBoardService.GetFullList());
+
+
         [HttpGet]
-        public IActionResult ShowAll()
-        {
-            View(_dashBoardService.GetFullList());
-            var resurces = _dashBoardService.GetFullList().Select(x => new { id = x.Id, title = x.Employee });
-            return new JsonResult(resurces);
-        }
+        public IActionResult ShowResources()
+            => new JsonResult(_dashBoardService.GetFullList().Select(x => new { id = x.Id, title = x.Employee }));
+
+        [HttpGet]
+        public IActionResult ShowEvents()
+            => new JsonResult(_dashBoardService.GetFullList().Select(x => new
+            {
+                id = x.Id,
+                resourceId = x.Id,
+                start = x.StartDate.ToString("yyyy-MM-dd"),
+                end = x.EndDate.ToString("yyyy-MM-dd"),
+                title = x.Project
+            }));
 
 
         [HttpGet]
@@ -50,15 +56,15 @@ namespace Onion.WebApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(DashBoardDTO dashBoardDTO,int teamId, int projectId, int id, string filter,string set)
+        public ActionResult Create(DashBoardDTO dashBoardDTO, int teamId, int projectId, int id, string filter, string set)
         {
             ViewBag.Teams = _teamService.GetList().Where(x => x.ProjectId == projectId);
             ViewBag.Projects = _projectService.GetList();
             ViewBag.proId = projectId;
 
             // after redirect remove
-            ViewBag.Employee = _employeeService.GetById(id); 
-           
+            ViewBag.Employee = _employeeService.GetById(id);
+
             ViewBag.teamId = teamId;
             ViewBag.proName = _projectService.GetById(projectId).Name;
             ViewBag.empId = id;
@@ -68,9 +74,12 @@ namespace Onion.WebApp.Controllers
             dashBoardDTO.EmployeeId = id;
             ViewBag.empDTO = dashBoardDTO.EmployeeId;
 
-           
-            if ( set!=null)
+
+            if (set != null)
+            {
                 _dashBoardService.Create(dashBoardDTO, teamId);
+                ViewBag.CreateResult = "Set in project is successfully created!";
+            }
 
             //return Redirect("~/Employee/Show");
 
@@ -88,6 +97,6 @@ namespace Onion.WebApp.Controllers
             //    return View();
             //}
         }
-       
+
     }
 }

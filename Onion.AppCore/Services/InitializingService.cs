@@ -11,10 +11,15 @@ namespace Onion.AppCore.Services
     public class InitializingService : IInitializing
     {
         private readonly IGenericRepository<Role> _roleRepository;
+        private readonly IGenericRepository<Condition> _conditionRepository;
+        private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
 
-        public InitializingService(IGenericRepository<Role> roleRepository)
+        public InitializingService(IGenericRepository<Role> roleRepository, IGenericRepository<Condition> conditionRepository,
+            IGenericRepository<ReviewStage> reviewStageRepository)
         {
             _roleRepository = roleRepository;
+            _conditionRepository = conditionRepository;
+            _reviewStageRepository = reviewStageRepository;
         }
 
 
@@ -26,21 +31,21 @@ namespace Onion.AppCore.Services
                 _roleRepository.Create(new Role()
                 {
                     Name = Enums.Roles.ProjectManager.ToString(),
-                    AccessLevel = Enums.AccessLevel.High.ToString(),
+                    AccessLevel = Enums.AccessLevels.High.ToString(),
                     CreateDate = DateTime.Now
                 });
 
                 _roleRepository.Create(new Role()
                 {
                     Name = Enums.Roles.Employee.ToString(),
-                    AccessLevel = Enums.AccessLevel.Medium.ToString(),
+                    AccessLevel = Enums.AccessLevels.Medium.ToString(),
                     CreateDate = DateTime.Now
                 });
 
                 _roleRepository.Create(new Role()
                 {
                     Name = Enums.Roles.Customer.ToString(),
-                    AccessLevel = Enums.AccessLevel.Low.ToString(),
+                    AccessLevel = Enums.AccessLevels.Low.ToString(),
                     CreateDate = DateTime.Now
                 });
             }
@@ -51,7 +56,73 @@ namespace Onion.AppCore.Services
             
         }
 
+        public void InitializeConditions()
+        {
+            if (!_conditionRepository.GetList().Any())
+            {
+                _conditionRepository.Create(new Condition()
+                {
+                    Name = Enums.Conditions.Completed.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _conditionRepository.Create(new Condition()
+                {
+                    Name = Enums.Conditions.ForConsideration.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _conditionRepository.Create(new Condition()
+                {
+                    Name = Enums.Conditions.ForImplementation.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _conditionRepository.Create(new Condition()
+                {
+                    Name = Enums.Conditions.InProgress.ToString(),
+                    CreateDate = DateTime.Now
+                });
+            }
+        }
+
+        public void InitializeReviewStages()
+        {
+            if (!_reviewStageRepository.GetList().Any())
+            {
+                _reviewStageRepository.Create(new ReviewStage()
+                {
+                    Name = Enums.ReviewStages.Accepted.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _reviewStageRepository.Create(new ReviewStage()
+                {
+                    Name = Enums.ReviewStages.ForConsideration.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _reviewStageRepository.Create(new ReviewStage()
+                {
+                    Name = Enums.ReviewStages.ForRevision.ToString(),
+                    CreateDate = DateTime.Now
+                });
+
+                _reviewStageRepository.Create(new ReviewStage()
+                {
+                    Name = Enums.ReviewStages.None.ToString(),
+                    CreateDate = DateTime.Now
+                });
+            }
+        }
 
 
+
+        public void Initialize()
+        {
+            InitializeRoles();
+            InitializeConditions();
+            InitializeReviewStages();
+        }
     }
 }

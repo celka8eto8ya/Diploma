@@ -6,7 +6,7 @@ namespace Onion.AppCore.Interfaces
 {
     public interface IProject
     {
-        IEnumerable<Project> GetList(); 
+        IEnumerable<FullProjectDTO> GetList(); 
         ProjectDTO GetById(int id); 
         void Create(ProjectDTO projectDTO); 
         void Update(ProjectDTO projectDTO); 

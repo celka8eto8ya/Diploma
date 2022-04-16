@@ -230,3 +230,7 @@ input[type="checkbox"].input-validation-error {
         text-shadow: 0 0 7px #fff, 0 0 12px #d9fff9, 0 0 45px #82a2fb, 0 0 55px #82a2fb, 0 0 70px #82a2fb, 0 0 80px #82a2fb;
     }
 }
+
+.ForTable {
+    margin:0px auto;
+}

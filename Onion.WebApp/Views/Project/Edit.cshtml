@@ -9,7 +9,6 @@
     </div>
     <input type="text" name="Id" asp-for="Id" hidden />
     <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
-    <input type="text" name="EmployeeAmount" asp-for="EmployeeAmount" hidden />
 
 
     <div class="container col-5 justify-content-center mt-3 ">
@@ -23,6 +22,58 @@
             <div class="col-9">
                 <input type="text" name="Name" class="form-control" asp-for="Name" />
                 <span asp-validation-for="Name" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row  mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ConditionId">Condition:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="ConditionId">
+                    @{
+
+                        foreach (var condition in ViewBag.Conditions)
+                        {
+                            if (condition.Id == Model.ConditionId)
+                            {
+                                <option class="form-control" selected value="@condition.Id">@condition.Name</option>
+                            }
+                            else
+                            {
+                                <option class="form-control"  value="@condition.Id">@condition.Name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ConditionId" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row  mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ReviewStageId">Review Stage:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="ReviewStageId">
+                    @{
+
+                        foreach (var reviewStage in ViewBag.ReviewStages)
+                        {
+                            if (reviewStage.Id == Model.ReviewStageId)
+                            {
+                                <option class="form-control" selected value="@reviewStage.Id">@reviewStage.Name</option>
+                            }
+                            else
+                            {
+                                <option class="form-control" value="@reviewStage.Id"> @reviewStage.Name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ReviewStageId" class="col-8"></span>
             </div>
         </div>
 
@@ -73,11 +124,11 @@
 
         <div class="row mt-1 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Instruction">Instruction:</label>
+                <label class="form-label" asp-for="Description">Description:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Instruction" class="form-control" asp-for="Instruction" />
-                <span asp-validation-for="Instruction" class="col-8"></span>
+                <input type="text" name="Description" class="form-control" asp-for="Description" />
+                <span asp-validation-for="Description" class="col-8"></span>
             </div>
         </div>
 

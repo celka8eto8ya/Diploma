@@ -7,25 +7,31 @@ namespace Onion.WebApp.Controllers
     public class ProjectController : Controller
     {
         private readonly IProject _projectService;
+        private readonly ICondition _conditionService;
+        private readonly IReviewStage _reviewStageService;
 
-        public ProjectController(IProject projectService)
+        public ProjectController(IProject projectService, ICondition conditionService, IReviewStage reviewStageService)
         {
             _projectService = projectService;
+            _conditionService = conditionService;
+            _reviewStageService = reviewStageService;
+
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
             return View(_projectService.GetList());
         }
 
 
         [HttpGet]
         public IActionResult Create()
-        {
-            return View();
-        }
+            => View();
+
 
 
         //[ValidateAntiForgeryToken]
@@ -47,14 +53,15 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
             return View(_projectService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, ProjectDTO projectDTO)
+        public IActionResult Edit(ProjectDTO projectDTO)
         {
-            //ViewBag.ProjCurId = id;
             _projectService.Update(projectDTO);
             return Redirect("~/Project/Show");
         }

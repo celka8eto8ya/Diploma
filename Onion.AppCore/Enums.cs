@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Onion.AppCore
+﻿namespace Onion.AppCore
 {
     public class Enums
     {
@@ -12,11 +8,27 @@ namespace Onion.AppCore
             Employee,
             Customer
         }
-       public enum  AccessLevel
+       public enum  AccessLevels
         {
             Low,
             Medium, 
             High
+        }
+
+        public enum Conditions
+        {
+            Completed,
+            ForImplementation, 
+            InProgress, 
+            ForConsideration
+        }
+
+        public enum ReviewStages
+        {
+            Accepted, 
+            ForRevision, 
+            ForConsideration, 
+            None
         }
     }
 }

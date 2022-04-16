@@ -2,10 +2,10 @@
 
 namespace Onion.AppCore.Entities
 {
-    public class Condition
+    public class ReviewStage
     {
         public int Id { get; set; }
-        // Завершен, к реализации, выполняется, к рассмотрению
+        // принято, на доработку, к рассмотрению, none
         public string Name { get; set; }
         public DateTime CreateDate { get; set; }
     }

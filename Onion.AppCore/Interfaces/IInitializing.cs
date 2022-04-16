@@ -4,5 +4,8 @@
     {
         void InitializeRoles();
         void InitializeEmployee();
+        void InitializeConditions();
+        void InitializeReviewStages();
+        void Initialize();
     }
 }

@@ -11,9 +11,11 @@
 
     <div class="container col-11 justify-content-center mt-3 ">
         <h2 class="text-center">Set Employee on Project:</h2>
+        <div class="container col-10 ">
+            <div class="InputSuccess">@ViewBag.CreateResult</div>
+        </div>
 
-
-        <label class="form-label">  ViewBag.empDTO=@ViewBag.empDTO, proId=@ViewBag.proId, teamId=@ViewBag.teamId,  empId=@ViewBag.empId, filter=@ViewBag.filter, set=@ViewBag.set</label>
+        @*<label class="form-label">  ViewBag.empDTO=@ViewBag.empDTO, proId=@ViewBag.proId, teamId=@ViewBag.teamId,  empId=@ViewBag.empId, filter=@ViewBag.filter, set=@ViewBag.set</label>
 
         <div class="col-2 justify-content-start">
             <label class="form-label">Departments:</label>
@@ -22,15 +24,15 @@
                 <option value="2">Высшее - Магистр</option>
                 <option value="3">Кандидат Наук</option>
             </select>
-        </div>
+        </div>*@
 
         <div class="row  mt-4 justify-content-start">
 
             <input type="text" name="EmployeeId" asp-for="EmployeeId" value="@ViewBag.Employee.Id" hidden />
 
             <div class="col-3  justify-content-start">
-                <label class="form-label" >Employee:</label>
-                <input type="text"  class="form-control" readonly  value="@ViewBag.Employee.FullName" />
+                <label class="form-label">Employee:</label>
+                <input type="text" class="form-control" readonly value="@ViewBag.Employee.FullName" />
             </div>
 
             <div class="col-2  justify-content-start">
