@@ -27,7 +27,7 @@ namespace Onion.AppCore.DTO
         public string Level { get; set; }
 
 
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public int RoleId { get; set; }
         public int? TeamId { get; set; }
     }

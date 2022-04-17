@@ -30,27 +30,27 @@
     <script src="~/lib/fullCalender-scheduler/main.js"></script>
     @*<script>
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                timeZone: 'UTC',
-                initialView: 'resourceTimelineDay',
-                aspectRatio: 1.5,
-                headerToolbar: {
-                    left: 'prev,next',
-                    center: 'title',
-                    right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth'
-                },
-                editable: true,
-                resourceAreaHeaderContent: 'Rooms',
-                resources: 'https://fullcalendar.io/api/demo-feeds/resources.json?with-nesting&with-colors',
-                resources: '../',
-                events: 'https://fullcalendar.io/api/demo-feeds/events.json?single-day&for-resource-timeline'
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    timeZone: 'UTC',
+                    initialView: 'resourceTimelineDay',
+                    aspectRatio: 1.5,
+                    headerToolbar: {
+                        left: 'prev,next',
+                        center: 'title',
+                        right: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth'
+                    },
+                    editable: true,
+                    resourceAreaHeaderContent: 'Rooms',
+                    resources: 'https://fullcalendar.io/api/demo-feeds/resources.json?with-nesting&with-colors',
+                    resources: '../',
+                    events: 'https://fullcalendar.io/api/demo-feeds/events.json?single-day&for-resource-timeline'
+                });
+                calendar.render();
             });
-            calendar.render();
-        });
-    </script>*@
-   
+        </script>*@
+
 
 
 </head>
@@ -61,65 +61,94 @@
                 <div class="row col-3">
                     <a class="navbar-brand Logo neonText" asp-controller="Project" asp-action="Show">Project Manager</a>
                 </div>
+                @if (@User.Identity.IsAuthenticated)
+                {
+                    <div class="row col-6 justify-content-between mr-4">
+                        <div class="dropdown">
+                            <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                Projects
+                            </a>
 
-                <div class="row col-6 justify-content-between mr-4">
-                    <div class="dropdown">
-                        <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                            Projects
+                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
+                                <li><a class="dropdown-item" href="#">Steps</a></li>
+                                <li><a class="dropdown-item" href="#">Tasks</a></li>
+                                <li><a class="dropdown-item" href="#">SubTasks</a></li>
+                                <li><a class="dropdown-item" href="#">Conditions</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="dropdown">
+                            <a class="btn  dropdown-toggle HeaderItem" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                Teams
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
+                                <li><a class="dropdown-item" href="~/Department/Show">Departments</a></li>
+                                <li><a class="dropdown-item" href="~/Employee/Show">Employees</a></li>
+                                <li><a class="dropdown-item" href="~/Role/Show">Roles</a></li>
+                                <li><a class="dropdown-item" href="~/DepartmentType/Show">DepartmentTypes</a></li>
+
+                            </ul>
+                        </div>
+
+
+                        <a class="btn  HeaderItem" href="#" role="button">
+                            Customers
+                        </a>
+                        <a class="btn HeaderItem HeaderItem" href="#" role="button">
+                            Effect.
                         </a>
 
-                        <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
-                            <li><a class="dropdown-item" href="#">Steps</a></li>
-                            <li><a class="dropdown-item" href="#">Tasks</a></li>
-                            <li><a class="dropdown-item" href="#">SubTasks</a></li>
-                            <li><a class="dropdown-item" href="#">Conditions</a></li>
-                        </ul>
+
+                        <div class="dropdown">
+                            <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                Other
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/DashBoard/Show">DashBoard</a></li>
+                                <li><a class="dropdown-item" href="#">Operations</a></li>
+                                <li><a class="dropdown-item" href="#">Notifications</a></li>
+                                <li><a class="dropdown-item" href="#">Documents</a></li>
+                            </ul>
+                        </div>
+
                     </div>
 
+                    <div class="row">
 
-                    <div class="dropdown">
-                        <a class="btn  dropdown-toggle HeaderItem" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                            Teams
-                        </a>
+                        <div class="dropdown">
+                            <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-bounding-box" viewBox="0 0 16 20">
+                                    <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5z"></path>
+                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                                </svg>
+                                @User.Identity.Name
+                            </a>
 
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
-                            <li><a class="dropdown-item" href="~/Department/Show">Departments</a></li>
-                            <li><a class="dropdown-item" href="~/Employee/Show">Employees</a></li>
-                            <li><a class="dropdown-item" href="~/Role/Show">Roles</a></li>
-                            <li><a class="dropdown-item" href="~/DepartmentType/Show">DepartmentTypes</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <li><a class="dropdown-item" href="~/Employee/LogOut">Log Out</a></li>
+                            </ul>
+                        </div>
 
-                        </ul>
                     </div>
-
-
-                    <a class="btn  HeaderItem" href="#" role="button">
-                        Customers
-                    </a>
-                    <a class="btn HeaderItem HeaderItem" href="#" role="button">
-                        Effect.
-                    </a>
-
-
-                    <div class="dropdown">
-                        <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                            Other
-                        </a>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="~/DashBoard/Show">DashBoard</a></li>
-                            <li><a class="dropdown-item" href="#">Operations</a></li>
-                            <li><a class="dropdown-item" href="#">Notifications</a></li>
-                            <li><a class="dropdown-item" href="#">Documents</a></li>
-                        </ul>
-                    </div>
-                </div>
+                    @if (@User.IsInRole("Admin"))
+                    {<p class="dropdown-item">Admin</p>}
+                    @if (@User.IsInRole("Employee"))
+                    {<p class="dropdown-item">Employee</p>}
+                    @if (@User.IsInRole("Customer"))
+                    {<p class="dropdown-item">Customer</p>}
+                    @if (@User.IsInRole("ProjectManager"))
+                    {<p class="dropdown-item">PM</p>}
+                }
             </div>
         </nav>
     </header>
     <div class=" mainSize">
-        <!--<main role="main" class="pb-3">-->@*  *@
+        <!--<main role = "main" class="pb-3">-->@*  *@
         @RenderBody()
         @*</main>*@
     </div>

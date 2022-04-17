@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Onion.AppCore
+{
+    public static class BankData
+    {
+        public static string AdminFullName = "Admin (Setting)";
+        public static string AdminLogin = "Admin@bk.ru";
+        public static string AdminPassword = "Admin2000";
+
+    }
+}

@@ -19,7 +19,7 @@ namespace Onion.AppCore.Entities
         public string Level { get; set; }
 
 
-        public int DepartmentId { get; set; } // foreign key
+        public int? DepartmentId { get; set; } // foreign key
         public Department Department { get; set; } // navigation property
         public int? TeamId { get; set; } // foreign key
         public Team Team { get; set; } // navigation property

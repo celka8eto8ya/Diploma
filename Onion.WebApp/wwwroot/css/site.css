@@ -66,7 +66,7 @@ body {
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; 
+    line-height: 60px;
 }
 
 .navbar_font {
@@ -105,6 +105,7 @@ body {
     text-decoration: none;
     color: #ba54b7;
 }
+
     .icons:hover::after {
         content: attr(data-title); /* Выводим текст */
         position: absolute; /* Абсолютное позиционирование */
@@ -116,7 +117,7 @@ body {
         font-size: 12px; /* Размер текста подсказки */
         padding: 5px 10px; /* Поля */
         border: 1px solid #333; /* Параметры рамки */
-        border-radius:5px;
+        border-radius: 5px;
     }
 
 .field-validation-error {
@@ -193,7 +194,6 @@ input[type="checkbox"].input-validation-error {
 .HeaderItem:hover {
     background-color: #1e25ff;
     color: #FFF;
-   
 }
 
 .Logo {
@@ -232,5 +232,6 @@ input[type="checkbox"].input-validation-error {
 }
 
 .ForTable {
-    margin:0px auto;
+    margin: 0px auto;
 }
+

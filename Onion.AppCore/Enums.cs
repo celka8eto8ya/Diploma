@@ -6,13 +6,15 @@
         {
             ProjectManager,
             Employee,
-            Customer
+            Customer,
+            Admin
         }
        public enum  AccessLevels
         {
             Low,
             Medium, 
-            High
+            High,
+            Setting
         }
 
         public enum Conditions

@@ -1,8 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
@@ -106,5 +111,59 @@ namespace Onion.WebApp.Controllers
             return Redirect("~/Employee/Show");
         }
 
+
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(AuthenticationDTO authenticationDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_employeeService.IsLogin(authenticationDTO))
+                {
+                    await Authenticate(authenticationDTO.Email); // аутентификация
+                    return RedirectToAction("Show", "Project");
+                }
+                ModelState.AddModelError("", "This User doesn't exist !");
+            }
+            else
+                ModelState.AddModelError("", "Problem with entered data !");
+
+            return View();
+        }
+
+
+
+        private async Task Authenticate(string userName)
+        {
+            //var user = UserServ.UserList().SingleOrDefault(user => user.Email == userName);
+            //if (user.Available == true)
+            //{
+                //string role = user.Privileges == true ? "Admin" : "User";
+                // создаем один claim
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, userName),
+                    new Claim(ClaimTypes.Role,_employeeService.CheckRole(userName))//установка роли
+                };
+                // создаем объект ClaimsIdentity
+                ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+                // установка аутентификационных куки
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            //}
+            //else { LogOut(); }
+        }
+
+        public ActionResult LogOut()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "Employee");
+        }
     }
 }

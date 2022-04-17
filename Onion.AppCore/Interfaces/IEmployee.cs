@@ -12,5 +12,7 @@ namespace Onion.AppCore.Interfaces
         void Update(EmployeeDTO employeeDTO);
         EmployeeDTO GetById(int id);
         bool IsUniqueEmployee(EmployeeDTO employeeDTO);
+        bool IsLogin(AuthenticationDTO authenticationDTO);
+        string CheckRole(string email);
     }
 }

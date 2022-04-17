@@ -14,13 +14,16 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Employee> _employeeRepository;
         private readonly IGenericRepository<Authentication> _authenticationRepository;
         private readonly IGenericRepository<PersonalFile> _personalFileRepository;
+        private readonly IGenericRepository<Role> _roleRepository;
+
         public EmployeeService(IGenericRepository<Employee> employeeRepository,
             IGenericRepository<Authentication> authenticationRepository,
-            IGenericRepository<PersonalFile> personalFileRepository)
+            IGenericRepository<PersonalFile> personalFileRepository, IGenericRepository<Role> roleRepository)
         {
             _employeeRepository = employeeRepository;
             _authenticationRepository = authenticationRepository;
             _personalFileRepository = personalFileRepository;
+            _roleRepository = roleRepository;
         }
 
         public IEnumerable<EmployeeDTO> GetList()
@@ -69,7 +72,7 @@ namespace Onion.AppCore.Services
 
         public void Create(FullEmployeeDTO fullEmployeeDTO)
         {
-           Employee employee = _employeeRepository.CreateEntity(new Employee()
+            Employee employee = _employeeRepository.CreateEntity(new Employee()
             {
                 FullName = fullEmployeeDTO.EmployeeDTO.FullName,
                 CreateDate = DateTime.Now,
@@ -134,6 +137,17 @@ namespace Onion.AppCore.Services
                 TeamId = employee.TeamId
             };
         }
+
+
+
+        public bool IsLogin(AuthenticationDTO authenticationDTO)
+            => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email && x.Password == CalculateMD5Hash(authenticationDTO.Password));
+
+        public string CheckRole(string email)
+            => _roleRepository.GetById(
+                _employeeRepository.GetById(
+                    _authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).RoleId).Name;
+
 
     }
 }
