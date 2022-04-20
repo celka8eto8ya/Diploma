@@ -63,59 +63,115 @@
                 </div>
                 @if (@User.Identity.IsAuthenticated)
                 {
-                    <div class="row col-6 justify-content-between mr-4">
-                        <div class="dropdown">
-                            <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                Projects
+                    <div class="row col-7 justify-content-center">
+
+                        @if (@User.IsInRole("Admin"))
+                        {
+                            <div class="dropdown">
+                                <a class="btn  dropdown-toggle HeaderItem" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Employees
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/Employee/Show">Employees</a></li>
+                                    <li><a class="dropdown-item" href="~/Department/Show">Departments</a></li>
+                                    <li><a class="dropdown-item" href="~/DepartmentType/Show">DepartmentTypes</a></li>
+                                </ul>
+                            </div>
+
+                            <a class="btn  HeaderItem ml-3" href="~/Customer/Show" role="button">
+                                Customers
+                            </a>
+                        }
+
+                        @if (@User.IsInRole("Employee"))
+                        {
+                            <div class="dropdown">
+                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Projects
+                                </a>
+
+                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
+                                    <li><a class="dropdown-item" href="#">Tasks</a></li>
+                                    <li><a class="dropdown-item" href="#">SubTasks</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="dropdown ml-3">
+                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Other
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/DashBoard/Show">DashBoard</a></li>
+                                    <li><a class="dropdown-item" href="#">Notifications</a></li>
+                                    <li><a class="dropdown-item" href="#">Documents</a></li>
+                                </ul>
+                            </div>
+                        }
+
+
+                        @if (@User.IsInRole("Customer"))
+                        {
+                            <div class="dropdown">
+                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Projects
+                                </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
+                                    <li><a class="dropdown-item" href="#">Steps</a></li>
+                                </ul>
+                            </div>
+
+                            <a class="btn HeaderItem HeaderItem ml-3" href="#" role="button">
+                                Effect.
+                            </a>
+                        }
+
+
+                        @if (@User.IsInRole("ProjectManager"))
+                        {
+                            <div class="dropdown">
+                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Projects
+                                </a>
+
+                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
+                                    <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
+                                    <li><a class="dropdown-item" href="#">Steps</a></li>
+                                    <li><a class="dropdown-item" href="#">Tasks</a></li>
+                                    <li><a class="dropdown-item" href="#">SubTasks</a></li>
+                                </ul>
+                            </div>
+
+                            <a class="btn  HeaderItem ml-3" href="~/Employee/Show" role="button">
+                                Employees
                             </a>
 
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
-                                <li><a class="dropdown-item" href="#">Steps</a></li>
-                                <li><a class="dropdown-item" href="#">Tasks</a></li>
-                                <li><a class="dropdown-item" href="#">SubTasks</a></li>
-                                <li><a class="dropdown-item" href="#">Conditions</a></li>
-                            </ul>
-                        </div>
-
-
-                        <div class="dropdown">
-                            <a class="btn  dropdown-toggle HeaderItem" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                Teams
+                            <a class="btn  HeaderItem ml-3" href="~/Customer/Show" role="button">
+                                Customers
                             </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
-                                <li><a class="dropdown-item" href="~/Department/Show">Departments</a></li>
-                                <li><a class="dropdown-item" href="~/Employee/Show">Employees</a></li>
-                                <li><a class="dropdown-item" href="~/Role/Show">Roles</a></li>
-                                <li><a class="dropdown-item" href="~/DepartmentType/Show">DepartmentTypes</a></li>
-
-                            </ul>
-                        </div>
-
-
-                        <a class="btn  HeaderItem" href="#" role="button">
-                            Customers
-                        </a>
-                        <a class="btn HeaderItem HeaderItem" href="#" role="button">
-                            Effect.
-                        </a>
-
-
-                        <div class="dropdown">
-                            <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                Other
+                            <a class="btn HeaderItem HeaderItem ml-3" href="#" role="button">
+                                Effect.
                             </a>
 
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <li><a class="dropdown-item" href="~/DashBoard/Show">DashBoard</a></li>
-                                <li><a class="dropdown-item" href="#">Operations</a></li>
-                                <li><a class="dropdown-item" href="#">Notifications</a></li>
-                                <li><a class="dropdown-item" href="#">Documents</a></li>
-                            </ul>
-                        </div>
+                            <div class="dropdown ml-3">
+                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
+                                    Other
+                                </a>
 
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="~/DashBoard/Show">DashBoard</a></li>
+                                    <li><a class="dropdown-item" href="#">Operations</a></li>
+                                    <li><a class="dropdown-item" href="#">Notifications</a></li>
+                                    <li><a class="dropdown-item" href="#">Documents</a></li>
+                                </ul>
+                            </div>
+                        }
                     </div>
 
                     <div class="row">
@@ -135,14 +191,14 @@
                         </div>
 
                     </div>
-                    @if (@User.IsInRole("Admin"))
+                    @*@if (@User.IsInRole("Admin"))
                     {<p class="dropdown-item">Admin</p>}
                     @if (@User.IsInRole("Employee"))
                     {<p class="dropdown-item">Employee</p>}
                     @if (@User.IsInRole("Customer"))
                     {<p class="dropdown-item">Customer</p>}
                     @if (@User.IsInRole("ProjectManager"))
-                    {<p class="dropdown-item">PM</p>}
+                    {<p class="dropdown-item">PM</p>}*@
                 }
             </div>
         </nav>

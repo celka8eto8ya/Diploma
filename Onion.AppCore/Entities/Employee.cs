@@ -9,7 +9,7 @@ namespace Onion.AppCore.Entities
         public DateTime CreateDate { get; set; }
         // Name of tech stack (frontend developer)
         public string TechStackName { get; set; }
-        // Years Amount 
+        // Month Amount 
         public double Experience { get; set; }
        // Web-developer
         public string Position { get; set; }

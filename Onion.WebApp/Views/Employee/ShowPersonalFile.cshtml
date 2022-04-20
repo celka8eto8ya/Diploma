@@ -42,7 +42,7 @@
                 <label class="form-label" asp-for="AVGProjectTime">AVG Project Time:</label>
             </div>
             <div class="col-8">
-                <input type="text" name="AVGProjectTime" class="form-control" asp-for="AVGProjectTime" readonly/>
+                <input type="text" name="AVGProjectTime" class="form-control" asp-for="AVGProjectTime" readonly />
                 <span asp-validation-for="AVGProjectTime" class="col-8" />
             </div>
         </div>
@@ -52,7 +52,7 @@
                 <label class="form-label" asp-for="SetProjectDate">Set Project Date:</label>
             </div>
             <div class="col-8">
-                <input type="text" name="SetProjectDate" class="form-control" asp-for="SetProjectDate" readonly/>
+                <input type="text" name="SetProjectDate" class="form-control" asp-for="SetProjectDate" readonly />
                 <span asp-validation-for="SetProjectDate" class="col-8" />
             </div>
         </div>
@@ -62,7 +62,7 @@
                 <label class="form-label" asp-for="SuccessTaskCompletion">Success Task Completion (%):</label>
             </div>
             <div class="col-6">
-                <input type="text" name="SuccessTaskCompletion" class="form-control" asp-for="SuccessTaskCompletion" readonly/>
+                <input type="text" name="SuccessTaskCompletion" class="form-control" asp-for="SuccessTaskCompletion" readonly />
                 <span asp-validation-for="SuccessTaskCompletion" class="col-8" />
             </div>
         </div>
@@ -92,7 +92,7 @@
                 <label class="form-label" asp-for="AVGTaskCost">AVG Task Cost:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="AVGTaskCost" class="form-control" asp-for="AVGTaskCost" readonly/>
+                <input type="text" name="AVGTaskCost" class="form-control" asp-for="AVGTaskCost" readonly />
                 <span asp-validation-for="AVGTaskCost" class="col-8" />
             </div>
         </div>
@@ -102,7 +102,7 @@
                 <label class="form-label" asp-for="AVGTaskOverdueTime">AVG Task Overdue Time:</label>
             </div>
             <div class="col-7">
-                <input type="text" name="AVGTaskOverdueTime" class="form-control" asp-for="AVGTaskOverdueTime" readonly/>
+                <input type="text" name="AVGTaskOverdueTime" class="form-control" asp-for="AVGTaskOverdueTime" readonly />
                 <span asp-validation-for="AVGTaskOverdueTime" class="col-8" />
             </div>
         </div>
@@ -122,7 +122,7 @@
                 <label class="form-label" asp-for="AVGTaskCompletionTime">AVG Task Completion Time:</label>
             </div>
             <div class="col-7">
-                <input type="text" name="AVGTaskCompletionTime" class="form-control" asp-for="AVGTaskCompletionTime" readonly/>
+                <input type="text" name="AVGTaskCompletionTime" class="form-control" asp-for="AVGTaskCompletionTime" readonly />
                 <span asp-validation-for="AVGTaskCompletionTime" class="col-8" />
             </div>
         </div>
@@ -132,10 +132,12 @@
             <div class="col-4 ">
                 <a href="~/Employee/Show" class="btn btn-primary  NewProject ">Back</a>
             </div>
-
-            <div class="col-7">
-                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
-            </div>
+            @if (!User.IsInRole("ProjectManager"))
+            {
+                <div class="col-7">
+                    <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+                </div>
+            }
         </div>
 
     </div>

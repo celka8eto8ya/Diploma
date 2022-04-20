@@ -58,7 +58,7 @@
 
                         foreach (var project in ViewBag.ProjectList)
                         {
-                            <option class="form-control" selected value="@project.Id">@project.Name</option>
+                            <option class="form-control" selected value="@project.ProjectDTO.Id">@project.ProjectDTO.Name</option>
                         }
                     }
                 </select>

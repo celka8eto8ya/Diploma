@@ -99,7 +99,10 @@ namespace Onion.AppCore.Services
         }
 
         public void Delete(int id)
-             => _employeeRepository.Delete(id);
+        {
+            _authenticationRepository.Delete(_authenticationRepository.GetList().First(x => x.EmployeeId == id).Id);
+            _employeeRepository.Delete(id);
+        }
 
         public void Update(EmployeeDTO employeeDTO)
             => _employeeRepository.Update(new Employee
@@ -146,7 +149,7 @@ namespace Onion.AppCore.Services
         public string CheckRole(string email)
             => _roleRepository.GetById(
                 _employeeRepository.GetById(
-                    _authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).RoleId).Name;
+                    (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).RoleId).Name;
 
 
     }

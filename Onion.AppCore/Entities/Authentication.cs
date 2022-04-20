@@ -7,7 +7,9 @@
         public string Password { get; set; }
 
 
-        public int EmployeeId { get; set; } // foreign key
+        public int? EmployeeId { get; set; } // foreign key
         public Employee Employee { get; set; } // navigation property
+        public int? CustomerId { get; set; } // foreign key
+        public Customer Customer { get; set; } // navigation property
     }
 }

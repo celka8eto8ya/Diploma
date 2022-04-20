@@ -17,20 +17,55 @@ namespace Onion.WebApp.Controllers
         private readonly IRole _roleService;
         private readonly IDepartment _departmentService;
         private readonly IPersonalFile _personalFileService;
+        private readonly ITeam _teamService;
 
-        public EmployeeController(IEmployee employeeService, IRole roleService, IDepartment departmentService, IPersonalFile personalFileService)
+        public EmployeeController(IEmployee employeeService,
+            IRole roleService,
+            IDepartment departmentService,
+            IPersonalFile personalFileService,
+            ITeam teamService
+            )
         {
             _employeeService = employeeService;
             _roleService = roleService;
             _departmentService = departmentService;
             _personalFileService = personalFileService;
+            _teamService = teamService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
+            ViewBag.Departments = _departmentService.GetList();
+            ViewBag.Roles = _roleService.GetList();
+            ViewBag.Teams = _teamService.GetList();
+
             return View(_employeeService.GetList());
+        }
+
+        [HttpPost]
+        public IActionResult Show(int departmentId, int roleId, int teamId)
+        {
+            ViewBag.Departments = _departmentService.GetList();
+            ViewBag.Roles = _roleService.GetList();
+            ViewBag.Teams = _teamService.GetList();
+
+            var employees = _employeeService.GetList();
+            if (departmentId > 0)
+                employees = employees.Where(x => x.DepartmentId == departmentId);
+
+            if (roleId > 0)
+                employees = employees.Where(x => x.RoleId == roleId);
+          
+            if (teamId > 0)
+                employees = employees.Where(x => x.TeamId == teamId);
+
+            ViewBag.departmentId = departmentId;
+            ViewBag.roleId = roleId;
+            ViewBag.teamId = teamId;
+
+            return View(employees);
         }
 
         [HttpGet]
@@ -68,7 +103,7 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            if (_employeeService.GetList().Any(x => x.Id == id) && id>0)
+            if (_employeeService.GetList().Any(x => x.Id == id) && id > 0)
                 return View(_employeeService.GetById(id));
             else
             {
@@ -128,7 +163,11 @@ namespace Onion.WebApp.Controllers
                 if (_employeeService.IsLogin(authenticationDTO))
                 {
                     await Authenticate(authenticationDTO.Email); // аутентификация
-                    return RedirectToAction("Show", "Project");
+
+                    if (_employeeService.CheckRole(authenticationDTO.Email) == "Admin")
+                        return RedirectToAction("Show", "Employee");
+                    else
+                        return RedirectToAction("Show", "Project");
                 }
                 ModelState.AddModelError("", "This User doesn't exist !");
             }
@@ -145,17 +184,17 @@ namespace Onion.WebApp.Controllers
             //var user = UserServ.UserList().SingleOrDefault(user => user.Email == userName);
             //if (user.Available == true)
             //{
-                //string role = user.Privileges == true ? "Admin" : "User";
-                // создаем один claim
-                var claims = new List<Claim>
+            //string role = user.Privileges == true ? "Admin" : "User";
+            // создаем один claim
+            var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, userName),
                     new Claim(ClaimTypes.Role,_employeeService.CheckRole(userName))//установка роли
                 };
-                // создаем объект ClaimsIdentity
-                ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                // установка аутентификационных куки
-                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            // установка аутентификационных куки
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
             //}
             //else { LogOut(); }
         }

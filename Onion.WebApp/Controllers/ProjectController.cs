@@ -15,7 +15,6 @@ namespace Onion.WebApp.Controllers
             _projectService = projectService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
-
         }
 
 

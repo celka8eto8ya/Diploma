@@ -21,9 +21,6 @@ namespace Onion.AppCore.DTO
         [StringLength(30, MinimumLength = 2, ErrorMessage = "Position length is [2;30] !")]
         public string Position { get; set; }
         public string Technologies { get; set; }
-      
-        [Required(ErrorMessage = "Enter Level, please !")]
-        [StringLength(30, MinimumLength = 2, ErrorMessage = "Position length is [2;30] !")]
         public string Level { get; set; }
 
 

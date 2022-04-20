@@ -16,6 +16,8 @@ namespace Onion.Infrastructure.Data
         public DbSet<PersonalFile> PersonalFiles { get; set; }
         public DbSet<DashBoard> DashBoards { get; set; }
         public DbSet<ReviewStage> ReviewStages { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
 
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
