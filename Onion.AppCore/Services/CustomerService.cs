@@ -14,18 +14,23 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Customer> _customerRepository;
         private readonly IGenericRepository<Authentication> _authenticationRepository;
         private readonly IGenericRepository<Role> _roleRepository;
+        private readonly IGenericRepository<Project> _projectRepository;
 
         public CustomerService(IGenericRepository<Customer> customerRepository,
             IGenericRepository<Authentication> authenticationRepository,
-            IGenericRepository<Role> roleRepository)
+            IGenericRepository<Role> roleRepository,
+            IGenericRepository<Project> projectRepository)
         {
             _customerRepository = customerRepository;
             _authenticationRepository = authenticationRepository;
             _roleRepository = roleRepository;
+            _projectRepository = projectRepository;
         }
 
         public IEnumerable<CustomerDTO> GetList()
-            => _customerRepository.GetList().Select(x => new CustomerDTO
+        {
+            var projects = _projectRepository.GetList();
+            return _customerRepository.GetList().Select(x => new CustomerDTO
             {
                 Id = x.Id,
                 Name = x.Name,
@@ -35,10 +40,12 @@ namespace Onion.AppCore.Services
                 UpdateDate = x.UpdateDate,
                 InvestmentAmount = x.InvestmentAmount,
                 CooperationTime = x.CooperationTime,
+
+                ProjectName = projects.First(y => y.Id == x.ProjectId).Name,
                 ProjectId = x.ProjectId,
                 RoleId = x.RoleId
             });
-
+        }
         public string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input

@@ -60,7 +60,7 @@
                 <label class="form-label" asp-for="CustomerDTO.PhoneNumber">Phone Number:</label>
             </div>
             <div class="col-9">
-                <input type="tel" name="CustomerDTO.PhoneNumber" class="form-control" asp-for="CustomerDTO.PhoneNumber" />
+                <input type="tel" name="CustomerDTO.PhoneNumber" placeholder="+375 (33) 123-45-67" minlength="9" maxlength="40" class="form-control" asp-for="CustomerDTO.PhoneNumber" />
                 <span asp-validation-for="CustomerDTO.PhoneNumber" class="col-8" />
             </div>
         </div>

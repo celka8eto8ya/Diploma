@@ -15,15 +15,19 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Authentication> _authenticationRepository;
         private readonly IGenericRepository<PersonalFile> _personalFileRepository;
         private readonly IGenericRepository<Role> _roleRepository;
+        private readonly IGenericRepository<Customer> _customerRepository;
 
         public EmployeeService(IGenericRepository<Employee> employeeRepository,
             IGenericRepository<Authentication> authenticationRepository,
-            IGenericRepository<PersonalFile> personalFileRepository, IGenericRepository<Role> roleRepository)
+            IGenericRepository<PersonalFile> personalFileRepository, 
+            IGenericRepository<Role> roleRepository,
+            IGenericRepository<Customer> customerRepository)
         {
             _employeeRepository = employeeRepository;
             _authenticationRepository = authenticationRepository;
             _personalFileRepository = personalFileRepository;
             _roleRepository = roleRepository;
+            _customerRepository = customerRepository;
         }
 
         public IEnumerable<EmployeeDTO> GetList()
@@ -143,13 +147,22 @@ namespace Onion.AppCore.Services
 
 
 
-        public bool IsLogin(AuthenticationDTO authenticationDTO)
+        public bool IsExistUser(AuthenticationDTO authenticationDTO)
             => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email && x.Password == CalculateMD5Hash(authenticationDTO.Password));
 
         public string CheckRole(string email)
-            => _roleRepository.GetById(
-                _employeeRepository.GetById(
-                    (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).RoleId).Name;
+        {
+            Authentication authentication = _authenticationRepository.GetList().First(x => x.Email == email);
+
+            if (authentication.EmployeeId != null)
+                return _roleRepository.GetById(
+                      _employeeRepository.GetById(
+                          (int)authentication.EmployeeId).RoleId).Name;
+            else
+                return _roleRepository.GetById(
+                _customerRepository.GetById(
+                    (int)authentication.CustomerId).RoleId).Name;
+        }
 
 
     }

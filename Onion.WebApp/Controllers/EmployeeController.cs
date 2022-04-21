@@ -160,7 +160,7 @@ namespace Onion.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_employeeService.IsLogin(authenticationDTO))
+                if (_employeeService.IsExistUser(authenticationDTO))
                 {
                     await Authenticate(authenticationDTO.Email); // аутентификация
 
