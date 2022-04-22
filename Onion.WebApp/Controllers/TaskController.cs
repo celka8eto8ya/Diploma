@@ -8,46 +8,44 @@ using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
-    public class StepController : Controller
+    public class TaskController : Controller
     {
         private readonly IStep _stepService;
         private readonly ICondition _conditionService;
         private readonly IReviewStage _reviewStageService;
-        private readonly IProject _projectService;
+        private readonly ITask _taskService;
 
-        public StepController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService,
-            IProject projectService)
+        public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
-            _projectService = projectService;
+            _taskService = taskService;
         }
 
 
         [HttpGet]
         public IActionResult Show(int id)
-            => View(_stepService.GetList().Where(x => x.StepDTO.ProjectId == id));
-
+            => View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
 
 
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.ProjectList = _projectService.GetList();
+            ViewBag.StepList = _stepService.GetList();
             return View();
         }
 
 
         [HttpPost]
-        public IActionResult Create(StepDTO stepDTO)
+        public IActionResult Create(TaskDTO taskDTO)
         {
-            if (!_stepService.IsUniqueStep(stepDTO))
+            if (!_taskService.IsUniqueTask(taskDTO))
             {
                 if (ModelState.IsValid)
                 {
-                    _stepService.Create(stepDTO);
-                    ViewBag.CreateResult = "Step is successfully created!";
+                    _taskService.Create(taskDTO);
+                    ViewBag.CreateResult = "Task is successfully created!";
                 }
                 else
                 {
@@ -56,9 +54,9 @@ namespace Onion.WebApp.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Step already exists!");
+                ModelState.AddModelError("", "Task already exists!");
             }
-            ViewBag.ProjectList = _projectService.GetList();
+            ViewBag.StepList = _stepService.GetList();
             return View();
         }
 
@@ -69,8 +67,8 @@ namespace Onion.WebApp.Controllers
             ViewBag.Conditions = _conditionService.GetList();
             ViewBag.ReviewStages = _reviewStageService.GetList();
 
-            if (_stepService.GetList().Any(x => x.StepDTO.Id == id) && id > 0)
-                return View(_stepService.GetById(id));
+            if (_taskService.GetList().Any(x => x.TaskDTO.Id == id) && id > 0)
+                return View(_taskService.GetById(id));
             else
             {
                 ModelState.AddModelError("", "Eror 400 - Bad Request!");
@@ -78,16 +76,23 @@ namespace Onion.WebApp.Controllers
             }
         }
 
+
         [HttpPost]
-        public IActionResult Edit(StepDTO stepDTO)
+        public IActionResult Edit(TaskDTO taskDTO)
         {
-            _stepService.Update(stepDTO);
-            return Redirect("~/Project/Show");
+            if (!_taskService.IsUniqueTask(taskDTO))
+            {
+                _taskService.Update(taskDTO);
+                return Redirect("~/Project/Show");
+            }
+            else
+                return View();
         }
+
 
         public IActionResult Delete(int id)
         {
-            _stepService.Delete(id);
+            _taskService.Delete(id);
             return Redirect("~/Project/Show");
         }
     }

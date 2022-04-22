@@ -70,6 +70,8 @@ namespace Onion.WebApp
             services.AddTransient<ICustomer, CustomerService>();
             services.AddTransient<IGenericRepository<Step>, SQLRepository<Step>>();
             services.AddTransient<IStep, StepService>();
+            services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Task>, SQLRepository<Onion.AppCore.Entities.Task>>();
+            services.AddTransient<ITask, TaskService>();
 
 
 
