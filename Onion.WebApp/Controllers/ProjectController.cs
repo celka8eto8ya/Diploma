@@ -21,8 +21,6 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Show()
         {
-            ViewBag.Conditions = _conditionService.GetList();
-            ViewBag.ReviewStages = _reviewStageService.GetList();
             return View(_projectService.GetList());
         }
 

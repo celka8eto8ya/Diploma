@@ -5,7 +5,7 @@ namespace Onion.AppCore.Interfaces
 {
     public interface IStep
     {
-        IEnumerable<StepDTO> GetList();
+        IEnumerable<FullStepDTO> GetList();
         void Create(StepDTO stepDTO);
         void Update(StepDTO stepDTO);
         void Delete(int id);

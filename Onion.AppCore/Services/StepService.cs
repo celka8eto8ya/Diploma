@@ -10,27 +10,38 @@ namespace Onion.AppCore.Services
 {
     public class StepService : IStep
     {
-        private readonly IGenericRepository<Stepp> _stepRepository;
+        private readonly IGenericRepository<Step> _stepRepository;
+        private readonly IGenericRepository<Condition> _conditionRepository;
+        private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
 
-        public StepService(IGenericRepository<Stepp> stepRepository)
+
+        public StepService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
+            IGenericRepository<ReviewStage> reviewStageRepository)
         {
             _stepRepository = stepRepository;
+            _conditionRepository = conditionRepository;
+            _reviewStageRepository = reviewStageRepository;
         }
 
-        public IEnumerable<StepDTO> GetList()
-            => _stepRepository.GetList().Select(x => new StepDTO
+        public IEnumerable<FullStepDTO> GetList()
+            => _stepRepository.GetList().Select(x => new FullStepDTO()
             {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                TechStack = x.TechStack,
-                TaskAmount = x.TaskAmount,
-                PercentCompletionTasks = x.PercentCompletionTasks,
-                AmountCompletionTasks = x.AmountCompletionTasks,
+                StepDTO = new StepDTO()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    TechStack = x.TechStack,
+                    TaskAmount = x.TaskAmount,
+                    PercentCompletionTasks = x.PercentCompletionTasks,
+                    AmountCompletionTasks = x.AmountCompletionTasks,
 
-                ProjectId = x.ProjectId,
-                ConditionId = x.ConditionId,
-                ReviewStageId = x.ReviewStageId
+                    ProjectId = x.ProjectId,
+                    ConditionId = x.ConditionId,
+                    ReviewStageId = x.ReviewStageId
+                },
+                ConditionName = _conditionRepository.GetById((int)x.ConditionId).Name,
+                ReviewStageName = _reviewStageRepository.GetById((int)x.ReviewStageId).Name
             });
 
 
@@ -39,7 +50,7 @@ namespace Onion.AppCore.Services
 
 
         public void Create(StepDTO stepDTO)
-           => _stepRepository.Create(new Stepp()
+           => _stepRepository.Create(new Step()
            {
                Name = stepDTO.Name,
                Description = stepDTO.Description,
@@ -49,8 +60,8 @@ namespace Onion.AppCore.Services
                AmountCompletionTasks = 0,
 
                ProjectId = stepDTO.ProjectId,
-               ConditionId = stepDTO.ConditionId,
-               ReviewStageId = stepDTO.ReviewStageId
+               ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForImplementation.ToString()).Id,
+               ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.None.ToString()).Id
            });
 
         public void Delete(int id)
@@ -58,7 +69,7 @@ namespace Onion.AppCore.Services
 
 
         public void Update(StepDTO stepDTO)
-            => _stepRepository.Update(new Stepp
+            => _stepRepository.Update(new Step
             {
                 Id = stepDTO.Id,
                 Name = stepDTO.Name,
@@ -76,7 +87,7 @@ namespace Onion.AppCore.Services
 
         public StepDTO GetById(int id)
         {
-            Stepp step = _stepRepository.GetById(id);
+            Step step = _stepRepository.GetById(id);
             return new StepDTO()
             {
                 Id = step.Id,

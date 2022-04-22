@@ -12,8 +12,8 @@ namespace Onion.AppCore.DTO
         public int AmountCompletionTasks { get; set; }
 
 
-        public int ProjectId { get; set; } // foreign key
-        public int ConditionId { get; set; } // foreign key
-        public int ReviewStageId { get; set; } // foreign key
+        public int? ProjectId { get; set; } // foreign key
+        public int? ConditionId { get; set; } // foreign key
+        public int? ReviewStageId { get; set; } // foreign key
     }
 }

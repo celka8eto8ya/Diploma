@@ -68,6 +68,8 @@ namespace Onion.WebApp
             services.AddTransient<IReviewStage, ReviewStageService>();
             services.AddTransient<IGenericRepository<Customer>, SQLRepository<Customer>>();
             services.AddTransient<ICustomer, CustomerService>();
+            services.AddTransient<IGenericRepository<Step>, SQLRepository<Step>>();
+            services.AddTransient<IStep, StepService>();
 
 
 
