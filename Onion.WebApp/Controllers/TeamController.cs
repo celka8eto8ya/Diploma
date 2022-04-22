@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
+using System.Linq;
 
 namespace Onion.WebApp.Controllers
 {
@@ -15,10 +16,8 @@ namespace Onion.WebApp.Controllers
         }
 
         [HttpGet]
-        public ActionResult Show()
-        {
-            return View(_teamService.GetList());
-        }
+        public ActionResult Show(int id)
+            => View(_teamService.GetList().Where(x => x.ProjectId == id));
 
         [HttpGet]
         public ActionResult Create()
@@ -26,12 +25,12 @@ namespace Onion.WebApp.Controllers
             ViewBag.ProjectList = _projectService.GetList();
             return View();
         }
-        
+
         [HttpPost]
         public ActionResult Create(TeamDTO teamDTO)
         {
             _teamService.Create(teamDTO);
-            return Redirect("~/Team/Show");
+            return Redirect("~/Project/Show");
         }
 
         [HttpGet]
@@ -52,6 +51,6 @@ namespace Onion.WebApp.Controllers
             _teamService.Delete(id);
             return Redirect("~/Team/Show");
         }
-        
+
     }
 }

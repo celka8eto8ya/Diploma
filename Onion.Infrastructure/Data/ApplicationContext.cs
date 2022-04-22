@@ -17,6 +17,14 @@ namespace Onion.Infrastructure.Data
         public DbSet<DashBoard> DashBoards { get; set; }
         public DbSet<ReviewStage> ReviewStages { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Step> Steps { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<SubTask> SubTasks { get; set; }
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<Operation> Operations { get; set;}
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Effect> Effects { get; set; }
+
 
 
 

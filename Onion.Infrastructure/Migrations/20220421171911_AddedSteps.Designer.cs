@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onion.Infrastructure.Data;
 
 namespace Onion.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220421171911_AddedSteps")]
+    partial class AddedSteps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,85 +195,6 @@ namespace Onion.Infrastructure.Migrations
                     b.ToTable("DepartmentTypes");
                 });
 
-            modelBuilder.Entity("Onion.AppCore.Entities.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AddDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Adder")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Effect", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CalculateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("ETC")
-                        .HasColumnType("float");
-
-                    b.Property<double>("IRR")
-                        .HasColumnType("float");
-
-                    b.Property<double>("NPV")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PCT_A")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PCT_T")
-                        .HasColumnType("float");
-
-                    b.Property<double>("POA")
-                        .HasColumnType("float");
-
-                    b.Property<double>("POT")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("ROI")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Effects");
-                });
-
             modelBuilder.Entity("Onion.AppCore.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -318,74 +241,6 @@ namespace Onion.Infrastructure.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Notification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Topic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("Notifications");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Operation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Author")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Operations");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.PersonalFile", b =>
@@ -536,7 +391,7 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<int>("AmountCompletionTasks")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ConditionId")
+                    b.Property<int>("ConditionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -548,10 +403,10 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<double>("PercentCompletionTasks")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ProjectId")
+                    b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReviewStageId")
+                    b.Property<int>("ReviewStageId")
                         .HasColumnType("int");
 
                     b.Property<int>("TaskAmount")
@@ -569,107 +424,6 @@ namespace Onion.Infrastructure.Migrations
                     b.HasIndex("ReviewStageId");
 
                     b.ToTable("Steps");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.SubTask", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CompletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("ConditionId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ReviewStageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TaskId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConditionId");
-
-                    b.HasIndex("ReviewStageId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("SubTasks");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Task", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CompletionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Complexity")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ConditionId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Deadline")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ReviewStageId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StepId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdateDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConditionId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("ReviewStageId");
-
-                    b.HasIndex("StepId");
-
-                    b.ToTable("Tasks");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Team", b =>
@@ -760,28 +514,6 @@ namespace Onion.Infrastructure.Migrations
                     b.Navigation("DepartmentType");
                 });
 
-            modelBuilder.Entity("Onion.AppCore.Entities.Document", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Effect", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
             modelBuilder.Entity("Onion.AppCore.Entities.Employee", b =>
                 {
                     b.HasOne("Onion.AppCore.Entities.Department", "Department")
@@ -803,42 +535,6 @@ namespace Onion.Infrastructure.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Notification", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
-
-                    b.HasOne("Onion.AppCore.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Onion.AppCore.Entities.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("Project");
-
-                    b.Navigation("Task");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Operation", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.PersonalFile", b =>
@@ -875,69 +571,27 @@ namespace Onion.Infrastructure.Migrations
                 {
                     b.HasOne("Onion.AppCore.Entities.Condition", "Condition")
                         .WithMany()
-                        .HasForeignKey("ConditionId");
+                        .HasForeignKey("ConditionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Onion.AppCore.Entities.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Onion.AppCore.Entities.ReviewStage", "ReviewStage")
                         .WithMany()
-                        .HasForeignKey("ReviewStageId");
+                        .HasForeignKey("ReviewStageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Condition");
 
                     b.Navigation("Project");
 
                     b.Navigation("ReviewStage");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.SubTask", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Condition", "Condition")
-                        .WithMany()
-                        .HasForeignKey("ConditionId");
-
-                    b.HasOne("Onion.AppCore.Entities.ReviewStage", "ReviewStage")
-                        .WithMany()
-                        .HasForeignKey("ReviewStageId");
-
-                    b.HasOne("Onion.AppCore.Entities.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId");
-
-                    b.Navigation("Condition");
-
-                    b.Navigation("ReviewStage");
-
-                    b.Navigation("Task");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Task", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Condition", "Condition")
-                        .WithMany()
-                        .HasForeignKey("ConditionId");
-
-                    b.HasOne("Onion.AppCore.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
-
-                    b.HasOne("Onion.AppCore.Entities.ReviewStage", "ReviewStage")
-                        .WithMany()
-                        .HasForeignKey("ReviewStageId");
-
-                    b.HasOne("Onion.AppCore.Entities.Step", "Step")
-                        .WithMany()
-                        .HasForeignKey("StepId");
-
-                    b.Navigation("Condition");
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("ReviewStage");
-
-                    b.Navigation("Step");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Team", b =>

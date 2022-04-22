@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onion.Infrastructure.Data;
 
 namespace Onion.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220422091254_AddedNotificationEntity")]
+    partial class AddedNotificationEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -226,50 +228,6 @@ namespace Onion.Infrastructure.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Effect", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CalculateDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("ETC")
-                        .HasColumnType("float");
-
-                    b.Property<double>("IRR")
-                        .HasColumnType("float");
-
-                    b.Property<double>("NPV")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PCT_A")
-                        .HasColumnType("float");
-
-                    b.Property<double>("PCT_T")
-                        .HasColumnType("float");
-
-                    b.Property<double>("POA")
-                        .HasColumnType("float");
-
-                    b.Property<double>("POT")
-                        .HasColumnType("float");
-
-                    b.Property<int>("ProjectId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("ROI")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("Effects");
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Employee", b =>
@@ -761,17 +719,6 @@ namespace Onion.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Onion.AppCore.Entities.Document", b =>
-                {
-                    b.HasOne("Onion.AppCore.Entities.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("Onion.AppCore.Entities.Effect", b =>
                 {
                     b.HasOne("Onion.AppCore.Entities.Project", "Project")
                         .WithMany()
