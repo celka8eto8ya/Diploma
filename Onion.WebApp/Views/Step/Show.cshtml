@@ -10,10 +10,15 @@
     <div class="row rowSize ">
 
 
-        <div class="row mb-3 pl-0 col-3 justify-content-start">
-            <a href="~/Step/Create" class="btn btn-primary col ">New Step</a>
+        <div class="row mb-3 pl-0 col-10 justify-content-start">
+            @{
+                var projectId = Model.First().StepDTO.ProjectId;
+                <a asp-action="Create" asp-route-id="@projectId" asp-controller="Step" class="btn btn-primary col-4 mb-2">New Step</a>
+                @*<h2 class="text-center col-8 pl-5">Steps by Project: @ViewBag.Project.Name</h2>*@
+                <h2 class="text-center col-8 pl-5">Steps by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+            }
         </div>
-       
+
 
         <div class=" col-12 CreateProj justify-content-center">
             <table class="table table-striped table-hover @*table-sm*@ border-dark pt-4 ">

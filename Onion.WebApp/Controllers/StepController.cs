@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
@@ -27,14 +24,17 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Show(int id)
-            => View(_stepService.GetList().Where(x => x.StepDTO.ProjectId == id));
+        {
+            ViewBag.Project = _projectService.GetById(id);
+            return View(_stepService.GetList().Where(x => x.StepDTO.ProjectId == id));
+        }
 
 
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewBag.ProjectList = _projectService.GetList();
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == id);
             return View();
         }
 
@@ -42,6 +42,7 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(StepDTO stepDTO)
         {
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == stepDTO.ProjectId);
             if (!_stepService.IsUniqueStep(stepDTO))
             {
                 if (ModelState.IsValid)
@@ -58,7 +59,6 @@ namespace Onion.WebApp.Controllers
             {
                 ModelState.AddModelError("", "Step already exists!");
             }
-            ViewBag.ProjectList = _projectService.GetList();
             return View();
         }
 
@@ -68,6 +68,7 @@ namespace Onion.WebApp.Controllers
         {
             ViewBag.Conditions = _conditionService.GetList();
             ViewBag.ReviewStages = _reviewStageService.GetList();
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == _stepService.GetById(id).ProjectId);
 
             if (_stepService.GetList().Any(x => x.StepDTO.Id == id) && id > 0)
                 return View(_stepService.GetById(id));
@@ -81,14 +82,35 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(StepDTO stepDTO)
         {
-            _stepService.Update(stepDTO);
-            return Redirect("~/Project/Show");
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == stepDTO.ProjectId);
+
+            if (!_stepService.IsUniqueStep(stepDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _stepService.Update(stepDTO);
+                    ViewBag.CreateResult = "Step is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Step already exists!");
+            }
+            return View(_stepService.GetById(stepDTO.Id));
+
         }
 
         public IActionResult Delete(int id)
         {
+            int projectId = (int)_stepService.GetById(id).ProjectId;
             _stepService.Delete(id);
-            return Redirect("~/Project/Show");
+            return RedirectToAction("Show", "Step", new { id = projectId});
         }
     }
 }

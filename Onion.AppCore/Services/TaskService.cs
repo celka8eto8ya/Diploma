@@ -62,7 +62,7 @@ namespace Onion.AppCore.Services
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now,
                 CompletionDate = taskDTO.CompletionDate,
-                Cost = taskDTO.Cost,
+                Cost = 0,
                 Comment = taskDTO.Comment,
                 Complexity = taskDTO.Complexity,
 
