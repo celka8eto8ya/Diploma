@@ -86,17 +86,9 @@
 
                         @if (@User.IsInRole("Employee"))
                         {
-                            <div class="dropdown">
-                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                    Projects
-                                </a>
-
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
-                                    <li><a class="dropdown-item" href="#">Tasks</a></li>
-                                    <li><a class="dropdown-item" href="#">SubTasks</a></li>
-                                </ul>
-                            </div>
+                            <a class="btn  HeaderItem" href="~/Project/Show" role="button">
+                                Projects
+                            </a>
 
                             <div class="dropdown ml-3">
                                 <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
@@ -133,19 +125,10 @@
 
                         @if (@User.IsInRole("ProjectManager"))
                         {
-                            <div class="dropdown">
-                                <a class="btn HeaderItem dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
-                                    Projects
-                                </a>
 
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
-                                    <li><a class="dropdown-item" href="~/Project/Show">Projects</a></li>
-                                    <li><a class="dropdown-item" href="~/Team/Show">Teams</a></li>
-                                    <li><a class="dropdown-item" href="#">Steps</a></li>
-                                    <li><a class="dropdown-item" href="#">Tasks</a></li>
-                                    <li><a class="dropdown-item" href="#">SubTasks</a></li>
-                                </ul>
-                            </div>
+                            <a class="btn  HeaderItem" href="~/Project/Show" role="button">
+                                Projects
+                            </a>
 
                             <a class="btn  HeaderItem ml-3" href="~/Employee/Show" role="button">
                                 Employees
@@ -192,13 +175,13 @@
 
                     </div>
                     @*@if (@User.IsInRole("Admin"))
-                    {<p class="dropdown-item">Admin</p>}
-                    @if (@User.IsInRole("Employee"))
-                    {<p class="dropdown-item">Employee</p>}
-                    @if (@User.IsInRole("Customer"))
-                    {<p class="dropdown-item">Customer</p>}
-                    @if (@User.IsInRole("ProjectManager"))
-                    {<p class="dropdown-item">PM</p>}*@
+                        {<p class="dropdown-item">Admin</p>}
+                        @if (@User.IsInRole("Employee"))
+                        {<p class="dropdown-item">Employee</p>}
+                        @if (@User.IsInRole("Customer"))
+                        {<p class="dropdown-item">Customer</p>}
+                        @if (@User.IsInRole("ProjectManager"))
+                        {<p class="dropdown-item">PM</p>}*@
                 }
             </div>
         </nav>

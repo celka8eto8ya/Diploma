@@ -14,25 +14,34 @@ namespace Onion.WebApp.Controllers
         private readonly ICondition _conditionService;
         private readonly IReviewStage _reviewStageService;
         private readonly ITask _taskService;
+        private readonly IProject _projectService;
 
-        public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService)
+        public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService,
+             IProject projectService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _taskService = taskService;
+            _projectService = projectService;
         }
 
 
         [HttpGet]
         public IActionResult Show(int id)
-            => View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
-
+        {
+            StepDTO currentStep = _stepService.GetById(id);
+            ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
+            ViewBag.Step = currentStep;
+            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
+        }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewBag.StepList = _stepService.GetList();
+            StepDTO currentStep = _stepService.GetById(id);
+            ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
+            ViewBag.Step = currentStep;
             return View();
         }
 
@@ -40,6 +49,8 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public IActionResult Create(TaskDTO taskDTO)
         {
+            ViewBag.Step = _stepService.GetById((int)taskDTO.StepId);
+
             if (!_taskService.IsUniqueTask(taskDTO))
             {
                 if (ModelState.IsValid)
@@ -56,7 +67,6 @@ namespace Onion.WebApp.Controllers
             {
                 ModelState.AddModelError("", "Task already exists!");
             }
-            ViewBag.StepList = _stepService.GetList();
             return View();
         }
 
@@ -66,6 +76,11 @@ namespace Onion.WebApp.Controllers
         {
             ViewBag.Conditions = _conditionService.GetList();
             ViewBag.ReviewStages = _reviewStageService.GetList();
+
+            StepDTO currentStep = _stepService.GetById((int)_taskService.GetById(id).StepId);
+            ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
+            ViewBag.Step = currentStep;
+
 
             if (_taskService.GetList().Any(x => x.TaskDTO.Id == id) && id > 0)
                 return View(_taskService.GetById(id));
@@ -80,13 +95,30 @@ namespace Onion.WebApp.Controllers
         [HttpPost]
         public IActionResult Edit(TaskDTO taskDTO)
         {
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
+
+            StepDTO currentStep = _stepService.GetById((int)_taskService.GetById(taskDTO.Id).StepId);
+            ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
+            ViewBag.Step = currentStep;
+
             if (!_taskService.IsUniqueTask(taskDTO))
             {
-                _taskService.Update(taskDTO);
-                return Redirect("~/Project/Show");
+                if (ModelState.IsValid)
+                {
+                    _taskService.Update(taskDTO);
+                    ViewBag.CreateResult = "Task is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
             }
             else
-                return View();
+            {
+                ModelState.AddModelError("", "Task already exists!");
+            }
+            return View(_taskService.GetById(taskDTO.Id));
         }
 
 

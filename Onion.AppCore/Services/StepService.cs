@@ -13,14 +13,16 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Step> _stepRepository;
         private readonly IGenericRepository<Condition> _conditionRepository;
         private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
+        private readonly IGenericRepository<Task> _taskRepository;
 
 
         public StepService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
-            IGenericRepository<ReviewStage> reviewStageRepository)
+            IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository)
         {
             _stepRepository = stepRepository;
             _conditionRepository = conditionRepository;
             _reviewStageRepository = reviewStageRepository;
+            _taskRepository = taskRepository;
         }
 
         public IEnumerable<FullStepDTO> GetList()
@@ -65,7 +67,12 @@ namespace Onion.AppCore.Services
            });
 
         public void Delete(int id)
-            => _stepRepository.Delete(id);
+        {
+            if (_taskRepository.GetList().Any(x => x.StepId == id))
+                _taskRepository.GetList().Where(x => x.StepId == id).ToList().ForEach(x => _taskRepository.Delete(x.Id));
+
+            _stepRepository.Delete(id);
+        }
 
 
         public void Update(StepDTO stepDTO)
