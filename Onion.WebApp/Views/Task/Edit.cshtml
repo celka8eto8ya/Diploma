@@ -11,20 +11,26 @@
 </nav>
 
 
-<form asp-action="Edit" asp-controller="Step" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Task" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
     </div>
-    @*<input type="text" name="Id" asp-for="Id" hidden />
-    <input type="text" name="ProjectId" asp-for="ProjectId" hidden />
-    <input type="text" name="TaskAmount" asp-for="TaskAmount" hidden />
-    <input type="text" name="PercentCompletionTasks" asp-for="PercentCompletionTasks" hidden />
-    <input type="text" name="AmountCompletionTasks" asp-for="AmountCompletionTasks" hidden />
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="StepId" asp-for="StepId" hidden />
+    <input type="text" name="EmployeeId" asp-for="EmployeeId" hidden />
+    <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
+    <input type="text" name="UpdateDate" asp-for="UpdateDate" hidden />
+    <input type="text" name="CompletionDate" asp-for="CompletionDate" hidden />
+    <input type="text" name="Cost" asp-for="Cost" hidden />
 
 
     <div class="container col-5 justify-content-center mt-3 ">
-        <h2 class="text-center">Edit Step:</h2>
+        <h2 class="text-center">Edit Task:</h2>
 
 
         <div class="row mt-4 justify-content-start">
@@ -42,7 +48,6 @@
                 <label class="form-label" asp-for="ConditionId">Condition:</label>
             </div>
             <div class="col-9">
-
                 <select class="form-select form-control" aria-label="Select" asp-for="ConditionId">
                     @foreach (var condition in ViewBag.Conditions)
                     {
@@ -85,29 +90,44 @@
 
         <div class="row mt-1 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="Description">Description:</label>
+                <label class="form-label" asp-for="Deadline">Deadline:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="Description" class="form-control" asp-for="Description" />
-                <span asp-validation-for="Description" class="col-8"></span>
+                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Deadline" class="col-8"></span>
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="TechStack">Tech. Stack:</label>
+                <label class="form-label" asp-for="Comment">Comment:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="TechStack" class="form-control" asp-for="TechStack" />
-                <span asp-validation-for="TechStack" class="col-8" />
+                <input type="text" name="Comment" class="form-control" asp-for="Comment" />
+                <span asp-validation-for="Comment" class="col-8" />
             </div>
         </div>
 
-
-        <div class="row  justify-content-center mb-5">
-            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Edit">
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Complexity">Complexity:</label>
+            </div>
+            <div class="col-9">
+                <input type="number" name="Complexity" class="form-control" asp-for="Complexity" />
+                <span asp-validation-for="Complexity" class="col-8" />
+            </div>
         </div>
-    </div>*@
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a asp-action="Show" asp-route-id="@ViewBag.Step.Id" asp-controller="Task" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+            </div>
+        </div>
+
+    </div>
 </form>
 
 

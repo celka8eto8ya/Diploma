@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System;
@@ -98,7 +99,7 @@ namespace Onion.WebApp.Controllers
             ViewBag.Conditions = _conditionService.GetList();
             ViewBag.ReviewStages = _reviewStageService.GetList();
 
-            StepDTO currentStep = _stepService.GetById((int)_taskService.GetById(taskDTO.Id).StepId);
+            StepDTO currentStep = _stepService.GetById((int)taskDTO.StepId);
             ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
             ViewBag.Step = currentStep;
 
@@ -111,21 +112,27 @@ namespace Onion.WebApp.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Not correct data!");
+                    IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                    ModelState.AddModelError("", "Not correct data! " +
+                    $"{ taskDTO.Id}  { taskDTO.Name} { taskDTO.Deadline}  { taskDTO.CreateDate}   { DateTime.Now} " +
+                    $"compl={ taskDTO.CompletionDate}   { taskDTO.Cost}   { taskDTO.Comment}    {  taskDTO.Complexity} " +
+                    $"Emp={  taskDTO.EmployeeId }     task={ taskDTO.ConditionId } { taskDTO.ReviewStageId}   { taskDTO.StepId}");
+
                 }
             }
             else
             {
                 ModelState.AddModelError("", "Task already exists!");
             }
-            return View(_taskService.GetById(taskDTO.Id));
+            return View(taskDTO);
         }
 
 
         public IActionResult Delete(int id)
         {
+            int stepId = (int)_taskService.GetById(id).StepId;
             _taskService.Delete(id);
-            return Redirect("~/Project/Show");
+            return RedirectToAction("Show", "Task", new { id = stepId });
         }
     }
 }

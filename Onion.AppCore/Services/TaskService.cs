@@ -77,7 +77,12 @@ namespace Onion.AppCore.Services
         }
 
         public void Delete(int id)
-            => _taskRepository.Delete(id);
+        {
+            Step step = _stepRepository.GetById((int)_taskRepository.GetById(id).StepId);
+            step.TaskAmount--;
+            _taskRepository.Delete(id);
+            _stepRepository.Update(step);
+        }
 
 
         public void Update(TaskDTO taskDTO)
