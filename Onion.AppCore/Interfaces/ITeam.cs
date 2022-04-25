@@ -10,6 +10,7 @@ namespace Onion.AppCore.Interfaces
         void Create(TeamDTO teamDTO);
         void Update(TeamDTO teamDTO);
         void Delete(int id);
-        TeamDTO GetById(int id); 
+        TeamDTO GetById(int id);
+        bool IsUnique(TeamDTO teamDTO);
     }
 }

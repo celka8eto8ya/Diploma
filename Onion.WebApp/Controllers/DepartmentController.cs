@@ -18,9 +18,8 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Show()
-        {
-            return View(_departmentService.GetList());
-        }
+            => View(_departmentService.GetList());
+
 
         [HttpGet]
         public IActionResult Create()
@@ -29,28 +28,59 @@ namespace Onion.WebApp.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Create(DepartmentDTO departmentDTO)
         {
-            _departmentService.Create(departmentDTO);
-            return Redirect("~/Department/Show");
+            ViewBag.DepartmentTypes = _departmentTypeService.GetList();
+            if (!_departmentService.IsUnique(departmentDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _departmentService.Create(departmentDTO);
+                    ViewBag.CreateResult = "Department is successfully created!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Department already exists!");
+            }
+            return View(departmentDTO);
         }
+
 
         [HttpGet]
         public IActionResult Edit(int id)
-        {
-            return View(_departmentService.GetById(id));
-        }
+            => View(_departmentService.GetById(id));
 
 
         [HttpPost]
         public IActionResult Edit(DepartmentDTO departmentDTO)
         {
-            _departmentService.Update(departmentDTO);
-            return Redirect("~/Department/Show");
+            if (!_departmentService.IsUnique(departmentDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _departmentService.Update(departmentDTO);
+                    ViewBag.CreateResult = "Department is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Department already exists!");
+            }
+
+            return View(departmentDTO);
         }
 
-        //[HttpDelete]
         public IActionResult Delete(int id)
         {
             _departmentService.Delete(id);

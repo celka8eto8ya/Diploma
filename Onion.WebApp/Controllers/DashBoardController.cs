@@ -98,5 +98,11 @@ namespace Onion.WebApp.Controllers
             //}
         }
 
+        public IActionResult DeleteSetting(int id)
+        {
+            _dashBoardService.Delete(id);
+            return Redirect("~/Employee/Show");
+        }
+
     }
 }

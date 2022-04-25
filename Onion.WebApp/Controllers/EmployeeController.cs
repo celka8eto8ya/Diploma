@@ -18,12 +18,14 @@ namespace Onion.WebApp.Controllers
         private readonly IDepartment _departmentService;
         private readonly IPersonalFile _personalFileService;
         private readonly ITeam _teamService;
+        private readonly IDashBoard _dashBoardService;
 
         public EmployeeController(IEmployee employeeService,
             IRole roleService,
             IDepartment departmentService,
             IPersonalFile personalFileService,
-            ITeam teamService
+            ITeam teamService,
+            IDashBoard dashBoardService
             )
         {
             _employeeService = employeeService;
@@ -31,6 +33,7 @@ namespace Onion.WebApp.Controllers
             _departmentService = departmentService;
             _personalFileService = personalFileService;
             _teamService = teamService;
+            _dashBoardService = dashBoardService;
         }
 
 
@@ -96,6 +99,12 @@ namespace Onion.WebApp.Controllers
         public IActionResult Delete(int id)
         {
             _employeeService.Delete(id);
+            return Redirect("~/Employee/Show");
+        }
+
+        public IActionResult DeleteSetting(int id)
+        {
+            _dashBoardService.Delete(id);
             return Redirect("~/Employee/Show");
         }
 

@@ -105,6 +105,9 @@ namespace Onion.AppCore.Services
                 ReviewStageId = projectDTO.ReviewStageId
             });
 
+
+        public bool IsUniqueProject(ProjectDTO projectDTO)
+            => _projectRepository.GetList().Any(x => x.Name == projectDTO.Name && x.Id != projectDTO.Id);
     }
 
 }

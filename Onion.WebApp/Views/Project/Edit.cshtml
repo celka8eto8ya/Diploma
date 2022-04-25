@@ -7,6 +7,10 @@
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
     </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
     <input type="text" name="Id" asp-for="Id" hidden />
     <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
 
@@ -42,7 +46,7 @@
                             }
                             else
                             {
-                                <option class="form-control"  value="@condition.Id">@condition.Name</option>
+                                <option class="form-control" value="@condition.Id">@condition.Name</option>
                             }
                         }
                     }

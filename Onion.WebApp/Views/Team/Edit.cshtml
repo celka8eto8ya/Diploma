@@ -2,12 +2,23 @@
 
 
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+        <li class="breadcrumb-item"><a asp-action="Show" asp-route-id="@ViewBag.Project.ProjectDTO.Id" asp-controller="Team">Teams</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Team</li>
+    </ol>
+</nav>
 
 <form asp-action="Edit" asp-controller="Team" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
     <div class="container col-10 ">
         <div class="validation" asp-validation-summary="ModelOnly"></div>
     </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
 
     <input type="text" name="Id" asp-for="Id" hidden />
     <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
@@ -50,8 +61,14 @@
         </div>
 
 
-        <div class="row  justify-content-center mb-5">
-            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Edit">
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a asp-action="Show" asp-route-id="@ViewBag.Project.ProjectDTO.Id" asp-controller="Team" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+            </div>
         </div>
     </div>
 </form>

@@ -15,35 +15,80 @@ namespace Onion.WebApp.Controllers
             _projectService = projectService;
         }
 
-        [HttpGet]
-        public ActionResult Show(int id)
-            => View(_teamService.GetList().Where(x => x.ProjectId == id));
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Show(int id)
         {
+            ViewBag.Project = _projectService.GetById(id);
+            return View(_teamService.GetList().Where(x => x.ProjectId == id));
+        }
+
+
+        [HttpGet]
+        public ActionResult Create(int id)
+        {
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == id);
             ViewBag.ProjectList = _projectService.GetList();
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Create(TeamDTO teamDTO)
         {
-            _teamService.Create(teamDTO);
-            return Redirect("~/Project/Show");
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == teamDTO.ProjectId);
+
+            if (!_teamService.IsUnique(teamDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _teamService.Create(teamDTO);
+                    ViewBag.CreateResult = "Team is successfully created!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Team already exists!");
+            }
+
+            return View();
         }
+
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == _teamService.GetById(id).ProjectId);
             return View(_teamService.GetById(id));
         }
+
 
         [HttpPost]
         public IActionResult Edit(TeamDTO teamDTO)
         {
-            _teamService.Update(teamDTO);
-            return Redirect("~/Team/Show");
+            ViewBag.Project = _projectService.GetList().First(x => x.ProjectDTO.Id == teamDTO.ProjectId);
+            if (!_teamService.IsUnique(teamDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _teamService.Update(teamDTO);
+                    ViewBag.CreateResult = "Team is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Team already exists!");
+            }
+
+            return View(teamDTO);
         }
 
         public IActionResult Delete(int id)

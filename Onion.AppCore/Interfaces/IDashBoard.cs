@@ -8,5 +8,6 @@ namespace Onion.AppCore.Interfaces
         IEnumerable<DashBoardDTO> GetList();
         void Create(DashBoardDTO dashBoardDTO, int teamId);
         IEnumerable<FullDashBoardDTO> GetFullList();
+        void Delete(int id);
     }
 }

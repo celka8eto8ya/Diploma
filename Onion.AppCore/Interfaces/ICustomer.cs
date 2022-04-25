@@ -12,6 +12,8 @@ namespace Onion.AppCore.Interfaces
         CustomerDTO GetById(int id);
         bool IsUniqueCustomer(CustomerDTO customerDTO);
         bool IsUniqueFullCustomer(FullCustomerDTO fullCustomerDTO);
-        
+        int GetByEmail(string email);
+
+
     }
 }

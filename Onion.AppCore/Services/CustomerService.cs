@@ -137,5 +137,10 @@ namespace Onion.AppCore.Services
                 RoleId = customer.RoleId
             };
         }
+
+        public int GetByEmail(string email)
+                   => _customerRepository.GetById(
+                        (int)_authenticationRepository.GetList().First(x => x.Email == email).CustomerId).ProjectId;
+
     }
 }

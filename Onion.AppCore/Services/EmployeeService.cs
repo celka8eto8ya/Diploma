@@ -16,18 +16,21 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<PersonalFile> _personalFileRepository;
         private readonly IGenericRepository<Role> _roleRepository;
         private readonly IGenericRepository<Customer> _customerRepository;
+        private readonly IGenericRepository<Team> _teamRepository;
 
         public EmployeeService(IGenericRepository<Employee> employeeRepository,
             IGenericRepository<Authentication> authenticationRepository,
-            IGenericRepository<PersonalFile> personalFileRepository, 
+            IGenericRepository<PersonalFile> personalFileRepository,
             IGenericRepository<Role> roleRepository,
-            IGenericRepository<Customer> customerRepository)
+            IGenericRepository<Customer> customerRepository,
+            IGenericRepository<Team> teamRepository)
         {
             _employeeRepository = employeeRepository;
             _authenticationRepository = authenticationRepository;
             _personalFileRepository = personalFileRepository;
             _roleRepository = roleRepository;
             _customerRepository = customerRepository;
+            _teamRepository = teamRepository;
         }
 
         public IEnumerable<EmployeeDTO> GetList()
@@ -145,6 +148,11 @@ namespace Onion.AppCore.Services
             };
         }
 
+
+        public int GetByEmail(string email)
+            => _teamRepository.GetById(
+                (int)_employeeRepository.GetById(
+                    (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).TeamId).ProjectId;
 
 
         public bool IsExistUser(AuthenticationDTO authenticationDTO)

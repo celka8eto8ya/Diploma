@@ -64,5 +64,16 @@ namespace Onion.AppCore.Services
                 Project = _projectRepository.GetById(_teamRepository.GetById((int)_employeeRepository.GetById(x.EmployeeId).TeamId).ProjectId).Name
             });
 
+        public void Delete(int id)
+        {
+            Employee employee = _employeeRepository.GetById(id);
+            employee.TeamId = null;
+            _employeeRepository.Update(employee);
+
+            _dashBoardRepository.Delete(
+                _dashBoardRepository.GetList().First(x => x.EmployeeId == id).Id);
+        }
+
+
     }
 }

@@ -10,6 +10,7 @@ namespace Onion.AppCore.Interfaces
         DepartmentTypeDTO GetById(int id); 
         void Create(DepartmentTypeDTO departmnetTypeDTO); 
         void Update(DepartmentTypeDTO departmnetTypeDTO); 
-        void Delete(int id); 
+        void Delete(int id);
+        bool IsUnique(DepartmentTypeDTO departmentTypeDTO);
     }
 }

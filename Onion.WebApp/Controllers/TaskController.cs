@@ -2,10 +2,8 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
@@ -113,11 +111,7 @@ namespace Onion.WebApp.Controllers
                 else
                 {
                     IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                    ModelState.AddModelError("", "Not correct data! " +
-                    $"{ taskDTO.Id}  { taskDTO.Name} { taskDTO.Deadline}  { taskDTO.CreateDate}   { DateTime.Now} " +
-                    $"compl={ taskDTO.CompletionDate}   { taskDTO.Cost}   { taskDTO.Comment}    {  taskDTO.Complexity} " +
-                    $"Emp={  taskDTO.EmployeeId }     task={ taskDTO.ConditionId } { taskDTO.ReviewStageId}   { taskDTO.StepId}");
-
+                    ModelState.AddModelError("", "Not correct data! ");
                 }
             }
             else
