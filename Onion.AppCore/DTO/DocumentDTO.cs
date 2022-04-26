@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Onion.AppCore.Entities
+namespace Onion.AppCore.DTO
 {
-    public class Document
+    public class DocumentDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,7 +15,6 @@ namespace Onion.AppCore.Entities
 
 
 
-        public int ProjectId { get; set; } // foreign key
-        public Project Project { get; set; } // navigation property
+        public int ProjectId { get; set; } 
     }
 }
