@@ -3,6 +3,7 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -39,18 +40,26 @@ namespace Onion.AppCore.Services
 
 
         public void Create(DocumentDTO documentDTO)
-           => _documentRepository.Create(new Document()
-           {
-               Name = documentDTO.Name,
-               File = documentDTO.File,
-               Type = documentDTO.Type,
-               CreateDate = documentDTO.CreateDate,
-               AddDate = DateTime.Now,
-               Adder = documentDTO.Adder,
-               Size = documentDTO.Size,
+        {
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(documentDTO.FormFile.OpenReadStream()))
+            {
+                fileData = binaryReader.ReadBytes((int)documentDTO.FormFile.Length);
+            };
 
-               ProjectId = documentDTO.ProjectId
-           });
+            _documentRepository.Create(new Document()
+            {
+                Name = documentDTO.FormFile.FileName,
+                File = fileData,
+                Type = documentDTO.FormFile.ContentType,
+                CreateDate = documentDTO.CreateDate,
+                AddDate = DateTime.Now,
+                Adder = documentDTO.Adder,
+                Size = documentDTO.FormFile.Length*(double)decimal.Round(Convert.ToDecimal(BankData.ByteToMB),3),
+
+                ProjectId = documentDTO.ProjectId
+            });
+        }
 
         public void Delete(int id)
             => _documentRepository.Delete(id);
@@ -90,6 +99,6 @@ namespace Onion.AppCore.Services
             };
         }
 
-      
+
     }
 }

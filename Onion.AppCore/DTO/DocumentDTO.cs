@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace Onion.AppCore.DTO
 {
@@ -6,6 +7,7 @@ namespace Onion.AppCore.DTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public IFormFile FormFile { get; set; }
         public byte[] File { get; set; }
         public string Type { get; set; }
         public DateTime CreateDate { get; set; }

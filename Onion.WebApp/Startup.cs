@@ -72,6 +72,8 @@ namespace Onion.WebApp
             services.AddTransient<IStep, StepService>();
             services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Task>, SQLRepository<Onion.AppCore.Entities.Task>>();
             services.AddTransient<ITask, TaskService>();
+            services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Document>, SQLRepository<Onion.AppCore.Entities.Document>>();
+            services.AddTransient<IDocument, DocumentService>();
 
 
 
