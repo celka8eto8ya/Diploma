@@ -1,0 +1,139 @@
+﻿@model Onion.AppCore.DTO.TaskDTO
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+        <li class="breadcrumb-item"><a asp-action="Show" asp-route-id="@ViewBag.projectId" asp-controller="Step">Steps</a></li>
+        <li class="breadcrumb-item"><a asp-action="Show" asp-route-id="@ViewBag.Step.Id" asp-controller="Task">Tasks</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Edit Task</li>
+    </ol>
+</nav>
+
+
+<form asp-action="Edit" asp-controller="Task" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <input type="text" name="Id" asp-for="Id" hidden />
+    <input type="text" name="StepId" asp-for="StepId" hidden />
+    <input type="text" name="EmployeeId" asp-for="EmployeeId" hidden />
+    <input type="text" name="CreateDate" asp-for="CreateDate" hidden />
+    <input type="text" name="UpdateDate" asp-for="UpdateDate" hidden />
+    <input type="text" name="CompletionDate" asp-for="CompletionDate" hidden />
+    <input type="text" name="Cost" asp-for="Cost" hidden />
+
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Edit Task:</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Name">Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Name" class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row  mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ConditionId">Condition:</label>
+            </div>
+            <div class="col-9">
+                <select class="form-select form-control" aria-label="Select" asp-for="ConditionId">
+                    @foreach (var condition in ViewBag.Conditions)
+                    {
+                        if (condition.Id == Model.ConditionId)
+                        {
+                            <option class="form-control" selected value="@condition.Id">@condition.Name</option>
+                        }
+                        else
+                        {
+                            <option class="form-control" value="@condition.Id">@condition.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ConditionId" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row  mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="ReviewStageId">Review Stage:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="ReviewStageId">
+                    @foreach (var reviewStage in ViewBag.ReviewStages)
+                    {
+                        if (reviewStage.Id == Model.ReviewStageId)
+                        {
+                            <option class="form-control" selected value="@reviewStage.Id">@reviewStage.Name</option>
+                        }
+                        else
+                        {
+                            <option class="form-control" value="@reviewStage.Id"> @reviewStage.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ReviewStageId" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-1 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Deadline">Deadline:</label>
+            </div>
+            <div class="col-9">
+                <input type="date" name="Deadline" class="form-control" asp-for="Deadline" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Deadline" class="col-8"></span>
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Comment">Comment:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Comment" class="form-control" asp-for="Comment" />
+                <span asp-validation-for="Comment" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Complexity">Complexity:</label>
+            </div>
+            <div class="col-9">
+                <input type="number" name="Complexity" class="form-control" asp-for="Complexity" />
+                <span asp-validation-for="Complexity" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a asp-action="Show" asp-route-id="@ViewBag.Step.Id" asp-controller="Task" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Edit">
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

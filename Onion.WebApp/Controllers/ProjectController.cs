@@ -1,62 +1,106 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
+using System.Linq;
 
 namespace Onion.WebApp.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly IProject _projectService;
+        private readonly ICondition _conditionService;
+        private readonly IReviewStage _reviewStageService;
+        private readonly IEmployee _employeeService;
+        private readonly ICustomer _customerService;
 
-        public ProjectController(IProject projectService)
+        public ProjectController(IProject projectService, ICondition conditionService, IReviewStage reviewStageService,
+            IEmployee employeeService, ICustomer customerService)
         {
             _projectService = projectService;
+            _conditionService = conditionService;
+            _reviewStageService = reviewStageService;
+            _employeeService = employeeService;
+            _customerService = customerService;
         }
 
 
         [HttpGet]
         public IActionResult Show()
         {
-            return View(_projectService.GetList());
+            var projects = _projectService.GetList();
+            if (User.IsInRole("Employee"))
+                return View(projects.Where(x => x.ProjectDTO.Id == _employeeService.GetByEmail(User.Identity.Name)));
+            if (User.IsInRole("Customer"))
+                return View(projects.Where(x => x.ProjectDTO.Id == _customerService.GetByEmail(User.Identity.Name)));
+            else
+                return View(projects);
         }
 
 
         [HttpGet]
         public IActionResult Create()
-        {
-            return View();
-        }
+            => View();
+
 
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Create(ProjectDTO projectDTO)
         {
-            if (ModelState.IsValid)
+            if (!_projectService.IsUniqueProject(projectDTO))
             {
-                _projectService.Create(projectDTO);
-                ViewBag.CreateResult = "Project is successfully created!";
+                if (ModelState.IsValid)
+                {
+                    _projectService.Create(projectDTO);
+                    ViewBag.CreateResult = "Project is successfully created!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Not correct data!");
-                ViewBag.Message = "Not correct data!";
+                ModelState.AddModelError("", "Project already exists!");
             }
             return View();
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
             return View(_projectService.GetById(id));
         }
 
 
         [HttpPost]
-        public IActionResult Edit(int id, ProjectDTO projectDTO)
+        public IActionResult Edit(ProjectDTO projectDTO)
         {
-            //ViewBag.ProjCurId = id;
-            _projectService.Update(projectDTO);
-            return Redirect("~/Project/Show");
+            ViewBag.Conditions = _conditionService.GetList();
+            ViewBag.ReviewStages = _reviewStageService.GetList();
+
+            if (!_projectService.IsUniqueProject(projectDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _projectService.Update(projectDTO);
+                    ViewBag.CreateResult = "Project is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Project already exists!");
+            }
+            return View(_projectService.GetById(projectDTO.Id));
+
+
+            //_projectService.Update(projectDTO);
+            //return Redirect("~/Project/Show");
         }
 
         public IActionResult Delete(int id)

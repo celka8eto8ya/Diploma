@@ -3,6 +3,7 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Onion.AppCore.Services
 {
@@ -69,6 +70,9 @@ namespace Onion.AppCore.Services
                 Technologies = teamDTO.Technologies,
                 ProjectId = teamDTO.ProjectId
             });
+
+        public bool IsUnique(TeamDTO teamDTO)
+           => _teamRepository.GetList().Any(x => x.Name == teamDTO.Name && x.Id != teamDTO.Id);
 
     }
 }

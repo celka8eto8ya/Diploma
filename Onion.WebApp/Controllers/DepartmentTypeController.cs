@@ -7,59 +7,72 @@ namespace Onion.WebApp.Controllers
     public class DepartmentTypeController : Controller
     {
         private readonly IDepartmentType _departmentTypeService;
-      
+
         public DepartmentTypeController(IDepartmentType departmentTypeService)
-        {
-            _departmentTypeService = departmentTypeService;
-        }
+            => _departmentTypeService = departmentTypeService;
 
 
         [HttpGet]
         public IActionResult Show()
-        {
-            return View(_departmentTypeService.GetList());
-        }
+            => View(_departmentTypeService.GetList());
 
 
         [HttpGet]
         public IActionResult Create()
-        {
-            return View();
-        }
+            => View();
 
 
         [HttpPost]
         public IActionResult Create(DepartmentTypeDTO departmentTypeDTO)
         {
-            if (ModelState.IsValid)
+            if (!_departmentTypeService.IsUnique(departmentTypeDTO))
             {
-                _departmentTypeService.Create(departmentTypeDTO);
-                ViewBag.CreateResult = "Project is successfully created!";
+                if (ModelState.IsValid)
+                {
+                    _departmentTypeService.Create(departmentTypeDTO);
+                    ViewBag.CreateResult = "Department Type is successfully created!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Not correct data!");
-                ViewBag.Message = "Not correct data!";
+                ModelState.AddModelError("", "Department Type already exists!");
             }
+
             return View();
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
-        {
-            return View(_departmentTypeService.GetById(id));
-        }
+            => View(_departmentTypeService.GetById(id));
 
 
         [HttpPost]
         public IActionResult Edit(DepartmentTypeDTO departmentTypeDTO)
         {
-            //ViewBag.ProjCurId = id;
-            _departmentTypeService.Update(departmentTypeDTO);
-            return Redirect("~/DepartmentType/Show");
+            if (!_departmentTypeService.IsUnique(departmentTypeDTO))
+            {
+                if (ModelState.IsValid)
+                {
+                    _departmentTypeService.Update(departmentTypeDTO);
+                    ViewBag.CreateResult = "Department Type is successfully edited!";
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Not correct data!");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Department Type already exists!");
+            }
+
+            return View(departmentTypeDTO);
         }
 
-        //[HttpDelete]
         public IActionResult Delete(int id)
         {
             _departmentTypeService.Delete(id);

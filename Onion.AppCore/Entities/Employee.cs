@@ -9,7 +9,7 @@ namespace Onion.AppCore.Entities
         public DateTime CreateDate { get; set; }
         // Name of tech stack (frontend developer)
         public string TechStackName { get; set; }
-        // Years Amount 
+        // Month Amount 
         public double Experience { get; set; }
        // Web-developer
         public string Position { get; set; }
@@ -19,7 +19,7 @@ namespace Onion.AppCore.Entities
         public string Level { get; set; }
 
 
-        public int DepartmentId { get; set; } // foreign key
+        public int? DepartmentId { get; set; } // foreign key
         public Department Department { get; set; } // navigation property
         public int? TeamId { get; set; } // foreign key
         public Team Team { get; set; } // navigation property

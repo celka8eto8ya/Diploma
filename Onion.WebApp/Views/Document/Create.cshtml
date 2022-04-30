@@ -1,0 +1,84 @@
+﻿@model Onion.AppCore.DTO.DocumentDTO
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+        <li class="breadcrumb-item"><a  asp-action="Show" asp-route-id="@ViewBag.Project.ProjectDTO.Id" asp-controller="Document">Documents</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Create Document</li>
+    </ol>
+</nav>
+
+<form asp-action="Create" asp-controller="Document" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Create Document:</h2>
+
+
+        <div class="row mt-3 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="FormFile">Document:</label>
+            </div>
+            <div class="col-9">
+                <input type="file" name="FormFile" class="form-control" asp-for="FormFile" />
+                <span asp-validation-for="FormFile" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-3 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="CreateDate">Create Date:</label>
+            </div>
+            <div class="col-9">
+                <input type="date" name="CreateDate" class="form-control" asp-for="CreateDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="CreateDate" class="col-8" />
+            </div>
+        </div>
+
+        <input type="text" name="Adder" asp-for="Adder" value="@User.Identity.Name" hidden />
+
+        <div class="row mt-3 justify-content-start">
+            <div class="col-3">
+                <label class="form-label">Adder (Email):</label>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" readonly value="@User.Identity.Name" />
+            </div>
+        </div>
+
+        <input type="text" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.ProjectDTO.Id" hidden />
+
+        <div class="row mt-3 justify-content-start">
+            <div class="col-3">
+                <label class="form-label">For project (Name):</label>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" readonly value="@ViewBag.Project.ProjectDTO.Name" />
+            </div>
+        </div>
+
+        <div class="row mb-5 mt-4 pb-4 justify-content-center">
+            <div class="col-4 ">
+                <a asp-action="Show" asp-route-id="@ViewBag.Project.ProjectDTO.Id" asp-controller="Document" class="btn btn-primary  NewProject ">Back</a>
+            </div>
+            <div class="col-7">
+                <input class="btn btn-primary  NewProject col-7" type="submit" value="Create">
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

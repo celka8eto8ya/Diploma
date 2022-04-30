@@ -3,26 +3,48 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Onion.AppCore.Services
 {
     public class ProjectService : IProject
     {
         private readonly IGenericRepository<Project> _projectRepository;
+        private readonly IGenericRepository<Condition> _conditionRepository;
+        private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
 
-        public ProjectService(IGenericRepository<Project> projectRepository)
+        public ProjectService(IGenericRepository<Project> projectRepository, IGenericRepository<Condition> conditionRepository,
+            IGenericRepository<ReviewStage> reviewStageRepository)
         {
             _projectRepository = projectRepository;
+            _conditionRepository = conditionRepository;
+            _reviewStageRepository = reviewStageRepository;
         }
 
-        public IEnumerable<Project> GetList()
-        {
-            return _projectRepository.GetList();
-        }
+        public IEnumerable<FullProjectDTO> GetList()
+            => _projectRepository.GetList().Select(x => new FullProjectDTO()
+            {
+                ProjectDTO = new ProjectDTO()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Deadline = x.Deadline,
+                    StartDate = x.StartDate,
+                    CreateDate = x.CreateDate,
+                    UpdateDate = x.UpdateDate,
+                    TechStack = x.TechStack,
+                    Cost = x.Cost,
+                    Description = x.Description,
+                    UseArea = x.UseArea,
+                    ConditionId = x.ConditionId,
+                    ReviewStageId = x.ReviewStageId,
+                },
+                ConditionName = _conditionRepository.GetById(x.ConditionId).Name,
+                ReviewStageName = _reviewStageRepository.GetById(x.ReviewStageId).Name
+            });
 
         public void Create(ProjectDTO projectDTO)
-        {
-            Project project = new Project
+            => _projectRepository.Create(new Project()
             {
                 Name = projectDTO.Name,
                 Deadline = projectDTO.Deadline,
@@ -30,20 +52,17 @@ namespace Onion.AppCore.Services
                 CreateDate = DateTime.Now.Date,
                 UpdateDate = DateTime.Now.Date,
                 TechStack = projectDTO.TechStack,
-                EmployeeAmount = 0,
                 Cost = projectDTO.Cost,
-                // File .doc
-                Instruction = projectDTO.Instruction,
-                UseArea = projectDTO.UseArea
-            };
+                Description = projectDTO.Description,
+                UseArea = projectDTO.UseArea,
+                ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForImplementation.ToString()).Id,
+                ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.None.ToString()).Id,
+            });
 
-            _projectRepository.Create(project);
-        }
 
         public void Delete(int id)
-        {
-            _projectRepository.Delete(id);
-        }
+            => _projectRepository.Delete(id);
+
 
         public ProjectDTO GetById(int id)
         {
@@ -57,11 +76,11 @@ namespace Onion.AppCore.Services
                 CreateDate = project.CreateDate,
                 UpdateDate = project.UpdateDate,
                 TechStack = project.TechStack,
-                EmployeeAmount = project.EmployeeAmount,
                 Cost = project.Cost,
-                // File .doc
-                Instruction = project.Instruction,
-                UseArea = project.UseArea
+                Description = project.Description,
+                UseArea = project.UseArea,
+                ConditionId = project.ConditionId,
+                ReviewStageId = project.ReviewStageId
             };
 
             return projectDTO;
@@ -79,13 +98,16 @@ namespace Onion.AppCore.Services
                 CreateDate = projectDTO.CreateDate,
                 UpdateDate = DateTime.Now,
                 TechStack = projectDTO.TechStack,
-                EmployeeAmount = projectDTO.EmployeeAmount,
                 Cost = projectDTO.Cost,
-                // File .doc
-                Instruction = projectDTO.Instruction,
-                UseArea = projectDTO.UseArea
+                Description = projectDTO.Description,
+                UseArea = projectDTO.UseArea,
+                ConditionId = projectDTO.ConditionId,
+                ReviewStageId = projectDTO.ReviewStageId
             });
 
+
+        public bool IsUniqueProject(ProjectDTO projectDTO)
+            => _projectRepository.GetList().Any(x => x.Name == projectDTO.Name && x.Id != projectDTO.Id);
     }
 
 }

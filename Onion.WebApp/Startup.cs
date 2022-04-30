@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,11 +35,12 @@ namespace Onion.WebApp
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
 
             // установка конфигурации подключения
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            //    .AddCookie(options => //CookieAuthenticationOptions
-            //    {
-            //        options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-            //    });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Employee/Login");
+                });
+
             services.AddTransient<IGenericRepository<Employee>, SQLRepository<Employee>>();
             services.AddTransient<IEmployee, EmployeeService>();
             services.AddTransient<IGenericRepository<Project>, SQLRepository<Project>>();
@@ -55,6 +57,24 @@ namespace Onion.WebApp
             services.AddTransient<IGenericRepository<PersonalFile>, SQLRepository<PersonalFile>>();
             services.AddTransient<IPersonalFile, PersonalFileService>();
             services.AddTransient<IInitializing, InitializingService>();
+            services.AddTransient<IGenericRepository<Role>, SQLRepository<Role>>();
+            services.AddTransient<IGenericRepository<Condition>, SQLRepository<Condition>>();
+            services.AddTransient<IGenericRepository<ReviewStage>, SQLRepository<ReviewStage>>();
+            services.AddTransient<IGenericRepository<DashBoard>, SQLRepository<DashBoard>>();
+            services.AddTransient<IDashBoard, DashBoardService>();
+            services.AddTransient<IGenericRepository<Condition>, SQLRepository<Condition>>();
+            services.AddTransient<ICondition, ConditionService>();
+            services.AddTransient<IGenericRepository<ReviewStage>, SQLRepository<ReviewStage>>();
+            services.AddTransient<IReviewStage, ReviewStageService>();
+            services.AddTransient<IGenericRepository<Customer>, SQLRepository<Customer>>();
+            services.AddTransient<ICustomer, CustomerService>();
+            services.AddTransient<IGenericRepository<Step>, SQLRepository<Step>>();
+            services.AddTransient<IStep, StepService>();
+            services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Task>, SQLRepository<Onion.AppCore.Entities.Task>>();
+            services.AddTransient<ITask, TaskService>();
+            services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Document>, SQLRepository<Onion.AppCore.Entities.Document>>();
+            services.AddTransient<IDocument, DocumentService>();
+
 
 
             services.AddControllersWithViews();
@@ -79,7 +99,7 @@ namespace Onion.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Project}/{action=Show}/{id?}");
+                    pattern: "{controller=Employee}/{action=Login}/{id?}");
             });
         }
     }

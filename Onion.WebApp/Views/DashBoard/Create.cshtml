@@ -1,0 +1,115 @@
+﻿@model Onion.AppCore.DTO.DashBoardDTO
+
+
+
+<form asp-action="Create" asp-controller="DashBoard" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+
+
+    <div class="container col-11 justify-content-center mt-3 ">
+        <h2 class="text-center">Set Employee on Project:</h2>
+        <div class="container col-10 ">
+            <div class="InputSuccess">@ViewBag.CreateResult</div>
+        </div>
+
+        @*<label class="form-label">  ViewBag.empDTO=@ViewBag.empDTO, proId=@ViewBag.proId, teamId=@ViewBag.teamId,  empId=@ViewBag.empId, filter=@ViewBag.filter, set=@ViewBag.set</label>
+
+            <div class="col-2 justify-content-start">
+                <label class="form-label">Departments:</label>
+                <select name="department2" class="form-select form-control" aria-label="Select">
+                    <option value="1">Высшее - Бакалавр</option>
+                    <option value="2">Высшее - Магистр</option>
+                    <option value="3">Кандидат Наук</option>
+                </select>
+            </div>*@
+
+        <div class="row  mt-4 justify-content-start">
+
+            <input type="text" name="EmployeeId" asp-for="EmployeeId" value="@ViewBag.Employee.Id" hidden />
+
+            <div class="col-3  justify-content-start">
+                <label class="form-label">Employee:</label>
+                <input type="text" class="form-control" readonly value="@ViewBag.Employee.FullName" />
+            </div>
+
+            <div class="col-2  justify-content-start">
+                <label class="form-label" asp-for="StartDate">Start Date:</label>
+                <input type="date" name="StartDate" class="form-control" asp-for="StartDate"
+                       asp-action="Create" asp-controller="DashBoard" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="StartDate" class="col-8" />
+            </div>
+
+            <div class="col-2  justify-content-start">
+                <label class="form-label" asp-for="EndDate">End Date:</label>
+                <input type="date" name="EndDate" class="form-control" asp-for="EndDate" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="EndDate" class="col-8" />
+            </div>
+
+            <div class="row col-5 justify-content-center">
+                <div class="row col-12">
+
+
+
+                    <div class="col-6 justify-content-start">
+                        <label class="form-label">Projects:</label>
+                        <select name="projectId" class="form-select form-control" aria-label="Select">
+                            @{
+
+                                foreach (var project in ViewBag.Projects)
+                                {
+
+                                    <option class="form-control" selected value="@project.ProjectDTO.Id">@project.ProjectDTO.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-6  justify-content-start">
+                        @{
+                            if (ViewBag.proName != null)
+                            {
+                                <label class="form-label">Teams (by "@ViewBag.proName"):</label>
+                            }
+                            else
+                            {
+                                <label class="form-label">All Teams:</label>
+                            }
+                        }
+
+
+                        <select name="teamId" class="form-select form-control" aria-label="Select">
+                            @{
+
+                                foreach (var team in ViewBag.Teams)
+                                {
+                                    <option class="form-control" selected value="@team.Id">@team.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="row col-5">
+                    <input name="filter" class="btn btn-danger mt-4 d-block " type="submit" value="Filter by Projects">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row  justify-content-center mb-5 pb-4">
+            <input name="set" class="btn btn-primary mt-4 col-2 d-block " type="submit" value="Set Employee">
+        </div>
+    </div>
+
+
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

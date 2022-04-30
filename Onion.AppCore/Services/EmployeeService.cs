@@ -14,13 +14,23 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Employee> _employeeRepository;
         private readonly IGenericRepository<Authentication> _authenticationRepository;
         private readonly IGenericRepository<PersonalFile> _personalFileRepository;
+        private readonly IGenericRepository<Role> _roleRepository;
+        private readonly IGenericRepository<Customer> _customerRepository;
+        private readonly IGenericRepository<Team> _teamRepository;
+
         public EmployeeService(IGenericRepository<Employee> employeeRepository,
             IGenericRepository<Authentication> authenticationRepository,
-            IGenericRepository<PersonalFile> personalFileRepository)
+            IGenericRepository<PersonalFile> personalFileRepository,
+            IGenericRepository<Role> roleRepository,
+            IGenericRepository<Customer> customerRepository,
+            IGenericRepository<Team> teamRepository)
         {
             _employeeRepository = employeeRepository;
             _authenticationRepository = authenticationRepository;
             _personalFileRepository = personalFileRepository;
+            _roleRepository = roleRepository;
+            _customerRepository = customerRepository;
+            _teamRepository = teamRepository;
         }
 
         public IEnumerable<EmployeeDTO> GetList()
@@ -69,7 +79,7 @@ namespace Onion.AppCore.Services
 
         public void Create(FullEmployeeDTO fullEmployeeDTO)
         {
-           Employee employee = _employeeRepository.CreateEntity(new Employee()
+            Employee employee = _employeeRepository.CreateEntity(new Employee()
             {
                 FullName = fullEmployeeDTO.EmployeeDTO.FullName,
                 CreateDate = DateTime.Now,
@@ -96,7 +106,10 @@ namespace Onion.AppCore.Services
         }
 
         public void Delete(int id)
-             => _employeeRepository.Delete(id);
+        {
+            _authenticationRepository.Delete(_authenticationRepository.GetList().First(x => x.EmployeeId == id).Id);
+            _employeeRepository.Delete(id);
+        }
 
         public void Update(EmployeeDTO employeeDTO)
             => _employeeRepository.Update(new Employee
@@ -134,6 +147,31 @@ namespace Onion.AppCore.Services
                 TeamId = employee.TeamId
             };
         }
+
+
+        public int GetByEmail(string email)
+            => _teamRepository.GetById(
+                (int)_employeeRepository.GetById(
+                    (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).TeamId).ProjectId;
+
+
+        public bool IsExistUser(AuthenticationDTO authenticationDTO)
+            => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email && x.Password == CalculateMD5Hash(authenticationDTO.Password));
+
+        public string CheckRole(string email)
+        {
+            Authentication authentication = _authenticationRepository.GetList().First(x => x.Email == email);
+
+            if (authentication.EmployeeId != null)
+                return _roleRepository.GetById(
+                      _employeeRepository.GetById(
+                          (int)authentication.EmployeeId).RoleId).Name;
+            else
+                return _roleRepository.GetById(
+                _customerRepository.GetById(
+                    (int)authentication.CustomerId).RoleId).Name;
+        }
+
 
     }
 }

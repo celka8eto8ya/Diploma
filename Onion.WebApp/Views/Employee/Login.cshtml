@@ -1,0 +1,52 @@
+﻿@model Onion.AppCore.DTO.AuthenticationDTO
+
+
+
+<form asp-action="Login" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+    <div class="container col-10 ">
+        <div class="validation" asp-validation-summary="ModelOnly"></div>
+    </div>
+    <div class="container col-10 ">
+        <div class="InputSuccess">@ViewBag.CreateResult</div>
+    </div>
+
+    <div class="container col-5 justify-content-center mt-3 ">
+        <h2 class="text-center">Login:</h2>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Email">Email:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="Email" class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="Password">Password:</label>
+            </div>
+            <div class="col-9">
+                <input type="password" name="Password" class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row  justify-content-center mb-5">
+            <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Login">
+        </div>
+    </div>
+</form>
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

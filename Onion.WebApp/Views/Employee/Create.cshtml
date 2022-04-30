@@ -27,7 +27,7 @@
 
         <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="AuthenticationDTO.Email">Login:</label>
+                <label class="form-label" asp-for="AuthenticationDTO.Email">Email:</label>
             </div>
             <div class="col-9">
                 <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
@@ -57,10 +57,10 @@
 
         <div class="row mt-2 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience:</label>
+                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience (month):</label>
             </div>
             <div class="col-9">
-                <input type="text" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
+                <input type="number" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
                 <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
             </div>
         </div>
@@ -93,7 +93,11 @@
                 <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="EmployeeDTO.Level" class="form-control" asp-for="EmployeeDTO.Level" />
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.Level">
+                    <option class="form-control" selected value="Junior">Junior</option>
+                    <option class="form-control"  value="Middle">Middle</option>
+                    <option class="form-control"  value="Senior">Senior</option>
+                </select>
                 <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
             </div>
         </div>
@@ -130,7 +134,10 @@
 
                         foreach (var role in ViewBag.Roles)
                         {
-                            <option class="form-control" selected value="@role.Id">@role.Name</option>
+                            if (role.Name != "Customer" && role.Name != "Admin")
+                            {
+                                <option class="form-control" selected value="@role.Id">@role.Name</option>
+                            }
                         }
                     }
                 </select>

@@ -16,6 +16,7 @@ namespace Onion.AppCore.DTO
         public string Password { get; set; }
 
 
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
+        public int? CustomerId { get; set; } 
     }
 }

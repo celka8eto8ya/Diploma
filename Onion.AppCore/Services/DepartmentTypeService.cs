@@ -3,6 +3,7 @@ using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Onion.AppCore.Services
 {
@@ -16,9 +17,8 @@ namespace Onion.AppCore.Services
         }
 
         public IEnumerable<DepartmentType> GetList()
-        {
-            return _departmentTypeRepository.GetList();
-        }
+            => _departmentTypeRepository.GetList();
+
 
         public void Create(DepartmentTypeDTO departmentTypeDTO)
         {
@@ -35,9 +35,8 @@ namespace Onion.AppCore.Services
         }
 
         public void Delete(int id)
-        {
-            _departmentTypeRepository.Delete(id);
-        }
+            => _departmentTypeRepository.Delete(id);
+
 
         public DepartmentTypeDTO GetById(int id)
         {
@@ -68,6 +67,7 @@ namespace Onion.AppCore.Services
                 CreateDate = departmentTypeDTO.CreateDate
             });
 
-
+        public bool IsUnique(DepartmentTypeDTO departmentTypeDTO)
+            => _departmentTypeRepository.GetList().Any(x => x.Name == departmentTypeDTO.Name && x.Id != departmentTypeDTO.Id);
     }
 }
