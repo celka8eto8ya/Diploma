@@ -71,7 +71,7 @@
                             <tr>
                                 @if (User.IsInRole("ProjectManager") || User.IsInRole("Employee"))
                                 {
-                                    <td  class="col-1 pl-5">
+                                    <td class="col-1 pl-5">
                                         <a class="icons justify-content-center" data-title="Open/Download" asp-action="GetFile" asp-route-id="@documentDTO.Id" asp-controller="Document">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 20 20">
                                                 <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z" />
@@ -87,7 +87,15 @@
                                 <td scope="row">@documentDTO.CreateDate.ToShortDateString()</td>
                                 <td scope="row">@documentDTO.AddDate</td>
                                 <td scope="row">@documentDTO.Adder</td>
-                                <td scope="row">@string.Format($"{@documentDTO.Size:f3}")</td>
+                                @if (@documentDTO.Size < Math.Pow(10,-3))
+                                {
+                                    <td scope="row" class="text-right">~0,001</td>
+                                }
+                                else
+                                {
+                                    <td scope="row" class="text-right">@string.Format($"{@documentDTO.Size:f3}")</td>
+                                }
+
                                 @if (User.IsInRole("ProjectManager"))
                                 {
                                     <td class="col-1 px-4">

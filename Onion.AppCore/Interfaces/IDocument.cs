@@ -7,7 +7,6 @@ namespace Onion.AppCore.Interfaces
     {
         IEnumerable<DocumentDTO> GetList();
         void Create(DocumentDTO documentDTO);
-        void Update(DocumentDTO documentDTO);
         void Delete(int id);
         DocumentDTO GetById(int id);
         bool IsUnique(DocumentDTO documentDTO);

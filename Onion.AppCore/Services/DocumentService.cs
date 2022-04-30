@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Onion.AppCore.Services
 {
@@ -36,7 +35,7 @@ namespace Onion.AppCore.Services
 
 
         public bool IsUnique(DocumentDTO documentDTO)
-           => _documentRepository.GetList().Any(x => x.Name == documentDTO.Name && x.Id != documentDTO.Id);
+           => _documentRepository.GetList().Any(x => x.Name == documentDTO.FormFile.FileName && x.Id != documentDTO.Id);
 
 
         public void Create(DocumentDTO documentDTO)
@@ -55,7 +54,7 @@ namespace Onion.AppCore.Services
                 CreateDate = documentDTO.CreateDate,
                 AddDate = DateTime.Now,
                 Adder = documentDTO.Adder,
-                Size = documentDTO.FormFile.Length*(double)decimal.Round(Convert.ToDecimal(BankData.ByteToMB),3),
+                Size = documentDTO.FormFile.Length*BankData.ByteToMB,
 
                 ProjectId = documentDTO.ProjectId
             });
@@ -63,22 +62,6 @@ namespace Onion.AppCore.Services
 
         public void Delete(int id)
             => _documentRepository.Delete(id);
-
-
-        public void Update(DocumentDTO documentDTO)
-            => _documentRepository.Update(new Document
-            {
-                Id = documentDTO.Id,
-                Name = documentDTO.Name,
-                File = documentDTO.File,
-                Type = documentDTO.Type,
-                CreateDate = documentDTO.CreateDate,
-                AddDate = documentDTO.AddDate,
-                Adder = documentDTO.Adder,
-                Size = documentDTO.Size,
-
-                ProjectId = documentDTO.ProjectId
-            });
 
 
         public DocumentDTO GetById(int id)
