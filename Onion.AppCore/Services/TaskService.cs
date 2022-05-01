@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Onion.AppCore.Services
 {
-    public class TaskService:ITask
+    public class TaskService : ITask
     {
         private readonly IGenericRepository<Step> _stepRepository;
         private readonly IGenericRepository<Condition> _conditionRepository;
@@ -125,6 +125,17 @@ namespace Onion.AppCore.Services
                 ReviewStageId = task.ReviewStageId,
                 StepId = task.StepId
             };
+        }
+
+        public void SetTask(int taskId, int id)
+        {
+            var task = _taskRepository.GetById(taskId);
+            if (task.EmployeeId == null)
+                task.EmployeeId = id;
+            else
+                task.EmployeeId = null;
+
+            _taskRepository.Update(task);
         }
 
     }

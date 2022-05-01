@@ -11,5 +11,6 @@ namespace Onion.AppCore.Interfaces
         void Delete(int id);
         TaskDTO GetById(int id);
         bool IsUniqueTask(TaskDTO taskDTO);
+        void SetTask(int taskId, int id);
     }
 }

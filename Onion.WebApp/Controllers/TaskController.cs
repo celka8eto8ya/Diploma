@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Collections.Generic;
@@ -14,15 +15,20 @@ namespace Onion.WebApp.Controllers
         private readonly IReviewStage _reviewStageService;
         private readonly ITask _taskService;
         private readonly IProject _projectService;
+        private readonly IEmployee _employeeService;
+        private readonly ITeam _teamService;
+
 
         public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService,
-             IProject projectService)
+             IProject projectService, IEmployee employeeService, ITeam teamService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _taskService = taskService;
             _projectService = projectService;
+            _employeeService = employeeService;
+            _teamService = teamService;
         }
 
 
@@ -128,5 +134,60 @@ namespace Onion.WebApp.Controllers
             _taskService.Delete(id);
             return RedirectToAction("Show", "Task", new { id = stepId });
         }
+
+
+        [HttpGet]
+        public IActionResult Setting(int id, int stepId, int some)
+        {
+            ViewBag.Id = id;
+
+            EmployeeDTO currentEmployee = _employeeService.GetById(id);
+            ViewBag.Employee = currentEmployee;
+
+            ProjectDTO currentProject = _projectService.GetById(
+            _teamService.GetById((int)currentEmployee.TeamId).ProjectId);
+            ViewBag.Project = currentProject;
+
+            var steps = _stepService.GetList().Where(x => x.StepDTO.ProjectId == currentProject.Id);
+            ViewBag.Steps = steps;
+
+            var firstStep = steps.FirstOrDefault();
+            ViewBag.stepId = firstStep.StepDTO.Id;
+            if (stepId > 0)
+                ViewBag.stepId = stepId;
+
+            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == ViewBag.stepId));
+        }
+
+
+        [HttpPost]
+        public IActionResult Setting(int id, int stepId)
+        {
+            ViewBag.Id = id;
+
+            EmployeeDTO currentEmployee = _employeeService.GetById(id);
+            ViewBag.Employee = currentEmployee;
+
+            ProjectDTO currentProject = _projectService.GetById(
+            _teamService.GetById((int)currentEmployee.TeamId).ProjectId);
+            ViewBag.Project = currentProject;
+
+            var steps = _stepService.GetList().Where(x => x.StepDTO.ProjectId == currentProject.Id);
+            ViewBag.Steps = steps;
+
+            ViewBag.stepId = stepId;
+            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == stepId));
+        }
+
+
+        public IActionResult SetTask(int id, int taskId, int stepId)
+        {
+            if (taskId > 0)
+            {
+                _taskService.SetTask(taskId, id);
+            }
+            return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
+        }
+
     }
 }

@@ -109,14 +109,14 @@ body {
     .icons:hover::after {
         content: attr(data-title); /* Выводим текст */
         position: absolute; /* Абсолютное позиционирование */
-        left: 20%;
-        top: -50%; /* Положение подсказки */
+        left: 10%;
+        bottom: 85%; /* Положение подсказки */
         z-index: 1; /* Отображаем подсказку поверх других элементов */
         background: rgb(255,255,230); /* Полупрозрачный цвет фона */
         font-family: Arial, sans-serif; /* Гарнитура шрифта */
         font-size: 12px; /* Размер текста подсказки */
-        font-weight:500;
-        padding: 5px 10px; /* Поля */
+        font-weight: 500;
+        padding: 5px 7px; /* Поля */
         border: 1px solid #333; /* Параметры рамки */
         border-radius: 5px;
     }
@@ -248,11 +248,12 @@ input[type="checkbox"].input-validation-error {
 
 .iconsPadding > li > a {
     padding: 5px 0 0 10px;
-
 }
 
 
-.iconsPadding > li > a:hover {
-    text-decoration: none;
-    color: #ba54b7;
-}
+    .iconsPadding > li > a:hover {
+        text-decoration: none;
+        color: #ba54b7;
+    }
+
+

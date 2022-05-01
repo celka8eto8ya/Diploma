@@ -85,7 +85,14 @@
                                 <td scope="row">@fullTaskDTO.TaskDTO.Deadline.ToShortDateString()</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.CreateDate</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.UpdateDate</td>
-                                <td scope="row">@fullTaskDTO.TaskDTO.CompletionDate</td>
+                                @if (fullTaskDTO.TaskDTO.CompletionDate.Year < 2)
+                                {
+                                    <td scope="row">-</td>
+                                }
+                                else
+                                {
+                                    <td scope="row">@fullTaskDTO.TaskDTO.CompletionDate</td>
+                                }
                                 <td scope="row">@fullTaskDTO.TaskDTO.Cost</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Comment</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Complexity</td>
