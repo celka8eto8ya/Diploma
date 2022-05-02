@@ -8,6 +8,7 @@ namespace Onion.AppCore.Entities
         public string Topic { get; set; }
         public string Text { get; set; }
         public DateTime CreateDate { get; set; }
+        public bool Viewed { get; set; }
 
 
 

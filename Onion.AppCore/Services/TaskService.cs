@@ -181,6 +181,7 @@ namespace Onion.AppCore.Services
                 Topic = topic,
                 Text = text,
                 CreateDate = DateTime.Now,
+                Viewed = false,
 
                 ProjectId = projectId,
                 EmployeeId = employeeId,

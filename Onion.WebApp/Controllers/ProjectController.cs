@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Onion.WebApp.Controllers
@@ -12,15 +14,17 @@ namespace Onion.WebApp.Controllers
         private readonly IReviewStage _reviewStageService;
         private readonly IEmployee _employeeService;
         private readonly ICustomer _customerService;
+        private readonly INotification _notificationService;
 
         public ProjectController(IProject projectService, ICondition conditionService, IReviewStage reviewStageService,
-            IEmployee employeeService, ICustomer customerService)
+            IEmployee employeeService, ICustomer customerService, INotification notificationService)
         {
             _projectService = projectService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _employeeService = employeeService;
             _customerService = customerService;
+            _notificationService = notificationService;
         }
 
 
@@ -28,6 +32,16 @@ namespace Onion.WebApp.Controllers
         public IActionResult Show()
         {
             var projects = _projectService.GetList();
+            var notifications = _notificationService.GetList();
+
+            List<int> ptojectsNotification = new List<int>();
+            List<int> projectsId = projects.Select(x => x.ProjectDTO.Id).ToList();
+            for (int i=0; i<projects.Count(); i++) 
+            {
+                ptojectsNotification.Add(notifications.Where(x => x.ProjectId == projectsId[i] && x.Text.Contains("ForConsideration")).Count());
+            }
+            ViewBag.NotifAmountPM = ptojectsNotification;
+
             if (User.IsInRole("Employee"))
                 return View(projects.Where(x => x.ProjectDTO.Id == _employeeService.GetByEmail(User.Identity.Name)));
             if (User.IsInRole("Customer"))
