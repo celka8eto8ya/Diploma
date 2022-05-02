@@ -38,7 +38,13 @@ namespace Onion.WebApp.Controllers
             StepDTO currentStep = _stepService.GetById(id);
             ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
             ViewBag.Step = currentStep;
-            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
+            if (User.IsInRole("Employee"))
+            {
+               int employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
+                return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id && x.TaskDTO.EmployeeId == employeeId));
+            }
+            else
+                return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
         }
 
         [HttpGet]
@@ -188,6 +194,19 @@ namespace Onion.WebApp.Controllers
             }
             return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
         }
+
+
+        public IActionResult UpdateCondition(int taskId, int stepId, int projectId, string command)
+        {
+            string role = "";
+            if (User.IsInRole("Employee"))
+                role = "Employee";
+            else if (User.IsInRole("ProjectManager"))
+                role = "ProjectManager";
+
+            _taskService.UpdateCondition(taskId, role, projectId, User.Identity.Name, command);
+            return RedirectToAction("Show", "Task", new { id = stepId });
+        }   
 
     }
 }

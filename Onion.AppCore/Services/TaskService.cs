@@ -13,15 +13,18 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Condition> _conditionRepository;
         private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
         private readonly IGenericRepository<Task> _taskRepository;
+        private readonly IGenericRepository<Notification> _notificationRepository;
 
 
         public TaskService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
-            IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository)
+            IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository,
+             IGenericRepository<Notification> notificationRepository)
         {
             _stepRepository = stepRepository;
             _conditionRepository = conditionRepository;
             _reviewStageRepository = reviewStageRepository;
             _taskRepository = taskRepository;
+            _notificationRepository = notificationRepository;
         }
 
         public IEnumerable<FullTaskDTO> GetList()
@@ -75,6 +78,7 @@ namespace Onion.AppCore.Services
             step.TaskAmount++;
             _stepRepository.Update(step);
         }
+
 
         public void Delete(int id)
         {
@@ -136,6 +140,52 @@ namespace Onion.AppCore.Services
                 task.EmployeeId = null;
 
             _taskRepository.Update(task);
+        }
+
+        public void UpdateCondition(int taskId, string role, int projectId, string email, string command)
+        {
+            var task = _taskRepository.GetById(taskId);
+
+            int? employeeId = null;
+            string topic = "";
+            string text = "";
+            if (role == "ProjectManager")
+            {
+                topic = "Changed task condition (by PM)!";
+                employeeId = null;
+                if (command == "Accept")
+                {
+                    text = $"PM \"{email}\" set condition in \"Completed\". ";
+                    task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
+                    task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+                }
+                else if (command == "Revision")
+                {
+                    text = $"PM \"{email}\" set condition in \"ForImplementation\". ";
+                    task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForImplementation.ToString()).Id;
+                    task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.ForRevision.ToString()).Id;
+                }
+            }
+            else if(role == "Employee")
+            {
+                employeeId = task.EmployeeId;
+                task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForConsideration.ToString()).Id;
+                task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.ForConsideration.ToString()).Id;
+                topic = "Changed task condition (by Employee)!";
+                text = $"Employee \"{email}\" set condition in \"ForConsideration\". ";
+            }
+            _taskRepository.Update(task);
+
+            _notificationRepository.Create(new Notification()
+            {
+                Topic = topic,
+                Text = text,
+                CreateDate = DateTime.Now,
+
+                ProjectId = projectId,
+                EmployeeId = employeeId,
+                TaskId = task.Id
+            });
         }
 
     }

@@ -74,6 +74,7 @@ namespace Onion.WebApp
             services.AddTransient<ITask, TaskService>();
             services.AddTransient<IGenericRepository<Onion.AppCore.Entities.Document>, SQLRepository<Onion.AppCore.Entities.Document>>();
             services.AddTransient<IDocument, DocumentService>();
+            services.AddTransient<IGenericRepository<Notification>, SQLRepository<Notification>>();
 
 
 

@@ -12,5 +12,6 @@ namespace Onion.AppCore.Interfaces
         TaskDTO GetById(int id);
         bool IsUniqueTask(TaskDTO taskDTO);
         void SetTask(int taskId, int id);
+        void UpdateCondition(int taskId, string role, int projectId, string email, string command);
     }
 }

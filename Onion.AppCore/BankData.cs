@@ -10,6 +10,5 @@ namespace Onion.AppCore
         public static string AdminLogin = "Admin@bk.ru";
         public static string AdminPassword = "Admin2000";
         public static double ByteToMB = 9.54*(Math.Pow(10,-7));
-        public static int CurrentEmployeeId = 0;
     }
 }

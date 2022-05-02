@@ -155,6 +155,10 @@ namespace Onion.AppCore.Services
                     (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId).TeamId).ProjectId;
 
 
+        public int GetByEmailEntity(string email)
+            => (int)_authenticationRepository.GetList().First(x => x.Email == email).EmployeeId;
+
+
         public bool IsExistUser(AuthenticationDTO authenticationDTO)
             => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email && x.Password == CalculateMD5Hash(authenticationDTO.Password));
 
