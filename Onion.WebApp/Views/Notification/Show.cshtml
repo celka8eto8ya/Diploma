@@ -29,6 +29,9 @@
                             <a class="m-1">Create Date</a>
                         </th>
                         <th scope="col">
+                            <a class="m-1">Task</a>
+                        </th>
+                        <th scope="col">
                             <a class="m-1"></a>
                         </th>
 
@@ -40,15 +43,15 @@
                         foreach (var notificationDTO in Model)
                         {
                             <tr>
-                                
+
                                 <td scope="row">@i</td>
                                 <td scope="row">@notificationDTO.Topic</td>
                                 <td scope="row">@notificationDTO.Text</td>
                                 <td scope="row">@notificationDTO.CreateDate</td>
+                                <td scope="row">@notificationDTO.TaskName</td>
                                 <td class="col-1 px-4">
                                     <a class="col-12 btn btn-success"
-                                       asp-route-projectId="@ViewBag.Project.Id"
-                                       asp-route-notificationId="notificationDTO.Id"
+                                       asp-route-notificationId="@notificationDTO.Id"
                                        asp-controller="Notification" asp-action="ChangeVisible" role="button">Viewed</a>
                                 </td>
 

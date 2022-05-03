@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Onion.AppCore.DTO
 {
@@ -11,6 +9,7 @@ namespace Onion.AppCore.DTO
         public string Text { get; set; }
         public DateTime CreateDate { get; set; }
         public bool Viewed { get; set; }
+        public string TaskName { get; set; }
 
 
 

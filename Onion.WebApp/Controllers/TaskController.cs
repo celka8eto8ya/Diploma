@@ -40,7 +40,7 @@ namespace Onion.WebApp.Controllers
             ViewBag.Step = currentStep;
             if (User.IsInRole("Employee"))
             {
-               int employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
+                int employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
                 return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id && x.TaskDTO.EmployeeId == employeeId));
             }
             else
@@ -145,8 +145,6 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Setting(int id, int stepId, int some)
         {
-            ViewBag.Id = id;
-
             EmployeeDTO currentEmployee = _employeeService.GetById(id);
             ViewBag.Employee = currentEmployee;
 
@@ -162,15 +160,15 @@ namespace Onion.WebApp.Controllers
             if (stepId > 0)
                 ViewBag.stepId = stepId;
 
-            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == ViewBag.stepId));
+            var tasks = _taskService.GetList();
+            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
+                _taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id));
         }
 
 
         [HttpPost]
         public IActionResult Setting(int id, int stepId)
         {
-            ViewBag.Id = id;
-
             EmployeeDTO currentEmployee = _employeeService.GetById(id);
             ViewBag.Employee = currentEmployee;
 
@@ -180,9 +178,12 @@ namespace Onion.WebApp.Controllers
 
             var steps = _stepService.GetList().Where(x => x.StepDTO.ProjectId == currentProject.Id);
             ViewBag.Steps = steps;
-
             ViewBag.stepId = stepId;
-            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == stepId));
+
+            var tasks = _taskService.GetList();
+            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
+                (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id || 
+                _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
         }
 
 
@@ -206,7 +207,7 @@ namespace Onion.WebApp.Controllers
 
             _taskService.UpdateCondition(taskId, role, projectId, User.Identity.Name, command);
             return RedirectToAction("Show", "Task", new { id = stepId });
-        }   
+        }
 
     }
 }

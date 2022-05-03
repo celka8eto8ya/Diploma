@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Onion.AppCore.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Onion.WebApp.Controllers
 {
@@ -14,15 +11,19 @@ namespace Onion.WebApp.Controllers
         private readonly IReviewStage _reviewStageService;
         private readonly IProject _projectService;
         private readonly INotification _notificationService;
+        private readonly IEmployee _employeeService;
+        private readonly ITask _taskService;
 
         public NotificationController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService,
-            IProject projectService, INotification notificationService)
+            IProject projectService, INotification notificationService, IEmployee employeeService, ITask taskService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _projectService = projectService;
             _notificationService = notificationService;
+            _employeeService = employeeService;
+            _taskService = taskService;
         }
 
 
@@ -36,20 +37,25 @@ namespace Onion.WebApp.Controllers
 
 
             if (User.IsInRole("ProjectManager"))
-                return View(notifications.Where(x => x.EmployeeId != null && x.Viewed == false));
+                return View(notifications.Where(x => x.EmployeeId != null && x.Viewed == false && x.ProjectId == id));
             else
-                return View(notifications.Where(x => x.EmployeeId == null && x.Viewed == false));
+            {
+                var employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
+
+                return View(notifications.Where(x => x.EmployeeId == null && x.Viewed == false && x.ProjectId == id
+                    && _taskService.GetById(x.TaskId).EmployeeId == employeeId ));
+            }
         }
 
 
         [HttpGet]
-        public IActionResult ChangeVisible(int projectId, int notificationId)
+        public IActionResult ChangeVisible( int notificationId)
         {
-            var notification = _notificationService.GetById(notificationId);
+            var notification = _notificationService.GetList().First(x => x.Id == notificationId);
             notification.Viewed = true;
             _notificationService.Update(notification);
 
-            return RedirectToAction("Show", "Notification", new { id = projectId });
+            return RedirectToAction("Show", "Notification", new { id = notification.ProjectId });
         }
 
        

@@ -9,11 +9,13 @@ namespace Onion.AppCore.Services
     public class NotificationService : INotification
     {
         private readonly IGenericRepository<Notification> _notificationRepository;
+        private readonly IGenericRepository<Task> _taskRepository;
 
 
-        public NotificationService(IGenericRepository<Notification> notificationRepository)
+        public NotificationService(IGenericRepository<Notification> notificationRepository, IGenericRepository<Task> taskRepository)
         {
             _notificationRepository = notificationRepository;
+            _taskRepository = taskRepository;
         }
 
         public IEnumerable<NotificationDTO> GetList()
@@ -24,6 +26,7 @@ namespace Onion.AppCore.Services
                 Text = x.Text,
                 CreateDate = x.CreateDate,
                 Viewed = x.Viewed,
+                TaskName = _taskRepository.GetById(x.TaskId).Name,
 
                 ProjectId = x.ProjectId,
                 EmployeeId = x.EmployeeId,
