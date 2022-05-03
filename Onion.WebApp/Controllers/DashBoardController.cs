@@ -26,16 +26,40 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult Show()
-            => View(_dashBoardService.GetFullList());
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(_employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+            return View(dashBoards);
+        }
 
 
         [HttpGet]
         public IActionResult ShowResources()
-            => new JsonResult(_dashBoardService.GetFullList().Select(x => new { id = x.Id, title = x.Employee }));
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(
+                    _employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+
+            return new JsonResult(dashBoards.Select(x => new { id = x.Id, title = x.Employee }));
+        }
 
         [HttpGet]
         public IActionResult ShowEvents()
-            => new JsonResult(_dashBoardService.GetFullList().Select(x => new
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(
+                    _employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+
+            return new JsonResult(dashBoards.Select(x => new
             {
                 id = x.Id,
                 resourceId = x.Id,
@@ -43,6 +67,7 @@ namespace Onion.WebApp.Controllers
                 end = x.EndDate.ToString("yyyy-MM-dd"),
                 title = x.Project
             }));
+        }
 
 
         [HttpGet]

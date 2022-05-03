@@ -33,11 +33,13 @@ namespace Onion.WebApp.Controllers
 
 
         [HttpGet]
-        public IActionResult Show(int id)
+        public IActionResult Show(int id, int taskId)
         {
             StepDTO currentStep = _stepService.GetById(id);
             ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
             ViewBag.Step = currentStep;
+            ViewBag.taskId = taskId;
+
             if (User.IsInRole("Employee"))
             {
                 int employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);

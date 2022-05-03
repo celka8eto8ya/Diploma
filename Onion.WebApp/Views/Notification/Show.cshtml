@@ -49,10 +49,37 @@
                                 <td scope="row">@notificationDTO.Text</td>
                                 <td scope="row">@notificationDTO.CreateDate</td>
                                 <td scope="row">@notificationDTO.TaskName</td>
-                                <td class="col-1 px-4">
-                                    <a class="col-12 btn btn-success"
-                                       asp-route-notificationId="@notificationDTO.Id"
-                                       asp-controller="Notification" asp-action="ChangeVisible" role="button">Viewed</a>
+
+                                <td class="pl-4 col-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Options
+                                        </button>
+
+                                        <ul class="dropdown-menu iconsPadding2" aria-labelledby="dropdownMenuLink">
+
+                                            <li>
+                                                <a class="col-11 btn btn-success"
+                                                   asp-route-notificationId="@notificationDTO.Id"
+                                                   asp-controller="Notification" asp-action="ChangeVisible" role="button">
+                                                    Viewed
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+                                                <a class="col-11 btn btn-primary"
+                                                   asp-route-id="@notificationDTO.StepId"
+                                                   asp-route-taskId="@notificationDTO.TaskId"
+                                                   asp-action="Show" asp-controller="Task"
+                                                   role="button">
+                                                    Open task
+                                                </a>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
                                 </td>
 
                             </tr>

@@ -27,6 +27,7 @@ namespace Onion.AppCore.Services
                 CreateDate = x.CreateDate,
                 Viewed = x.Viewed,
                 TaskName = _taskRepository.GetById(x.TaskId).Name,
+                StepId = _taskRepository.GetById(x.TaskId).StepId,
 
                 ProjectId = x.ProjectId,
                 EmployeeId = x.EmployeeId,

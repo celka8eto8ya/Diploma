@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Onion.AppCore.DTO.FullTaskDTO>
 
+@{
+    string rowStyle = "";
+}
 <div class="container mainSize col-12">
 
     <nav aria-label="breadcrumb">
@@ -29,9 +32,9 @@
 
 
         <div class=" col-12 CreateProj justify-content-center">
-            <table class="table table-striped table-hover @*table-sm*@ border-dark pt-4 ">
+            <table class="table  table-hover  border-dark pt-4 ">
                 <thead>
-                    <tr>
+                    <tr class="">
 
                         <th scope="col">
                             №
@@ -76,7 +79,20 @@
 
                         foreach (var fullTaskDTO in Model)
                         {
-                            <tr>
+                            @if (fullTaskDTO.TaskDTO.Id == @ViewBag.taskId)
+                            {
+                                rowStyle = "table-warning";
+                            }
+                            else if (fullTaskDTO.ConditionName == "Completed" && fullTaskDTO.ReviewStageName == "Accepted")
+                            {
+                                rowStyle = "table-secondary";
+                            }
+                            else
+                            {
+                                rowStyle = "";
+                            }
+
+                            <tr class="@rowStyle">
 
                                 <td scope="row">@i</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Name</td>
@@ -142,7 +158,7 @@
                                                 {
                                                     <li><hr class="dropdown-divider"></li>
 
-                                                    <li >
+                                                    <li>
                                                         <a class="col-11 btn btn-success"
                                                            asp-route-command="Accept"
                                                            asp-route-projectId="@ViewBag.projectId"
@@ -152,7 +168,7 @@
 
                                                     </li>
 
-                                                    <li >
+                                                    <li>
                                                         <a class="col-11 btn btn-warning"
                                                            asp-route-command="Revision"
                                                            asp-route-projectId="@ViewBag.projectId"

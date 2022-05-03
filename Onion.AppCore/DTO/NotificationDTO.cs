@@ -10,6 +10,7 @@ namespace Onion.AppCore.DTO
         public DateTime CreateDate { get; set; }
         public bool Viewed { get; set; }
         public string TaskName { get; set; }
+        public int? StepId { get; set; }
 
 
 

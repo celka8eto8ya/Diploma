@@ -34,6 +34,7 @@ namespace Onion.WebApp.Controllers
 
 
             ViewBag.Project = _projectService.GetById(id);
+            //ViewBag.stepId = _taskService.GetById(id);
 
 
             if (User.IsInRole("ProjectManager"))
