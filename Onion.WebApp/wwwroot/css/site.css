@@ -246,7 +246,7 @@ input[type="checkbox"].input-validation-error {
     margin-top: 30px;
 }
 
-.iconsPadding > li > a  {
+.iconsPadding > li > a {
     padding: 5px 0 0 10px;
 }
 
@@ -255,15 +255,21 @@ input[type="checkbox"].input-validation-error {
 }
 
 
-    .iconsPadding > li > a:hover {
-        text-decoration: none;
-        color: #ba54b7;
-    }
+.iconsPadding > li > a:hover {
+    text-decoration: none;
+    color: #ba54b7;
+}
 
 .iconsPadding2.show {
     transform: translate3d(-155px, -151px, 0px);
 }
 
 .badge {
-font-size:66%;
+    font-size: 66%;
 }
+
+.nav-item > a[aria-expanded="true"] {
+    background-color: #3569f8;
+    color: #FFF;
+}
+

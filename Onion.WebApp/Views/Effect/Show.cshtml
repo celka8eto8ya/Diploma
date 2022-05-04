@@ -1,0 +1,327 @@
+﻿@model IEnumerable<Onion.AppCore.DTO.EffectDTO>
+
+<div class="container mainSize col-12">
+
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+
+                <li class="nav-item">
+                    <a class="dropdown-item nav-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                       aria-expanded="false" aria-controls="collapseTwo" href="#">Enter Data</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="dropdown-item nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne" href="#">Result</a>
+                </li>
+
+                <li class="nav-item col-8 ml-4">
+                    <h2 class="text-center col-12 ">Effect. by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+                </li>
+
+                <li class="nav-item col-2 ml-2 px-4">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Effect.</li>
+                        </ol>
+                    </nav>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form class="row mt-2 mb-2 col-12 justify-content-center" asp-action="Show" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+                                <div class="col-2 pr-0">
+                                    <label class="form-label text-right">Calculating Date:</label>
+                                </div>
+
+                                <div class="col-3 pl-0 mr-3">
+                                    <select name="departmentId" class="form-select form-control" aria-label="Select">
+                                        @*@foreach (var department in @ViewBag.Departments)
+                                            {
+                                                @if (@ViewBag.departmentId != null && @ViewBag.departmentId == department.Id)
+                                                {
+                                                    <option class="form-control" selected value="@department.Id">@department.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option class="form-control" value="@department.Id">@department.Name</option>
+                                                }
+                                            }*@
+                                    </select>
+                                </div>
+
+                                <div class="col-2 row justify-content-between px-4">
+                                    <input type="submit" class="btn btn-primary col-12 NewProject " value="Filter">
+                                </div>
+                            </form>
+
+                            <div class="card-body row justify-content-around">
+
+                                <div class="card text-white bg-primary mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">IRR</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Primary card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">ROI</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Secondary card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-success mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">NPV</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Success card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-danger mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">ETC</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Danger card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">PCT_A</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Warning card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+                                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">PCT_T</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Info card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">POT</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Light card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">POA</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Dark card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form asp-action="Create" asp-controller="Effect" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+                                <div class="container col-5 justify-content-center mt-3 ">
+                                    <h2 class="text-center">Data needed for calculation:</h2>
+
+                                    <label class="form-label">Expenses Amount (ROI):</label>
+                                    <label class="form-label">Investment Income (ROI):</label>
+                                    <label class="form-label">investment Amount (ROI):</label>
+                                    (investment income - cost amount) / investment amount
+
+                                    <label class="form-label">Pervonach Investments (NPV):</label>
+                                    <label class="form-label">Stavka discontir (NPV):</label>
+                                    <label class="form-label">Cash flows by ten years. No more - all 10 values (NPV):</label>
+
+                                    <label class="form-label">First Investments (NPV):</label>
+
+                                    ViewBag.IRR = @string.Format($"{@ViewBag.IRR:f2}")
+                                    <br />
+                                    ViewBag.IRRsumm = @ViewBag.IRRsumm
+
+                                    <br />
+                                    ViewBag.IRRsummLast =  @string.Format($"{@ViewBag.IRRsummLast:f2}")
+                                    @*<div class="row mt-4 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
+                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AuthenticationDTO.Email">Email:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
+                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
+            </div>
+            <div class="col-9">
+                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
+                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
+                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
+            </div>
+        </div>
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience (month):</label>
+            </div>
+            <div class="col-9">
+                <input type="number" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
+                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
+                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
+            </div>
+            <div class="col-9">
+                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
+                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
+            </div>
+            <div class="col-9">
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.Level">
+                    <option class="form-control" selected value="Junior">Junior</option>
+                    <option class="form-control" value="Middle">Middle</option>
+                    <option class="form-control" value="Senior">Senior</option>
+                </select>
+                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
+            </div>
+        </div>
+
+
+        <div class="row  mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
+                    @{
+
+                        foreach (var department in ViewBag.Departments)
+                        {
+                            <option class="form-control" selected value="@department.Id">@department.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
+            </div>
+        </div>
+
+
+        <div class="row  mt-2 justify-content-start">
+            <div class="col-3">
+                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
+            </div>
+            <div class="col-9">
+
+                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
+                    @{
+
+                        foreach (var role in ViewBag.Roles)
+                        {
+                            if (role.Name != "Customer" && role.Name != "Admin")
+                            {
+                                <option class="form-control" selected value="@role.Id">@role.Name</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
+            </div>
+        </div>*@
+
+
+
+
+                                    <div class="row  justify-content-center mb-5 pb-4">
+                                        <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Create">
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

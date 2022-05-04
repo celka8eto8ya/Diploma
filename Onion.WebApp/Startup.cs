@@ -76,6 +76,8 @@ namespace Onion.WebApp
             services.AddTransient<IDocument, DocumentService>();
             services.AddTransient<IGenericRepository<Notification>, SQLRepository<Notification>>();
             services.AddTransient<INotification, NotificationService>();
+            services.AddTransient<IGenericRepository<Effect>, SQLRepository<Effect>>();
+            services.AddTransient<IEffect, EffectService>();
 
 
 
