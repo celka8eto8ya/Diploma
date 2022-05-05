@@ -2,7 +2,6 @@
 
 
 <div class="container mainSize col-12">
-
     <div class="card text-center">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs">
@@ -59,6 +58,7 @@
                                                     <option class="form-control" value="@department.Id">@department.Name</option>
                                                 }
                                             }*@
+                                        <option class="form-control" selected value="@ViewBag.EffectDTO.CalculateDate">@ViewBag.EffectDTO.CalculateDate</option>
                                     </select>
                                 </div>
 
@@ -70,25 +70,35 @@
                             <div class="card-body row justify-content-around">
 
                                 <div class="card text-white bg-primary mb-3 " style="max-width: 18rem;">
-                                    <div class="card-header">IRR</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Primary card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <div class="card-header">IRR = @ViewBag.EffectDTO.IRR</div>
+                                    <div class="card-body ">
+                                        <h5 class="card-title">Internal Rate of Return</h5>
+                                        <p class="card-text text-left">
+                                            An indicator used in financial analysis to evaluate the profitability of a potential investment.
+                                            <br /> • IRR is the annual growth rate that the investment is expected to generate.
+                                            <br /> • IRR is calculated using the same principle as NPV, except that NPV is set to zero.
+                                            <br /> • IRR is ideal for analyzing capital budget proposals to understand and compare potential annual rates of return over time.
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
                                     <div class="card-header">ROI</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Secondary card title</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    <div class="card-body ">
+                                        <h5 class="card-title">Return On Investment</h5>
+                                        <p class="card-text text-left">
+                                            The indicator of return on investment or it is also called the return on
+                                            investment ratio from the English term Return On Investment. This value is calculated
+                                            as a percentage. If the indicator is above 100%, it indicates the
+                                            profitability of investments, and if it is below 100%, it indicates unprofitability.
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="card text-white bg-success mb-3 " style="max-width: 18rem;">
                                     <div class="card-header">NPV</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Success card title</h5>
+                                        <h5 class="card-title">Net Present Value</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
@@ -144,7 +154,7 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
 
-                            <form asp-action="Create" asp-controller="Effect" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+                            <form asp-action="Show" asp-controller="Effect" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
                                 <div class="container col-6 justify-content-center mt-3 ">
                                     <h2 class="text-center mb-4">Data needed for calculation:</h2>
@@ -228,37 +238,37 @@
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
-                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[0]" class="mb-1 col-9" asp-for="NPV_CashFlows[0]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[1]" class="mb-1 col-9" asp-for="NPV_CashFlows[1]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[2]" class="mb-1 col-9" asp-for="NPV_CashFlows[2]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
-                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[3]" class="mb-1 col-9" asp-for="NPV_CashFlows[3]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[4]" class="mb-1 col-9" asp-for="NPV_CashFlows[4]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="NPV_CashFlows[5]" class="mb-1 col-9" asp-for="NPV_CashFlows[5]" />
                                                         </div>
                                                     </li>
 
@@ -307,37 +317,37 @@
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
-                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[0]" class="mb-1 col-9" asp-for="IRR_CashFlows[0]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[1]" class="mb-1 col-9" asp-for="IRR_CashFlows[1]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[2]" class="mb-1 col-9" asp-for="IRR_CashFlows[2]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
-                                                            <input type="number"  @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[3]" class="mb-1 col-9" asp-for="IRR_CashFlows[3]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[4]" class="mb-1 col-9" asp-for="IRR_CashFlows[4]" />
                                                         </div>
                                                     </li>
                                                     <li>
                                                         <div class="row">
                                                             <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
-                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                            <input type="number" name="IRR_CashFlows[5]" class="mb-1 col-9" asp-for="IRR_CashFlows[5]" />
                                                         </div>
                                                     </li>
 
@@ -347,7 +357,7 @@
                                         </div>
                                     </div>
 
-                                    <input type="number" name="ProjectId" asp-for="ProjectId" hidden />
+                                    <input type="number" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
 
                                     <label class="form-label">Expenses Amount (ROI):</label>
                                     <label class="form-label">Investment Income (ROI):</label>
