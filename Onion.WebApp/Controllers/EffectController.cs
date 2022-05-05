@@ -38,11 +38,18 @@ namespace Onion.WebApp.Controllers
         {
             ////var notifications = _notificationService.GetList();
 
+            
+            
+            //table.arrayField = JsonConvert.SerializeObject(new string[] { "123", "qwe", "asd" });
+
+            ////deserialize
+            //var array = JsonConvert.DeserializeObject<string[]>(table.arrayField);
+
 
             ViewBag.Project = _projectService.GetById(id);
 
             double initial = 10000;
-            double[] mass = { 5000, 4000, 3000, 1000, 0, 0, 0 };
+            double[] mass = { 1000, 3000, 4000, 6000, 0, 0, 0 };
             double summ;
 
             for (double i = 0.0001; i < 0.5; i += 0.0001)

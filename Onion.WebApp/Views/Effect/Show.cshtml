@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Onion.AppCore.DTO.EffectDTO>
+﻿@model Onion.AppCore.DTO.EffectDTO
+
 
 <div class="container mainSize col-12">
 
@@ -145,8 +146,208 @@
 
                             <form asp-action="Create" asp-controller="Effect" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
 
-                                <div class="container col-5 justify-content-center mt-3 ">
-                                    <h2 class="text-center">Data needed for calculation:</h2>
+                                <div class="container col-6 justify-content-center mt-3 ">
+                                    <h2 class="text-center mb-4">Data needed for calculation:</h2>
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">ROI:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_ExpensesAmount">ROI_ExpensesAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_ExpensesAmount" class="form-control" asp-for="ROI_ExpensesAmount" />
+                                            <span asp-validation-for="ROI_ExpensesAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_InvestmentsIncome">ROI_InvestmentsIncome:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_InvestmentsIncome" class="form-control" asp-for="ROI_InvestmentsIncome" />
+                                            <span asp-validation-for="ROI_InvestmentsIncome" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 mb-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_InvestmentsAmount">ROI_InvestmentsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_InvestmentsAmount" class="form-control" asp-for="ROI_InvestmentsAmount" />
+                                            <span asp-validation-for="ROI_InvestmentsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">NPV:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_InitialInvestments">NPV_InitialInvestments:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_InitialInvestments" class="form-control" asp-for="NPV_InitialInvestments" />
+                                            <span asp-validation-for="NPV_InitialInvestments" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_DiscountRate">NPV_DiscountRate:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_DiscountRate" class="form-control" asp-for="NPV_DiscountRate" />
+                                            <span asp-validation-for="NPV_DiscountRate" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_YearsAmount">NPV_YearsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_YearsAmount" class="form-control" asp-for="NPV_YearsAmount" />
+                                            <span asp-validation-for="NPV_YearsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 mb-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_CashFlows">NPV_CashFlows:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="btn-group form-control  p-0" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Open
+                                                </button>
+                                                <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
+                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
+                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <span asp-validation-for="NPV_CashFlows" class="col-8" />
+                                        </div>
+                                    </div>
+
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">IRR:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_InitialInvestments">IRR_InitialInvestments:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="IRR_InitialInvestments" class="form-control" asp-for="IRR_InitialInvestments" />
+                                            <span asp-validation-for="IRR_InitialInvestments" class="col-8" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_YearsAmount">IRR_YearsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="IRR_YearsAmount" class="form-control" asp-for="IRR_YearsAmount" />
+                                            <span asp-validation-for="IRR_YearsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_CashFlows">IRR_CashFlows:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="btn-group form-control  p-0" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Open
+                                                </button>
+                                                <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
+                                                            <input type="number" @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
+                                                            <input type="number"  @*name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
+                                                            <input type="number" @* name="IRR_YearsAmount"*@ class="mb-1 col-9" @*asp-for="IRR_YearsAmount"*@ />
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <span asp-validation-for="IRR_CashFlows" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <input type="number" name="ProjectId" asp-for="ProjectId" hidden />
 
                                     <label class="form-label">Expenses Amount (ROI):</label>
                                     <label class="form-label">Investment Income (ROI):</label>
@@ -166,141 +367,141 @@
                                     <br />
                                     ViewBag.IRRsummLast =  @string.Format($"{@ViewBag.IRRsummLast:f2}")
                                     @*<div class="row mt-4 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
-            </div>
-            <div class="col-9">
-                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
-                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
-            </div>
-        </div>
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
+                                                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
+                                            </div>
+                                        </div>
 
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="AuthenticationDTO.Email">Email:</label>
-            </div>
-            <div class="col-9">
-                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
-                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="AuthenticationDTO.Email">Email:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
+                                                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
+                                            </div>
+                                        </div>
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
-            </div>
-            <div class="col-9">
-                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
-                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
+                                                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
+                                            </div>
+                                        </div>
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
-            </div>
-            <div class="col-9">
-                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
-                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
+                                                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
+                                            </div>
+                                        </div>
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience (month):</label>
-            </div>
-            <div class="col-9">
-                <input type="number" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
-                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
-            </div>
-        </div>
-
-
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
-            </div>
-            <div class="col-9">
-                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
-                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience (month):</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="number" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
+                                                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
+                                            </div>
+                                        </div>
 
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
-            </div>
-            <div class="col-9">
-                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
-                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
+                                                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
+                                            </div>
+                                        </div>
 
 
-        <div class="row mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
-            </div>
-            <div class="col-9">
-                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.Level">
-                    <option class="form-control" selected value="Junior">Junior</option>
-                    <option class="form-control" value="Middle">Middle</option>
-                    <option class="form-control" value="Senior">Senior</option>
-                </select>
-                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
+                                                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
+                                            </div>
+                                        </div>
 
 
-        <div class="row  mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
-            </div>
-            <div class="col-9">
-
-                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
-                    @{
-
-                        foreach (var department in ViewBag.Departments)
-                        {
-                            <option class="form-control" selected value="@department.Id">@department.Name</option>
-                        }
-                    }
-                </select>
-                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
-            </div>
-        </div>
+                                        <div class="row mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.Level">
+                                                    <option class="form-control" selected value="Junior">Junior</option>
+                                                    <option class="form-control" value="Middle">Middle</option>
+                                                    <option class="form-control" value="Senior">Senior</option>
+                                                </select>
+                                                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
+                                            </div>
+                                        </div>
 
 
-        <div class="row  mt-2 justify-content-start">
-            <div class="col-3">
-                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
-            </div>
-            <div class="col-9">
+                                        <div class="row  mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
+                                            </div>
+                                            <div class="col-9">
 
-                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
-                    @{
+                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
+                                                    @{
 
-                        foreach (var role in ViewBag.Roles)
-                        {
-                            if (role.Name != "Customer" && role.Name != "Admin")
-                            {
-                                <option class="form-control" selected value="@role.Id">@role.Name</option>
-                            }
-                        }
-                    }
-                </select>
-                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
-            </div>
-        </div>*@
+                                                        foreach (var department in ViewBag.Departments)
+                                                        {
+                                                            <option class="form-control" selected value="@department.Id">@department.Name</option>
+                                                        }
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row  mt-2 justify-content-start">
+                                            <div class="col-3">
+                                                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
+                                            </div>
+                                            <div class="col-9">
+
+                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
+                                                    @{
+
+                                                        foreach (var role in ViewBag.Roles)
+                                                        {
+                                                            if (role.Name != "Customer" && role.Name != "Admin")
+                                                            {
+                                                                <option class="form-control" selected value="@role.Id">@role.Name</option>
+                                                            }
+                                                        }
+                                                    }
+                                                </select>
+                                                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
+                                            </div>
+                                        </div>*@
 
 
 
 
                                     <div class="row  justify-content-center mb-5 pb-4">
-                                        <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Create">
+                                        <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Calculate">
                                     </div>
                                 </div>
                             </form>

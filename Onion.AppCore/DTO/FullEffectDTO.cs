@@ -17,11 +17,9 @@ namespace Onion.AppCore.DTO
         public int NPV_YearsAmount { get; set; }
         public double [] NPV_CashFlows { get; set; }
 
-        //public EffectDTO EffectDTO { get; set; }
-        //public EffectDTO EffectDTO { get; set; }
-        //public EffectDTO EffectDTO { get; set; }
-        //public EffectDTO EffectDTO { get; set; }
-        //public EffectDTO EffectDTO { get; set; }
-        //public EffectDTO EffectDTO { get; set; }
+        public double IRR_InitialInvestments { get; set; }
+        public double IRR_DiscountRate { get; set; }
+        public int IRR_YearsAmount { get; set; }
+        public double[] IRR_CashFlows { get; set; }
     }
 }

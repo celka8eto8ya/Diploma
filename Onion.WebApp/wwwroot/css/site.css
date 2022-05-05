@@ -272,4 +272,7 @@ input[type="checkbox"].input-validation-error {
     background-color: #3569f8;
     color: #FFF;
 }
-
+.labelPadding {
+    padding-bottom: -20px;
+    margin-bottom: -20px;
+}

@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Onion.AppCore\Onion.AppCore.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

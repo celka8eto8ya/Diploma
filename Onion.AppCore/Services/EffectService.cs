@@ -1,6 +1,8 @@
-﻿using Onion.AppCore.DTO;
+﻿using Newtonsoft.Json;
+using Onion.AppCore.DTO;
 using Onion.AppCore.Entities;
 using Onion.AppCore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,7 +42,20 @@ namespace Onion.AppCore.Services
                 PCT_T = x.PCT_T,
                 POT = x.POT,
                 POA = x.POA,
-               
+
+                ROI_ExpensesAmount = x.ROI_ExpensesAmount,
+                ROI_InvestmentsIncome = x.ROI_InvestmentsIncome,
+                ROI_InvestmentsAmount = x.ROI_InvestmentsAmount,
+
+                NPV_InitialInvestments = x.NPV_InitialInvestments,
+                NPV_DiscountRate = x.NPV_DiscountRate,
+                NPV_YearsAmount = x.NPV_YearsAmount,
+                NPV_CashFlows = JsonConvert.DeserializeObject<double[]>(x.NPV_CashFlows),
+
+                IRR_InitialInvestments = x.IRR_InitialInvestments,
+                IRR_YearsAmount = x.IRR_YearsAmount,
+                IRR_CashFlows = JsonConvert.DeserializeObject<double[]>(x.IRR_CashFlows),
+
                 ProjectId = x.ProjectId
             });
 
@@ -52,7 +67,7 @@ namespace Onion.AppCore.Services
         public void Create(EffectDTO effectDTO)
            => _effectRepository.Create(new Effect()
            {
-               CalculateDate = effectDTO.CalculateDate,
+               CalculateDate = DateTime.Now,
                IRR = effectDTO.IRR,
                ROI = effectDTO.ROI,
                NPV = effectDTO.NPV,
@@ -61,6 +76,19 @@ namespace Onion.AppCore.Services
                PCT_T = effectDTO.PCT_T,
                POT = effectDTO.POT,
                POA = effectDTO.POA,
+
+               ROI_ExpensesAmount = effectDTO.ROI_ExpensesAmount,
+               ROI_InvestmentsIncome = effectDTO.ROI_InvestmentsIncome,
+               ROI_InvestmentsAmount = effectDTO.ROI_InvestmentsAmount,
+
+               NPV_InitialInvestments = effectDTO.NPV_InitialInvestments,
+               NPV_DiscountRate = effectDTO.NPV_DiscountRate,
+               NPV_YearsAmount = effectDTO.NPV_YearsAmount,
+               NPV_CashFlows = JsonConvert.SerializeObject(effectDTO.NPV_CashFlows),
+
+               IRR_InitialInvestments = effectDTO.IRR_InitialInvestments,
+               IRR_YearsAmount = effectDTO.IRR_YearsAmount,
+               IRR_CashFlows = JsonConvert.SerializeObject(effectDTO.IRR_CashFlows),
 
                ProjectId = effectDTO.ProjectId
            });
