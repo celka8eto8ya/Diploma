@@ -163,32 +163,17 @@ namespace Onion.WebApp.Controllers
                 ViewBag.stepId = stepId;
 
             var tasks = _taskService.GetList();
-            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
-               (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id ||
-                _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
+            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId
+                && x.ConditionName != Enums.Conditions.Completed.ToString()
+                    && x.ReviewStageName != Enums.ReviewStages.Accepted.ToString()
+                        && (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id
+                            || _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
         }
 
 
         [HttpPost]
         public IActionResult Setting(int id, int stepId)
-        {
-            EmployeeDTO currentEmployee = _employeeService.GetById(id);
-            ViewBag.Employee = currentEmployee;
-
-            ProjectDTO currentProject = _projectService.GetById(
-            _teamService.GetById((int)currentEmployee.TeamId).ProjectId);
-            ViewBag.Project = currentProject;
-
-            var steps = _stepService.GetList().Where(x => x.StepDTO.ProjectId == currentProject.Id);
-            ViewBag.Steps = steps;
-            ViewBag.stepId = stepId;
-
-            var tasks = _taskService.GetList();
-            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
-                (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id ||
-                _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
-        }
-
+            => RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
 
         public IActionResult SetTask(int id, int taskId, int stepId)
         {
@@ -197,7 +182,6 @@ namespace Onion.WebApp.Controllers
 
             return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
         }
-
 
         public IActionResult UpdateCondition(int taskId, int stepId, int projectId, string command)
         {

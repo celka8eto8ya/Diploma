@@ -185,8 +185,8 @@
                                 }
                                 @if (User.IsInRole("Employee"))
                                 {
-                                    <td class="col-1 px-4">
-                                        @if (fullTaskDTO.ConditionName == "ForConsideration")
+                                    <td class="col-1 px-2">
+                                        @if (fullTaskDTO.ConditionName == "ForConsideration" || fullTaskDTO.ConditionName == "Completed")
                                         {
                                             <a class="col-12 btn btn-secondary" href="#" role="button">Done</a>
                                         }

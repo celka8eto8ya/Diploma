@@ -83,10 +83,12 @@ namespace Onion.AppCore.Services
 
         public void Delete(int id)
         {
-            var task = _taskRepository.GetById(id);
+            var task = _taskRepository.GetList().First(x => x.Id == id);
             Step step = _stepRepository.GetById((int)task.StepId);
             step.TaskAmount--;
-            CalculateAVGCostComplexity(task.EmployeeId, id);
+            //CalculateAVGCostComplexity(task.EmployeeId, id);
+            //CalculateAVGOverdueCompletion(task.EmployeeId, id);
+            CalculatePersonalFileByDelete(task.EmployeeId, id);
             _taskRepository.Delete(id);
             _stepRepository.Update(step);
         }
@@ -111,7 +113,7 @@ namespace Onion.AppCore.Services
                 StepId = taskDTO.StepId
             });
 
-            CalculateAVGCostComplexity(taskDTO.EmployeeId, 0);
+            CalculateAVGCostComplexity(taskDTO.EmployeeId);
         }
 
         public TaskDTO GetById(int id)
@@ -155,7 +157,7 @@ namespace Onion.AppCore.Services
 
             _taskRepository.Update(task);
 
-            CalculateAVGCostComplexity(id, 0);
+            CalculateAVGCostComplexity(id);
         }
 
         public void UpdateCondition(int taskId, string role, int projectId, string email, string command)
@@ -172,13 +174,14 @@ namespace Onion.AppCore.Services
                 if (command == "Accept")
                 {
                     text = $"PM \"{email}\" set condition in \"Completed\". ";
-                    task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
-                    task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+
+                    var completedId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
+                    task.ConditionId = completedId;
+                    var acceptedId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+                    task.ReviewStageId = acceptedId;
                     task.CompletionDate = DateTime.Now;
 
-                    var personalFileDTO = _personalFileRepository.GetList().First(x => x.EmployeeId == task.EmployeeId);
-                    personalFileDTO.SuccessTaskCompletion++;
-                    _personalFileRepository.Update(personalFileDTO);
+                    CalculateAVGOverdueCompletion(task.EmployeeId);
                 }
                 else if (command == "Revision")
                 {
@@ -210,7 +213,7 @@ namespace Onion.AppCore.Services
             });
         }
 
-        private void CalculateAVGCostComplexity(int? employeeId, int skip)
+        private void CalculateAVGCostComplexity(int? employeeId)
         {
             if (employeeId != null)
             {
@@ -218,9 +221,6 @@ namespace Onion.AppCore.Services
                 personalFile.AVGTaskCost = 0;
                 personalFile.AVGTaskComplexity = 0;
                 var tasksEmployee = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId);
-                
-                if (skip>0)
-                     tasksEmployee = tasksEmployee.Where(x =>  x.Id != skip);
 
                 var tasksEmployeeCost = tasksEmployee.Where(x => x.Cost > 0).ToList();
                 tasksEmployeeCost.ForEach(y => personalFile.AVGTaskCost += y.Cost);
@@ -236,5 +236,85 @@ namespace Onion.AppCore.Services
             }
         }
 
+        private void CalculateAVGOverdueCompletion(int? employeeId)
+        {
+            if (employeeId != null)
+            {
+                var completedId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
+                var acceptedId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+
+                var personalFileDTO = _personalFileRepository.GetList().First(x => x.EmployeeId == employeeId);
+                var tasksEmployee = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId
+                    && x.ConditionId == completedId && x.ReviewStageId == acceptedId).ToList();
+
+                personalFileDTO.SuccessTaskCompletion++;
+                personalFileDTO.AVGTaskOverdueTime = 0;
+                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).Hours);
+                if (tasksEmployee.Count > 0)
+                    personalFileDTO.AVGTaskOverdueTime /= tasksEmployee.Count;
+
+                personalFileDTO.AVGTaskCompletionTime = 0;
+                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).Hours);
+                if (tasksEmployee.Count > 0)
+                    personalFileDTO.AVGTaskCompletionTime /= tasksEmployee.Count;
+
+                _personalFileRepository.Update(personalFileDTO);
+            }
+        }
+
+        private void CalculatePersonalFileByDelete(int? employeeId, int skip)
+        {
+            if (employeeId != null)
+            {
+                var personalFile = _personalFileRepository.GetList().First(x => x.EmployeeId == employeeId);
+                personalFile.AVGTaskCost = 0;
+                personalFile.AVGTaskComplexity = 0;
+                var tasksEmployee = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId);
+
+                if (skip > 0)
+                    tasksEmployee = tasksEmployee.Where(x => x.Id != skip);
+
+                var tasksEmployeeCost = tasksEmployee.Where(x => x.Cost > 0).ToList();
+                tasksEmployeeCost.ForEach(y => personalFile.AVGTaskCost += y.Cost);
+                if (tasksEmployeeCost.Count > 0)
+                    personalFile.AVGTaskCost /= Convert.ToDouble(tasksEmployeeCost.Count);
+
+                var tasksEmployeeComplexity = tasksEmployee.Where(x => x.Complexity > 0).ToList();
+                tasksEmployeeComplexity.ForEach(y => personalFile.AVGTaskComplexity += y.Complexity);
+                if (tasksEmployeeComplexity.Count > 0)
+                    personalFile.AVGTaskComplexity /= Convert.ToDouble(tasksEmployeeComplexity.Count);
+
+
+
+
+                var completedId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
+                var acceptedId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+
+                var tasksEmployeeNew = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId
+                     && x.ConditionId == completedId && x.ReviewStageId == acceptedId).ToList();
+
+                if (skip > 0)
+                {
+                    tasksEmployeeNew = tasksEmployeeNew.Where(x => x.Id != skip).ToList();
+                    personalFile.SuccessTaskCompletion--;
+                }
+                else
+                    personalFile.SuccessTaskCompletion++;
+
+                personalFile.AVGTaskOverdueTime = 0;
+                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).Hours);
+                if (tasksEmployeeNew.Count > 0)
+                    personalFile.AVGTaskOverdueTime /= tasksEmployeeNew.Count;
+
+                personalFile.AVGTaskCompletionTime = 0;
+                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).Hours);
+                if (tasksEmployeeNew.Count > 0)
+                    personalFile.AVGTaskCompletionTime /= tasksEmployeeNew.Count;
+
+                _personalFileRepository.Update(personalFile);
+            }
+        }
     }
+
 }
+
