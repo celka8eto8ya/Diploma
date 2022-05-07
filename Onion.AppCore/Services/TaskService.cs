@@ -86,7 +86,7 @@ namespace Onion.AppCore.Services
             var task = _taskRepository.GetById(id);
             Step step = _stepRepository.GetById((int)task.StepId);
             step.TaskAmount--;
-            CalculateAVGCostComplexity(task.EmployeeId);
+            CalculateAVGCostComplexity(task.EmployeeId, id);
             _taskRepository.Delete(id);
             _stepRepository.Update(step);
         }
@@ -111,7 +111,7 @@ namespace Onion.AppCore.Services
                 StepId = taskDTO.StepId
             });
 
-            CalculateAVGCostComplexity(taskDTO.EmployeeId);
+            CalculateAVGCostComplexity(taskDTO.EmployeeId, 0);
         }
 
         public TaskDTO GetById(int id)
@@ -155,7 +155,7 @@ namespace Onion.AppCore.Services
 
             _taskRepository.Update(task);
 
-            CalculateAVGCostComplexity(id);
+            CalculateAVGCostComplexity(id, 0);
         }
 
         public void UpdateCondition(int taskId, string role, int projectId, string email, string command)
@@ -210,7 +210,7 @@ namespace Onion.AppCore.Services
             });
         }
 
-        private void CalculateAVGCostComplexity(int? employeeId)
+        private void CalculateAVGCostComplexity(int? employeeId, int skip)
         {
             if (employeeId != null)
             {
@@ -218,6 +218,9 @@ namespace Onion.AppCore.Services
                 personalFile.AVGTaskCost = 0;
                 personalFile.AVGTaskComplexity = 0;
                 var tasksEmployee = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId);
+                
+                if (skip>0)
+                     tasksEmployee = tasksEmployee.Where(x =>  x.Id != skip);
 
                 var tasksEmployeeCost = tasksEmployee.Where(x => x.Cost > 0).ToList();
                 tasksEmployeeCost.ForEach(y => personalFile.AVGTaskCost += y.Cost);
