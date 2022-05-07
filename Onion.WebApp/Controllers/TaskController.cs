@@ -164,7 +164,8 @@ namespace Onion.WebApp.Controllers
 
             var tasks = _taskService.GetList();
             return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
-                _taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id));
+               (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id ||
+                _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
         }
 
 
@@ -184,7 +185,7 @@ namespace Onion.WebApp.Controllers
 
             var tasks = _taskService.GetList();
             return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId &&
-                (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id || 
+                (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id ||
                 _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
         }
 
@@ -192,9 +193,8 @@ namespace Onion.WebApp.Controllers
         public IActionResult SetTask(int id, int taskId, int stepId)
         {
             if (taskId > 0)
-            {
                 _taskService.SetTask(taskId, id);
-            }
+
             return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
         }
 

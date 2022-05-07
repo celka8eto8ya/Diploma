@@ -12,16 +12,21 @@ namespace Onion.WebApp.Controllers
         private readonly IEmployee _employeeService;
         private readonly IProject _projectService;
         private readonly ITeam _teamService;
+        private readonly IPersonalFile _personalFileService;
+        private readonly ITask _taskService;
 
 
         public DashBoardController(IDashBoard dashBoardService, IDepartment departmentService, IEmployee employeeService,
-            IProject projectService, ITeam teamService)
+            IProject projectService, ITeam teamService, IPersonalFile personalFileService, ITask taskService)
         {
             _dashBoardService = dashBoardService;
             _departmentService = departmentService;
             _employeeService = employeeService;
             _projectService = projectService;
             _teamService = teamService;
+            _personalFileService = personalFileService;
+            _taskService = taskService;
+
         }
 
         [HttpGet]
@@ -103,6 +108,11 @@ namespace Onion.WebApp.Controllers
             if (set != null)
             {
                 _dashBoardService.Create(dashBoardDTO, teamId);
+
+                var personalFileDTO = _personalFileService.GetByEmployeeId(id);
+                personalFileDTO.SetProjectDate = System.DateTime.Now;
+                _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+                _personalFileService.Update(personalFileDTO);
                 ViewBag.CreateResult = "Set in project is successfully created!";
             }
 
@@ -125,6 +135,10 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult DeleteSetting(int id)
         {
+            var personalFileDTO = _personalFileService.GetByEmployeeId(id);
+            _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+            _personalFileService.Update(personalFileDTO);
+            
             _dashBoardService.Delete(id);
             return Redirect("~/Employee/Show");
         }

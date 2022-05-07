@@ -221,7 +221,7 @@
                                 <td scope="row">@proj.ReviewStageName</td>
                                 <td scope="row">@proj.ProjectDTO.StartDate.ToShortDateString()</td>
                                 <td scope="row">@proj.ProjectDTO.Deadline.ToShortDateString()</td>
-                                <td scope="row">@proj.ProjectDTO.Cost</td>
+                                <td scope="row">@string.Format($"{@proj.ProjectDTO.Cost:f2}") </td>
                                 <td scope="row">@proj.ProjectDTO.TechStack</td>
                                 <td scope="row">@proj.ProjectDTO.Description</td>
                                 <td scope="row">@proj.ProjectDTO.UseArea</td>

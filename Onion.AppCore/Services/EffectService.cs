@@ -122,7 +122,7 @@ namespace Onion.AppCore.Services
             {
                 CalculateDate = DateTime.Now,
                 IRR = IRRCalculate(effectDTO),
-                ROI = (effectDTO.ROI_InvestmentsIncome - effectDTO.ROI_ExpensesAmount) / effectDTO.ROI_InvestmentsAmount,
+                ROI = (effectDTO.ROI_InvestmentsIncome - effectDTO.ROI_ExpensesAmount) / effectDTO.ROI_InvestmentsAmount * 100,
                 NPV = NPVCalculate(effectDTO),
                 ETC = 4,
                 PCT_A = 5,

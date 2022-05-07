@@ -160,7 +160,8 @@ namespace Onion.AppCore.Services
 
 
         public bool IsExistUser(AuthenticationDTO authenticationDTO)
-            => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email && x.Password == CalculateMD5Hash(authenticationDTO.Password));
+            => _authenticationRepository.GetList().Any(x => x.Email == authenticationDTO.Email 
+                && x.Password == CalculateMD5Hash(authenticationDTO.Password));
 
         public string CheckRole(string email)
         {

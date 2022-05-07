@@ -109,7 +109,7 @@
                                 {
                                     <td scope="row">@fullTaskDTO.TaskDTO.CompletionDate</td>
                                 }
-                                <td scope="row">@fullTaskDTO.TaskDTO.Cost</td>
+                                <td scope="row">@string.Format($"{@fullTaskDTO.TaskDTO.Cost:f2}")</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Comment</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Complexity</td>
                                 @if (User.IsInRole("ProjectManager"))

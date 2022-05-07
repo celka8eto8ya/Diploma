@@ -14,17 +14,19 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
         private readonly IGenericRepository<Task> _taskRepository;
         private readonly IGenericRepository<Notification> _notificationRepository;
+        private readonly IGenericRepository<PersonalFile> _personalFileRepository;
 
 
         public TaskService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
             IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository,
-             IGenericRepository<Notification> notificationRepository)
+             IGenericRepository<Notification> notificationRepository, IGenericRepository<PersonalFile> personalFileRepository)
         {
             _stepRepository = stepRepository;
             _conditionRepository = conditionRepository;
             _reviewStageRepository = reviewStageRepository;
             _taskRepository = taskRepository;
             _notificationRepository = notificationRepository;
+            _personalFileRepository = personalFileRepository;
         }
 
         public IEnumerable<FullTaskDTO> GetList()
@@ -79,18 +81,19 @@ namespace Onion.AppCore.Services
             _stepRepository.Update(step);
         }
 
-
         public void Delete(int id)
         {
-            Step step = _stepRepository.GetById((int)_taskRepository.GetById(id).StepId);
+            var task = _taskRepository.GetById(id);
+            Step step = _stepRepository.GetById((int)task.StepId);
             step.TaskAmount--;
+            CalculateAVGCostComplexity(task.EmployeeId);
             _taskRepository.Delete(id);
             _stepRepository.Update(step);
         }
 
-
         public void Update(TaskDTO taskDTO)
-            => _taskRepository.Update(new Task
+        {
+            _taskRepository.Update(new Task
             {
                 Id = taskDTO.Id,
                 Name = taskDTO.Name,
@@ -108,6 +111,8 @@ namespace Onion.AppCore.Services
                 StepId = taskDTO.StepId
             });
 
+            CalculateAVGCostComplexity(taskDTO.EmployeeId);
+        }
 
         public TaskDTO GetById(int id)
         {
@@ -134,12 +139,23 @@ namespace Onion.AppCore.Services
         public void SetTask(int taskId, int id)
         {
             var task = _taskRepository.GetById(taskId);
+            var personalFile = _personalFileRepository.GetList().First(x => x.EmployeeId == id);
             if (task.EmployeeId == null)
+            {
                 task.EmployeeId = id;
+                task.Cost = (task.Deadline - task.CreateDate).Days / 30.0 * personalFile.AVGSalary;
+            }
             else
+            {
+                task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForImplementation.ToString()).Id;
+                task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.None.ToString()).Id;
+                task.Cost = 0;
                 task.EmployeeId = null;
+            }
 
             _taskRepository.Update(task);
+
+            CalculateAVGCostComplexity(id);
         }
 
         public void UpdateCondition(int taskId, string role, int projectId, string email, string command)
@@ -158,6 +174,11 @@ namespace Onion.AppCore.Services
                     text = $"PM \"{email}\" set condition in \"Completed\". ";
                     task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.Completed.ToString()).Id;
                     task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.Accepted.ToString()).Id;
+                    task.CompletionDate = DateTime.Now;
+
+                    var personalFileDTO = _personalFileRepository.GetList().First(x => x.EmployeeId == task.EmployeeId);
+                    personalFileDTO.SuccessTaskCompletion++;
+                    _personalFileRepository.Update(personalFileDTO);
                 }
                 else if (command == "Revision")
                 {
@@ -166,7 +187,7 @@ namespace Onion.AppCore.Services
                     task.ReviewStageId = _reviewStageRepository.GetList().First(x => x.Name == Enums.ReviewStages.ForRevision.ToString()).Id;
                 }
             }
-            else if(role == "Employee")
+            else if (role == "Employee")
             {
                 employeeId = task.EmployeeId;
                 task.ConditionId = _conditionRepository.GetList().First(x => x.Name == Enums.Conditions.ForConsideration.ToString()).Id;
@@ -187,6 +208,29 @@ namespace Onion.AppCore.Services
                 EmployeeId = employeeId,
                 TaskId = task.Id
             });
+        }
+
+        private void CalculateAVGCostComplexity(int? employeeId)
+        {
+            if (employeeId != null)
+            {
+                var personalFile = _personalFileRepository.GetList().First(x => x.EmployeeId == employeeId);
+                personalFile.AVGTaskCost = 0;
+                personalFile.AVGTaskComplexity = 0;
+                var tasksEmployee = _taskRepository.GetList().Where(x => x.EmployeeId == employeeId);
+
+                var tasksEmployeeCost = tasksEmployee.Where(x => x.Cost > 0).ToList();
+                tasksEmployeeCost.ForEach(y => personalFile.AVGTaskCost += y.Cost);
+                if (tasksEmployeeCost.Count > 0)
+                    personalFile.AVGTaskCost /= Convert.ToDouble(tasksEmployeeCost.Count);
+
+                var tasksEmployeeComplexity = tasksEmployee.Where(x => x.Complexity > 0).ToList();
+                tasksEmployeeComplexity.ForEach(y => personalFile.AVGTaskComplexity += y.Complexity);
+                if (tasksEmployeeComplexity.Count > 0)
+                    personalFile.AVGTaskComplexity /= Convert.ToDouble(tasksEmployeeComplexity.Count);
+
+                _personalFileRepository.Update(personalFile);
+            }
         }
 
     }

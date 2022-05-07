@@ -11,6 +11,11 @@
 
     <input type="text" name="Id" asp-for="Id" hidden />
     <input type="text" name="EmployeeId" asp-for="EmployeeId" hidden />
+    <input type="text" name="AVGTaskCost" asp-for="AVGTaskCost" hidden />
+    <input type="text" name="AVGTaskComplexity" asp-for="AVGTaskComplexity" hidden />
+    <input type="text" name="AVGTaskCompletionTime" asp-for="AVGTaskCompletionTime" hidden />
+    <input type="text" name="AVGTaskOverdueTime" asp-for="AVGTaskOverdueTime" hidden />
+    
 
 
     <div class="container col-5 justify-content-center mt-3 ">
@@ -28,41 +33,41 @@
         </div>
 
         <div class="row mt-4 justify-content-start">
-            <div class="col-4">
-                <label class="form-label" asp-for="TotalTimeInProjects">Total Time In Projects:</label>
+            <div class="col-6">
+                <label class="form-label" asp-for="TotalTimeInProjects">Total Time In Projects (Month):</label>
             </div>
-            <div class="col-8">
-                <input type="text" name="TotalTimeInProjects" class="form-control" asp-for="TotalTimeInProjects" />
+            <div class="col-6">
+                <input type="number" name="TotalTimeInProjects" class="form-control" asp-for="TotalTimeInProjects" />
                 <span asp-validation-for="TotalTimeInProjects" class="col-8" />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
-            <div class="col-4">
-                <label class="form-label" asp-for="AVGProjectTime">AVG Project Time:</label>
+            <div class="col-5">
+                <label class="form-label" asp-for="AVGProjectTime">AVG Project Time (Month):</label>
             </div>
-            <div class="col-8">
-                <input type="text" name="AVGProjectTime" class="form-control" asp-for="AVGProjectTime" readonly />
+            <div class="col-7">
+                <input type="number" name="AVGProjectTime" class="form-control" asp-for="AVGProjectTime" />
                 <span asp-validation-for="AVGProjectTime" class="col-8" />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
-            <div class="col-4">
-                <label class="form-label" asp-for="SetProjectDate">Set Project Date:</label>
+            <div class="col-5">
+                <label class="form-label" asp-for="SetProjectDate">Last Set in Project Date:</label>
             </div>
-            <div class="col-8">
+            <div class="col-7">
                 <input type="text" name="SetProjectDate" class="form-control" asp-for="SetProjectDate" readonly />
                 <span asp-validation-for="SetProjectDate" class="col-8" />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
-            <div class="col-6">
-                <label class="form-label" asp-for="SuccessTaskCompletion">Success Task Completion (%):</label>
+            <div class="col-5">
+                <label class="form-label" asp-for="SuccessTaskCompletion">Success Task Completion:</label>
             </div>
-            <div class="col-6">
-                <input type="text" name="SuccessTaskCompletion" class="form-control" asp-for="SuccessTaskCompletion" readonly />
+            <div class="col-7">
+                <input type="number" name="SuccessTaskCompletion" class="form-control" asp-for="SuccessTaskCompletion" readonly />
                 <span asp-validation-for="SuccessTaskCompletion" class="col-8" />
             </div>
         </div>
@@ -72,7 +77,7 @@
                 <label class="form-label" asp-for="AVGTaskCompletionPerMonth">AVG Task Completion Per Month:</label>
             </div>
             <div class="col-6">
-                <input type="text" name="AVGTaskCompletionPerMonth" class="form-control" asp-for="AVGTaskCompletionPerMonth" />
+                <input type="number" name="AVGTaskCompletionPerMonth" class="form-control" asp-for="AVGTaskCompletionPerMonth" />
                 <span asp-validation-for="AVGTaskCompletionPerMonth" class="col-8" />
             </div>
         </div>
@@ -82,48 +87,48 @@
                 <label class="form-label" asp-for="AVGSalary">AVG Salary:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="AVGSalary" class="form-control" asp-for="AVGSalary" />
+                <input type="number" name="AVGSalary" class="form-control" asp-for="AVGSalary" />
                 <span asp-validation-for="AVGSalary" class="col-8" />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
             <div class="col-3">
-                <label class="form-label" asp-for="AVGTaskCost">AVG Task Cost:</label>
+                <label class="form-label">AVG Task Cost:</label>
             </div>
             <div class="col-9">
-                <input type="text" name="AVGTaskCost" class="form-control" asp-for="AVGTaskCost" readonly />
-                <span asp-validation-for="AVGTaskCost" class="col-8" />
+                <input type="text" class="form-control" 
+                       value="@string.Format($"{@ViewBag.PersonalFile.AVGTaskCost:f2}")" readonly />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
             <div class="col-5">
-                <label class="form-label" asp-for="AVGTaskOverdueTime">AVG Task Overdue Time:</label>
+                <label class="form-label">AVG Task Overdue Time:</label>
             </div>
             <div class="col-7">
-                <input type="text" name="AVGTaskOverdueTime" class="form-control" asp-for="AVGTaskOverdueTime" readonly />
-                <span asp-validation-for="AVGTaskOverdueTime" class="col-8" />
+                <input type="text" name="AVGTaskOverdueTime" class="form-control" 
+                       value="@string.Format($"{@ViewBag.PersonalFile.AVGTaskOverdueTime:f2}")"   readonly />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
             <div class="col-4">
-                <label class="form-label" asp-for="AVGTaskComplexity">AVG Task Complexity:</label>
+                <label class="form-label">AVG Task Complexity:</label>
             </div>
             <div class="col-8">
-                <input type="text" name="AVGTaskComplexity" class="form-control" asp-for="AVGTaskComplexity" readonly />
-                <span asp-validation-for="AVGTaskComplexity" class="col-8" />
+                <input type="text" class="form-control" 
+                       value="@string.Format($"{@ViewBag.PersonalFile.AVGTaskComplexity:f2}")" readonly />
             </div>
         </div>
 
         <div class="row mt-4 justify-content-start">
             <div class="col-5">
-                <label class="form-label" asp-for="AVGTaskCompletionTime">AVG Task Completion Time:</label>
+                <label class="form-label" >AVG Task Completion Time:</label>
             </div>
             <div class="col-7">
-                <input type="text" name="AVGTaskCompletionTime" class="form-control" asp-for="AVGTaskCompletionTime" readonly />
-                <span asp-validation-for="AVGTaskCompletionTime" class="col-8" />
+                <input type="text" name="AVGTaskCompletionTime" class="form-control" 
+                       value="@string.Format($"{@ViewBag.PersonalFile.AVGTaskCompletionTime:f2}")" readonly />
             </div>
         </div>
 

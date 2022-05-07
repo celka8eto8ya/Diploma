@@ -70,7 +70,7 @@
                             <div class="card-body row justify-content-around">
 
                                 <div class="card text-white bg-primary mb-3 " style="max-width: 18rem;">
-                                    <div class="card-header">IRR = @ViewBag.EffectDTO.IRR</div>
+                                    <div class="card-header">IRR = @string.Format($"{@ViewBag.EffectDTO.IRR:f2}") % </div>
                                     <div class="card-body ">
                                         <h5 class="card-title">Internal Rate of Return</h5>
                                         <p class="card-text text-left">
@@ -83,7 +83,7 @@
                                 </div>
 
                                 <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">ROI</div>
+                                    <div class="card-header">ROI = @string.Format($"{@ViewBag.EffectDTO.ROI:f2}") %</div>
                                     <div class="card-body ">
                                         <h5 class="card-title">Return On Investment</h5>
                                         <p class="card-text text-left">
@@ -96,54 +96,57 @@
                                 </div>
 
                                 <div class="card text-white bg-success mb-3 " style="max-width: 18rem;">
-                                    <div class="card-header">NPV</div>
+                                    <div class="card-header">NPV = @string.Format($"{@ViewBag.EffectDTO.NPV:f2}") m.u.</div>
                                     <div class="card-body">
                                         <h5 class="card-title">Net Present Value</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text">
+                                            The sum of the discounted values of the payment stream, reduced to today.
+                                            The NPV indicator is the difference between all cash inflows and outflows, reduced to the
+                                            current point in time (the moment the investment project is evaluated).
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="card text-white bg-danger mb-3 " style="max-width: 18rem;">
-                                    <div class="card-header">ETC</div>
+                                    <div class="card-header">ETC = @string.Format($"{@ViewBag.EffectDTO.ETC:f2}") $</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Danger card title</h5>
+                                        <h5 class="card-title">Employee Time Cost</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
 
                                 <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">PCT_A</div>
+                                    <div class="card-header">PCT_A = @string.Format($"{@ViewBag.EffectDTO.PCT_A:f2}") %</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Warning card title</h5>
+                                        <h5 class="card-title">Percent Completion Tasks – Amount</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
                                 <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">PCT_T</div>
+                                    <div class="card-header">PCT_T = @string.Format($"{@ViewBag.EffectDTO.PCT_T:f2}") %</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Info card title</h5>
+                                        <h5 class="card-title">Percent Completion Tasks – Time</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
 
                                 <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">POT</div>
+                                    <div class="card-header">POT = @string.Format($"{@ViewBag.EffectDTO.POT:f2}") %</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Light card title</h5>
+                                        <h5 class="card-title">Percent Overdue - Time</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
 
                                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">POA</div>
+                                    <div class="card-header">POA = @string.Format($"{@ViewBag.EffectDTO.POA:f2}") %</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Dark card title</h5>
+                                        <h5 class="card-title">Percent Overdue - Amount</h5>
                                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     </div>
                                 </div>
 
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -231,7 +234,7 @@
                                         </div>
                                         <div class="col-8">
                                             <div class="btn-group form-control  p-0" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     Open
                                                 </button>
                                                 <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
@@ -310,7 +313,7 @@
                                         </div>
                                         <div class="col-8">
                                             <div class="btn-group form-control  p-0" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     Open
                                                 </button>
                                                 <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
@@ -358,165 +361,13 @@
                                     </div>
 
                                     <input type="number" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
+                                   
 
-                                    <label class="form-label">Expenses Amount (ROI):</label>
-                                    <label class="form-label">Investment Income (ROI):</label>
-                                    <label class="form-label">investment Amount (ROI):</label>
-                                    (investment income - cost amount) / investment amount
-
-                                    <label class="form-label">Pervonach Investments (NPV):</label>
-                                    <label class="form-label">Stavka discontir (NPV):</label>
-                                    <label class="form-label">Cash flows by ten years. No more - all 10 values (NPV):</label>
-
-                                    <label class="form-label">First Investments (NPV):</label>
-
-                                    ViewBag.IRR = @string.Format($"{@ViewBag.IRR:f2}")
-                                    <br />
-                                    ViewBag.IRRsumm = @ViewBag.IRRsumm
-
-                                    <br />
-                                    ViewBag.IRRsummLast =  @string.Format($"{@ViewBag.IRRsummLast:f2}")
-                                    @*<div class="row mt-4 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.FullName">Full Name:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="text" name="EmployeeDTO.FullName" class="form-control" asp-for="EmployeeDTO.FullName" />
-                                                <span asp-validation-for="EmployeeDTO.FullName" class="col-8" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="AuthenticationDTO.Email">Email:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="text" name="AuthenticationDTO.Email" class="form-control" asp-for="AuthenticationDTO.Email" />
-                                                <span asp-validation-for="AuthenticationDTO.Email" class="col-8" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="AuthenticationDTO.Password">Password:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="password" name="AuthenticationDTO.Password" class="form-control" asp-for="AuthenticationDTO.Password" />
-                                                <span asp-validation-for="AuthenticationDTO.Password" class="col-8" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.TechStackName">Tech. Stack:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="text" name="EmployeeDTO.TechStackName" class="form-control" asp-for="EmployeeDTO.TechStackName" />
-                                                <span asp-validation-for="EmployeeDTO.TechStackName" class="col-8" />
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.Experience">Experience (month):</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="number" name="EmployeeDTO.Experience" class="form-control" asp-for="EmployeeDTO.Experience" />
-                                                <span asp-validation-for="EmployeeDTO.Experience" class="col-8" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.Position">Position:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="text" name="EmployeeDTO.Position" class="form-control" asp-for="EmployeeDTO.Position" />
-                                                <span asp-validation-for="EmployeeDTO.Position" class="col-8" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.Technologies">Technologies:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <input type="text" name="EmployeeDTO.Technologies" class="form-control" asp-for="EmployeeDTO.Technologies" />
-                                                <span asp-validation-for="EmployeeDTO.Technologies" class="col-8" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.Level">Level:</label>
-                                            </div>
-                                            <div class="col-9">
-                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.Level">
-                                                    <option class="form-control" selected value="Junior">Junior</option>
-                                                    <option class="form-control" value="Middle">Middle</option>
-                                                    <option class="form-control" value="Senior">Senior</option>
-                                                </select>
-                                                <span asp-validation-for="EmployeeDTO.Level" class="col-8" />
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row  mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.DepartmentId">Department:</label>
-                                            </div>
-                                            <div class="col-9">
-
-                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.DepartmentId">
-                                                    @{
-
-                                                        foreach (var department in ViewBag.Departments)
-                                                        {
-                                                            <option class="form-control" selected value="@department.Id">@department.Name</option>
-                                                        }
-                                                    }
-                                                </select>
-                                                <span asp-validation-for="EmployeeDTO.DepartmentId" class="col-8"></span>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row  mt-2 justify-content-start">
-                                            <div class="col-3">
-                                                <label class="form-label" asp-for="EmployeeDTO.RoleId">Role:</label>
-                                            </div>
-                                            <div class="col-9">
-
-                                                <select class="form-select form-control" aria-label="Select" asp-for="EmployeeDTO.RoleId">
-                                                    @{
-
-                                                        foreach (var role in ViewBag.Roles)
-                                                        {
-                                                            if (role.Name != "Customer" && role.Name != "Admin")
-                                                            {
-                                                                <option class="form-control" selected value="@role.Id">@role.Name</option>
-                                                            }
-                                                        }
-                                                    }
-                                                </select>
-                                                <span asp-validation-for="EmployeeDTO.RoleId" class="col-8"></span>
-                                            </div>
-                                        </div>*@
-
-
-
-
-                                    <div class="row  justify-content-center mb-5 pb-4">
+                                    <div class="row  justify-content-center  mt-4  mb-5 pb-4">
                                         <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Calculate">
                                     </div>
                                 </div>
                             </form>
-
-
 
                         </div>
                     </div>

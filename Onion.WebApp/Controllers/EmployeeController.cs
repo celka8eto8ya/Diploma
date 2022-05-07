@@ -146,7 +146,12 @@ namespace Onion.WebApp.Controllers
 
         [HttpGet]
         public IActionResult ShowPersonalFile(int id)
-            => View(_personalFileService.GetByEmployeeId(id));
+        {
+            var personalFile = _personalFileService.GetByEmployeeId(id);
+            ViewBag.PersonalFile = personalFile;
+            return View(personalFile);
+        }
+
 
         [HttpPost]
         public IActionResult ShowPersonalFile(PersonalFileDTO personalFileDTO)

@@ -276,3 +276,11 @@ input[type="checkbox"].input-validation-error {
     padding-bottom: -20px;
     margin-bottom: -20px;
 }
+table td {
+    overflow-wrap: normal; /* не поддерживает IE, Firefox; является копией word-wrap */
+    word-wrap: break-word;
+    word-break: break-all; /* не поддерживает Opera12.14, значение keep-all не поддерживается IE, Chrome */
+    line-break: auto; /* нет поддержки для русского языка */
+    hyphens: manual; /* значение auto не поддерживается Chrome */
+    /*width: 50%;*/
+}
