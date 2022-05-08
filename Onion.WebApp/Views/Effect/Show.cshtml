@@ -162,6 +162,8 @@
                                 <div class="container col-6 justify-content-center mt-3 ">
                                     <h2 class="text-center mb-4">Data needed for calculation:</h2>
 
+                                    <input type="text" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
+
                                     <label class="form-label text-left font-weight-bold col-12  mb-0 ">ROI:</label>
                                     <hr class="mt-0">
 
@@ -361,7 +363,7 @@
                                     </div>
 
                                     <input type="number" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
-                                   
+
 
                                     <div class="row  justify-content-center  mt-4  mb-5 pb-4">
                                         <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Calculate">

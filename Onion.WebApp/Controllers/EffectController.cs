@@ -37,57 +37,8 @@ namespace Onion.WebApp.Controllers
         [HttpGet]
         public IActionResult Show(int id)
         {
-            ////var notifications = _notificationService.GetList();
-
-            
-            
-            //table.arrayField = JsonConvert.SerializeObject(new string[] { "123", "qwe", "asd" });
-
-            ////deserialize
-            //var array = JsonConvert.DeserializeObject<string[]>(table.arrayField);
-
-
             ViewBag.Project = _projectService.GetById(id);
             ViewBag.EffectDTO = _effectService.GetList().Last();
-
-            //double initial = 10000;
-            //double[] mass = { 1000, 3000, 4000, 6000, 0, 0, 0 };
-            //double summ;
-
-            //for (double i = 0.0001; i < 0.5; i += 0.0001)
-            //{
-            //   summ = 0;
-            //    for (int j = 0; j < mass.Length; j++)
-            //    {
-            //        if (mass[j] > 0)
-            //        {
-            //            summ += mass[j] / Math.Pow(1 + i, j + 1);
-            //        }
-
-            //    }
-
-            //    if (summ < initial)
-            //    {
-            //        ViewBag.IRRsumm = summ;
-            //        ViewBag.IRR = (i-0.0001) * 100;
-            //        break;
-            //    }
-            //}
-
-
-
-            //ViewBag.stepId = _taskService.GetById(id);
-
-
-            ////if (User.IsInRole("ProjectManager"))
-            ////    return View(notifications.Where(x => x.EmployeeId != null && x.Viewed == false && x.ProjectId == id));
-            ////else
-            ////{
-            ////    var employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
-
-            ////    return View(notifications.Where(x => x.EmployeeId == null && x.Viewed == false && x.ProjectId == id
-            ////        && _taskService.GetById(x.TaskId).EmployeeId == employeeId));
-            ////}
 
             return View();
         }
@@ -98,56 +49,7 @@ namespace Onion.WebApp.Controllers
             _effectService.Create(effectDTO);
 
             ViewBag.EffectDTO = _effectService.GetList().Last();
-            ////var notifications = _notificationService.GetList();
-
-
-
-            //table.arrayField = JsonConvert.SerializeObject(new string[] { "123", "qwe", "asd" });
-
-            ////deserialize
-            //var array = JsonConvert.DeserializeObject<string[]>(table.arrayField);
-
-
             ViewBag.Project = _projectService.GetById(id);
-
-            //double initial = 10000;
-            //double[] mass = { 1000, 3000, 4000, 6000, 0, 0, 0 };
-            //double summ;
-
-            //for (double i = 0.0001; i < 0.5; i += 0.0001)
-            //{
-            //    summ = 0;
-            //    for (int j = 0; j < mass.Length; j++)
-            //    {
-            //        if (mass[j] > 0)
-            //        {
-            //            summ += mass[j] / Math.Pow(1 + i, j + 1);
-            //        }
-
-            //    }
-
-            //    if (summ < initial)
-            //    {
-            //        ViewBag.IRRsumm = summ;
-            //        ViewBag.IRR = (i - 0.0001) * 100;
-            //        break;
-            //    }
-            //}
-
-
-
-            //ViewBag.stepId = _taskService.GetById(id);
-
-
-            ////if (User.IsInRole("ProjectManager"))
-            ////    return View(notifications.Where(x => x.EmployeeId != null && x.Viewed == false && x.ProjectId == id));
-            ////else
-            ////{
-            ////    var employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
-
-            ////    return View(notifications.Where(x => x.EmployeeId == null && x.Viewed == false && x.ProjectId == id
-            ////        && _taskService.GetById(x.TaskId).EmployeeId == employeeId));
-            ////}
 
             return View();
         }

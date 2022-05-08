@@ -7,8 +7,8 @@ namespace Onion.AppCore.Interfaces
     {
         IEnumerable<EffectDTO> GetList();
         void Create(EffectDTO effectDTO);
-        double IRRCalculate(EffectDTO effectDTO);
-        double NPVCalculate(EffectDTO effectDTO);
+        //double IRRCalculate(EffectDTO effectDTO);
+        //double NPVCalculate(EffectDTO effectDTO);
         //void Update(StepDTO stepDTO);
         //void Delete(int id);
         //StepDTO GetById(int id);

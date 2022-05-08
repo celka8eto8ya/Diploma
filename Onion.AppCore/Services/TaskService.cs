@@ -249,12 +249,12 @@ namespace Onion.AppCore.Services
 
                 personalFileDTO.SuccessTaskCompletion++;
                 personalFileDTO.AVGTaskOverdueTime = 0;
-                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).Hours);
+                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).TotalHours);
                 if (tasksEmployee.Count > 0)
                     personalFileDTO.AVGTaskOverdueTime /= tasksEmployee.Count;
 
                 personalFileDTO.AVGTaskCompletionTime = 0;
-                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).Hours);
+                tasksEmployee.ForEach(y => personalFileDTO.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).TotalHours);
                 if (tasksEmployee.Count > 0)
                     personalFileDTO.AVGTaskCompletionTime /= tasksEmployee.Count;
 
@@ -302,12 +302,12 @@ namespace Onion.AppCore.Services
                     personalFile.SuccessTaskCompletion++;
 
                 personalFile.AVGTaskOverdueTime = 0;
-                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).Hours);
+                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskOverdueTime += (y.CompletionDate - y.Deadline).TotalHours);
                 if (tasksEmployeeNew.Count > 0)
                     personalFile.AVGTaskOverdueTime /= tasksEmployeeNew.Count;
 
                 personalFile.AVGTaskCompletionTime = 0;
-                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).Hours);
+                tasksEmployeeNew.ForEach(y => personalFile.AVGTaskCompletionTime += (y.CompletionDate - y.CreateDate).TotalHours);
                 if (tasksEmployeeNew.Count > 0)
                     personalFile.AVGTaskCompletionTime /= tasksEmployeeNew.Count;
 
