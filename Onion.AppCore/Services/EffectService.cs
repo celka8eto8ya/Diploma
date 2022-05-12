@@ -19,12 +19,14 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Team> _teamRepository;
         private readonly IGenericRepository<Employee> _employeeRepository;
         private readonly IGenericRepository<PersonalFile> _personalFileRepository;
+        private readonly IGenericRepository<DashBoard> _dashBoardRepository;
 
 
         public EffectService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
             IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository,
             IGenericRepository<Effect> effectRepository, IGenericRepository<Team> teamRepository,
-            IGenericRepository<Employee> employeeRepository, IGenericRepository<PersonalFile> personalFileRepository)
+            IGenericRepository<Employee> employeeRepository, IGenericRepository<PersonalFile> personalFileRepository,
+            IGenericRepository<DashBoard> dashBoardRepository)
         {
             _stepRepository = stepRepository;
             _conditionRepository = conditionRepository;
@@ -35,6 +37,7 @@ namespace Onion.AppCore.Services
             _teamRepository = teamRepository;
             _employeeRepository = employeeRepository;
             _personalFileRepository = personalFileRepository;
+            _dashBoardRepository = dashBoardRepository;
         }
 
         public IEnumerable<EffectDTO> GetList()
@@ -145,7 +148,7 @@ namespace Onion.AppCore.Services
                 parameterPCT_T += y.AVGTaskCompletionTime / (y.AVGTaskCompletionTime - y.AVGTaskOverdueTime) * 100);
 
             projectPersonalFilesCT_T.ForEach(y => parameterCT_T += y.AVGTaskCompletionTime * y.SuccessTaskCompletion);
-            
+
             if (projectPersonalFilesPCT_T.Count != 0)
                 parameterPCT_T /= projectPersonalFilesPCT_T.Count;
 
@@ -153,10 +156,10 @@ namespace Onion.AppCore.Services
             double parameterPOT = 0;
             var projectPersonalFilesPOT = projectPersonalFiles.Where(x => x.AVGTaskOverdueTime != 0
                 || (x.AVGTaskCompletionTime != 0 && x.AVGTaskOverdueTime != 0)).ToList();
-            
+
             var projectPersonalFilesOT = projectPersonalFiles.Where(x => x.AVGTaskOverdueTime != 0
                 && x.SuccessTaskCompletion > 0).ToList();
-           
+
             projectPersonalFilesPOT.ForEach(y =>
                 parameterPOT += y.AVGTaskOverdueTime / (y.AVGTaskCompletionTime - y.AVGTaskOverdueTime) * 100);
 
@@ -165,13 +168,19 @@ namespace Onion.AppCore.Services
             if (projectPersonalFilesPOT.Count != 0)
                 parameterPOT /= projectPersonalFilesPOT.Count;
 
+            double parameterETC = 0;
+            for (int i = 0; i < projectPersonalFiles.Count; i++)
+                parameterETC += (DateTime.Now -
+                    _dashBoardRepository.GetList().First(x => x.EmployeeId == projectPersonalFiles[i].EmployeeId).SetDate).TotalDays
+                        * projectPersonalFiles[i].AVGSalary / 30.0;
+
             _effectRepository.Create(new Effect()
             {
                 CalculateDate = DateTime.Now,
                 IRR = IRRCalculate(effectDTO),
                 ROI = (effectDTO.ROI_InvestmentsIncome - effectDTO.ROI_ExpensesAmount) / effectDTO.ROI_InvestmentsAmount * 100,
                 NPV = NPVCalculate(effectDTO),
-                ETC = 4,
+                ETC = parameterETC,
                 CT_T = parameterCT_T,
                 PCT_T = parameterPCT_T,
                 POT = parameterPOT,
