@@ -46,10 +46,10 @@ namespace Onion.AppCore.Services
                 ROI = x.ROI,
                 NPV = x.NPV,
                 ETC = x.ETC,
-                PCT_A = x.PCT_A,
+                CT_T = x.CT_T,
                 PCT_T = x.PCT_T,
                 POT = x.POT,
-                POA = x.POA,
+                OT = x.OT,
 
                 ROI_ExpensesAmount = x.ROI_ExpensesAmount,
                 ROI_InvestmentsIncome = x.ROI_InvestmentsIncome,
@@ -133,23 +133,35 @@ namespace Onion.AppCore.Services
                 personalFiles.Where(x => x.EmployeeId == projectEmployees[i].Id).ToList().ForEach(y =>
                     projectPersonalFiles.Add(y));
 
-            //double parameterAVG_CT_T
+            double parameterCT_T = 0;
             double parameterPCT_T = 0;
             var projectPersonalFilesPCT_T = projectPersonalFiles.Where(x => x.AVGTaskCompletionTime != 0
                 || (x.AVGTaskCompletionTime != 0 && x.AVGTaskOverdueTime != 0)).ToList();
-            
+            var projectPersonalFilesCT_T = projectPersonalFiles.Where(x => x.AVGTaskCompletionTime != 0
+                && x.SuccessTaskCompletion > 0).ToList();
+
+
             projectPersonalFilesPCT_T.ForEach(y =>
                 parameterPCT_T += y.AVGTaskCompletionTime / (y.AVGTaskCompletionTime - y.AVGTaskOverdueTime) * 100);
+
+            projectPersonalFilesCT_T.ForEach(y => parameterCT_T += y.AVGTaskCompletionTime * y.SuccessTaskCompletion);
+            
             if (projectPersonalFilesPCT_T.Count != 0)
                 parameterPCT_T /= projectPersonalFilesPCT_T.Count;
 
-            //double parameterAVG_OT
+            double parameterOT = 0;
             double parameterPOT = 0;
             var projectPersonalFilesPOT = projectPersonalFiles.Where(x => x.AVGTaskOverdueTime != 0
                 || (x.AVGTaskCompletionTime != 0 && x.AVGTaskOverdueTime != 0)).ToList();
-
+            
+            var projectPersonalFilesOT = projectPersonalFiles.Where(x => x.AVGTaskOverdueTime != 0
+                && x.SuccessTaskCompletion > 0).ToList();
+           
             projectPersonalFilesPOT.ForEach(y =>
                 parameterPOT += y.AVGTaskOverdueTime / (y.AVGTaskCompletionTime - y.AVGTaskOverdueTime) * 100);
+
+            projectPersonalFilesOT.ForEach(y => parameterOT += y.AVGTaskOverdueTime * y.SuccessTaskCompletion);
+
             if (projectPersonalFilesPOT.Count != 0)
                 parameterPOT /= projectPersonalFilesPOT.Count;
 
@@ -160,10 +172,10 @@ namespace Onion.AppCore.Services
                 ROI = (effectDTO.ROI_InvestmentsIncome - effectDTO.ROI_ExpensesAmount) / effectDTO.ROI_InvestmentsAmount * 100,
                 NPV = NPVCalculate(effectDTO),
                 ETC = 4,
-                PCT_A = 5,
+                CT_T = parameterCT_T,
                 PCT_T = parameterPCT_T,
                 POT = parameterPOT,
-                POA = 8,
+                OT = parameterOT,
 
                 ROI_ExpensesAmount = effectDTO.ROI_ExpensesAmount,
                 ROI_InvestmentsIncome = effectDTO.ROI_InvestmentsIncome,
