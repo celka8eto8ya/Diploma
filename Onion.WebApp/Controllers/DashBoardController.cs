@@ -12,30 +12,59 @@ namespace Onion.WebApp.Controllers
         private readonly IEmployee _employeeService;
         private readonly IProject _projectService;
         private readonly ITeam _teamService;
+        private readonly IPersonalFile _personalFileService;
+        private readonly ITask _taskService;
 
 
         public DashBoardController(IDashBoard dashBoardService, IDepartment departmentService, IEmployee employeeService,
-            IProject projectService, ITeam teamService)
+            IProject projectService, ITeam teamService, IPersonalFile personalFileService, ITask taskService)
         {
             _dashBoardService = dashBoardService;
             _departmentService = departmentService;
             _employeeService = employeeService;
             _projectService = projectService;
             _teamService = teamService;
+            _personalFileService = personalFileService;
+            _taskService = taskService;
+
         }
 
         [HttpGet]
         public IActionResult Show()
-            => View(_dashBoardService.GetFullList());
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(_employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+            return View(dashBoards);
+        }
 
 
         [HttpGet]
         public IActionResult ShowResources()
-            => new JsonResult(_dashBoardService.GetFullList().Select(x => new { id = x.Id, title = x.Employee }));
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(
+                    _employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+
+            return new JsonResult(dashBoards.Select(x => new { id = x.Id, title = x.Employee }));
+        }
 
         [HttpGet]
         public IActionResult ShowEvents()
-            => new JsonResult(_dashBoardService.GetFullList().Select(x => new
+        {
+            var dashBoards = _dashBoardService.GetFullList();
+            if (User.IsInRole("Employee"))
+            {
+                dashBoards = dashBoards.Where(x => x.Employee == _employeeService.GetById(
+                    _employeeService.GetByEmailEntity(User.Identity.Name)).FullName);
+            }
+
+            return new JsonResult(dashBoards.Select(x => new
             {
                 id = x.Id,
                 resourceId = x.Id,
@@ -43,6 +72,7 @@ namespace Onion.WebApp.Controllers
                 end = x.EndDate.ToString("yyyy-MM-dd"),
                 title = x.Project
             }));
+        }
 
 
         [HttpGet]
@@ -78,6 +108,11 @@ namespace Onion.WebApp.Controllers
             if (set != null)
             {
                 _dashBoardService.Create(dashBoardDTO, teamId);
+
+                var personalFileDTO = _personalFileService.GetByEmployeeId(id);
+                personalFileDTO.SetProjectDate = System.DateTime.Now;
+                _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+                _personalFileService.Update(personalFileDTO);
                 ViewBag.CreateResult = "Set in project is successfully created!";
             }
 
@@ -100,6 +135,10 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult DeleteSetting(int id)
         {
+            var personalFileDTO = _personalFileService.GetByEmployeeId(id);
+            _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+            _personalFileService.Update(personalFileDTO);
+            
             _dashBoardService.Delete(id);
             return Redirect("~/Employee/Show");
         }

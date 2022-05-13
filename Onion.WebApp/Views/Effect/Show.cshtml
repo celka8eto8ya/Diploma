@@ -1,0 +1,391 @@
+﻿@model Onion.AppCore.DTO.EffectDTO
+
+
+<div class="container mainSize col-12">
+    <div class="card text-center">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+
+                <li class="nav-item">
+                    <a class="dropdown-item nav-link collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                       aria-expanded="false" aria-controls="collapseTwo" href="#">Enter Data</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="dropdown-item nav-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                       aria-expanded="true" aria-controls="collapseOne" href="#">Result</a>
+                </li>
+
+                <li class="nav-item col-8 ml-4">
+                    <h2 class="text-center col-12 ">Effect. by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+                </li>
+
+                <li class="nav-item col-2 ml-2 px-4">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Effect.</li>
+                        </ol>
+                    </nav>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form class="row mt-2 mb-2 col-12 justify-content-center" asp-action="Show" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+                                <div class="col-2 pr-0">
+                                    <label class="form-label text-right">Calculating Date:</label>
+                                </div>
+
+                                <div class="col-3 pl-0 mr-3">
+                                    <select name="departmentId" class="form-select form-control" aria-label="Select">
+                                        @*@foreach (var department in @ViewBag.Departments)
+                                            {
+                                                @if (@ViewBag.departmentId != null && @ViewBag.departmentId == department.Id)
+                                                {
+                                                    <option class="form-control" selected value="@department.Id">@department.Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option class="form-control" value="@department.Id">@department.Name</option>
+                                                }
+                                            }*@
+                                        <option class="form-control" selected value="@ViewBag.EffectDTO.CalculateDate">@ViewBag.EffectDTO.CalculateDate</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-2 row justify-content-between px-4">
+                                    <input type="submit" class="btn btn-primary col-12 NewProject " value="Filter">
+                                </div>
+                            </form>
+
+                            <div class="card-body row justify-content-around">
+
+                                <div class="card text-white bg-primary mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">IRR = @string.Format($"{@ViewBag.EffectDTO.IRR:f2}") % </div>
+                                    <div class="card-body ">
+                                        <h5 class="card-title">Internal Rate of Return</h5>
+                                        <p class="card-text text-left">
+                                            An indicator used in financial analysis to evaluate the profitability of a potential investment.
+                                            <br /> • IRR is the annual growth rate that the investment is expected to generate.
+                                            <br /> • IRR is calculated using the same principle as NPV, except that NPV is set to zero.
+                                            <br /> • IRR is ideal for analyzing capital budget proposals to understand and compare potential annual rates of return over time.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">ROI = @string.Format($"{@ViewBag.EffectDTO.ROI:f2}") %</div>
+                                    <div class="card-body ">
+                                        <h5 class="card-title">Return On Investment</h5>
+                                        <p class="card-text text-left">
+                                            The indicator of return on investment or it is also called the return on
+                                            investment ratio from the English term Return On Investment. This value is calculated
+                                            as a percentage. If the indicator is above 100%, it indicates the
+                                            profitability of investments, and if it is below 100%, it indicates unprofitability.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-success mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">NPV = @string.Format($"{@ViewBag.EffectDTO.NPV:f2}") m.u.</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Net Present Value</h5>
+                                        <p class="card-text">
+                                            The sum of the discounted values of the payment stream, reduced to today.
+                                            The NPV indicator is the difference between all cash inflows and outflows, reduced to the
+                                            current point in time (the moment the investment project is evaluated).
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-danger mb-3 " style="max-width: 18rem;">
+                                    <div class="card-header">ETC = @string.Format($"{@ViewBag.EffectDTO.ETC:f2}") $</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Employee Time Cost</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">CT_T = @string.Format($"{@ViewBag.EffectDTO.CT_T:f0}")</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Completion Tasks – Time</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+                                <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">PCT_T = @string.Format($"{@ViewBag.EffectDTO.PCT_T:f2}") %</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Percent Completion Tasks – Time</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-dark bg-light mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">POT = @string.Format($"{@ViewBag.EffectDTO.POT:f2}") %</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Percent Overdue Tasks- Time</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">OT = @string.Format($"{@ViewBag.EffectDTO.OT:f0}")</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Overdue Tasks - Time</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+                            <form asp-action="Show" asp-controller="Effect" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+
+                                <div class="container col-6 justify-content-center mt-3 ">
+                                    <h2 class="text-center mb-4">Data needed for calculation:</h2>
+
+                                    <input type="text" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">ROI:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_ExpensesAmount">ROI_ExpensesAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_ExpensesAmount" class="form-control" asp-for="ROI_ExpensesAmount" />
+                                            <span asp-validation-for="ROI_ExpensesAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_InvestmentsIncome">ROI_InvestmentsIncome:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_InvestmentsIncome" class="form-control" asp-for="ROI_InvestmentsIncome" />
+                                            <span asp-validation-for="ROI_InvestmentsIncome" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 mb-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="ROI_InvestmentsAmount">ROI_InvestmentsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="ROI_InvestmentsAmount" class="form-control" asp-for="ROI_InvestmentsAmount" />
+                                            <span asp-validation-for="ROI_InvestmentsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">NPV:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_InitialInvestments">NPV_InitialInvestments:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_InitialInvestments" class="form-control" asp-for="NPV_InitialInvestments" />
+                                            <span asp-validation-for="NPV_InitialInvestments" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_DiscountRate">NPV_DiscountRate:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_DiscountRate" class="form-control" asp-for="NPV_DiscountRate" />
+                                            <span asp-validation-for="NPV_DiscountRate" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_YearsAmount">NPV_YearsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="NPV_YearsAmount" class="form-control" asp-for="NPV_YearsAmount" />
+                                            <span asp-validation-for="NPV_YearsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 mb-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="NPV_CashFlows">NPV_CashFlows:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="btn-group form-control  p-0" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Open
+                                                </button>
+                                                <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
+                                                            <input type="number" name="NPV_CashFlows[0]" class="mb-1 col-9" asp-for="NPV_CashFlows[0]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
+                                                            <input type="number" name="NPV_CashFlows[1]" class="mb-1 col-9" asp-for="NPV_CashFlows[1]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
+                                                            <input type="number" name="NPV_CashFlows[2]" class="mb-1 col-9" asp-for="NPV_CashFlows[2]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
+                                                            <input type="number" name="NPV_CashFlows[3]" class="mb-1 col-9" asp-for="NPV_CashFlows[3]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
+                                                            <input type="number" name="NPV_CashFlows[4]" class="mb-1 col-9" asp-for="NPV_CashFlows[4]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
+                                                            <input type="number" name="NPV_CashFlows[5]" class="mb-1 col-9" asp-for="NPV_CashFlows[5]" />
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+
+                                            <span asp-validation-for="NPV_CashFlows" class="col-8" />
+                                        </div>
+                                    </div>
+
+
+                                    <label class="form-label text-left font-weight-bold col-12  mb-0 ">IRR:</label>
+                                    <hr class="mt-0">
+
+                                    <div class="row mt-4 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_InitialInvestments">IRR_InitialInvestments:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="IRR_InitialInvestments" class="form-control" asp-for="IRR_InitialInvestments" />
+                                            <span asp-validation-for="IRR_InitialInvestments" class="col-8" />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_YearsAmount">IRR_YearsAmount:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input type="number" name="IRR_YearsAmount" class="form-control" asp-for="IRR_YearsAmount" />
+                                            <span asp-validation-for="IRR_YearsAmount" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2 justify-content-start">
+                                        <div class="col-4 pl-auto pr-0">
+                                            <label class="form-label col-12 text-right pr-2" asp-for="IRR_CashFlows">IRR_CashFlows:</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="btn-group form-control  p-0" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Open
+                                                </button>
+                                                <ul class="dropdown-menu row col-12" aria-labelledby="btnGroupDrop1">
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=1:</label>
+                                                            <input type="number" name="IRR_CashFlows[0]" class="mb-1 col-9" asp-for="IRR_CashFlows[0]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=2:</label>
+                                                            <input type="number" name="IRR_CashFlows[1]" class="mb-1 col-9" asp-for="IRR_CashFlows[1]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=3:</label>
+                                                            <input type="number" name="IRR_CashFlows[2]" class="mb-1 col-9" asp-for="IRR_CashFlows[2]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=4:</label>
+                                                            <input type="number" name="IRR_CashFlows[3]" class="mb-1 col-9" asp-for="IRR_CashFlows[3]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=5:</label>
+                                                            <input type="number" name="IRR_CashFlows[4]" class="mb-1 col-9" asp-for="IRR_CashFlows[4]" />
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="row">
+                                                            <label class="form-label col-2 text-center " @*asp-for="IRR_CashFlows"*@>t=6:</label>
+                                                            <input type="number" name="IRR_CashFlows[5]" class="mb-1 col-9" asp-for="IRR_CashFlows[5]" />
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <span asp-validation-for="IRR_CashFlows" class="col-8" />
+                                        </div>
+                                    </div>
+
+                                    <input type="number" name="ProjectId" asp-for="ProjectId" value="@ViewBag.Project.Id" hidden />
+
+
+                                    <div class="row  justify-content-center  mt-4  mb-5 pb-4">
+                                        <input class="btn btn-primary mt-4 col-4 NewProject" type="submit" value="Calculate">
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section scripts{
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Onion.AppCore.DTO.NotificationDTO>
+
+<div class="container mainSize col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Notifications</li>
+        </ol>
+    </nav>
+    <div class="row rowSize ">
+
+        <h2 class="text-center col-12 mb-4">Notifications by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+
+        <div class=" col-12 CreateProj justify-content-center">
+            <table class="table table-striped table-hover  border-dark pt-4 ">
+                <thead>
+                    <tr>
+
+                        <th scope="col">
+                            №
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Topic</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Text</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Create Date</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1">Task</a>
+                        </th>
+                        <th scope="col">
+                            <a class="m-1"></a>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int i = 1;
+
+                        foreach (var notificationDTO in Model)
+                        {
+                            <tr>
+
+                                <td scope="row">@i</td>
+                                <td scope="row">@notificationDTO.Topic</td>
+                                <td scope="row">@notificationDTO.Text</td>
+                                <td scope="row">@notificationDTO.CreateDate</td>
+                                <td scope="row">@notificationDTO.TaskName</td>
+
+                                <td class="pl-4 col-1">
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Options
+                                        </button>
+
+                                        <ul class="dropdown-menu iconsPadding2" aria-labelledby="dropdownMenuLink">
+
+                                            <li>
+                                                <a class="col-11 btn btn-success"
+                                                   asp-route-notificationId="@notificationDTO.Id"
+                                                   asp-controller="Notification" asp-action="ChangeVisible" role="button">
+                                                    Viewed
+                                                </a>
+
+                                            </li>
+
+                                            <li>
+                                                <a class="col-11 btn btn-primary"
+                                                   asp-route-id="@notificationDTO.StepId"
+                                                   asp-route-taskId="@notificationDTO.TaskId"
+                                                   asp-action="Show" asp-controller="Task"
+                                                   role="button">
+                                                    Open task
+                                                </a>
+
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            i++;
+                        } }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

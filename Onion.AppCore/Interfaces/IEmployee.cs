@@ -15,5 +15,6 @@ namespace Onion.AppCore.Interfaces
         bool IsExistUser(AuthenticationDTO authenticationDTO);
         string CheckRole(string email);
         int GetByEmail(string email);
+        int GetByEmailEntity(string email);
     }
 }

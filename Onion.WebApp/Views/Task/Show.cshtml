@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Onion.AppCore.DTO.FullTaskDTO>
 
+@{
+    string rowStyle = "";
+}
 <div class="container mainSize col-12">
 
     <nav aria-label="breadcrumb">
@@ -29,9 +32,9 @@
 
 
         <div class=" col-12 CreateProj justify-content-center">
-            <table class="table table-striped table-hover @*table-sm*@ border-dark pt-4 ">
+            <table class="table  table-hover  border-dark pt-4 ">
                 <thead>
-                    <tr>
+                    <tr class="">
 
                         <th scope="col">
                             №
@@ -67,7 +70,7 @@
                             <a class="m-1">Complexity (1-5)</a>
                         </th>
                         <th scope="col">
-                            <a class="m-1">Options</a>
+                            <a class="m-1"></a>
                         </th>
                     </tr>
                 </thead>
@@ -76,7 +79,20 @@
 
                         foreach (var fullTaskDTO in Model)
                         {
-                            <tr>
+                            @if (fullTaskDTO.TaskDTO.Id == @ViewBag.taskId)
+                            {
+                                rowStyle = "table-warning";
+                            }
+                            else if (fullTaskDTO.ConditionName == "Completed" && fullTaskDTO.ReviewStageName == "Accepted")
+                            {
+                                rowStyle = "table-secondary";
+                            }
+                            else
+                            {
+                                rowStyle = "";
+                            }
+
+                            <tr class="@rowStyle">
 
                                 <td scope="row">@i</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Name</td>
@@ -85,47 +101,110 @@
                                 <td scope="row">@fullTaskDTO.TaskDTO.Deadline.ToShortDateString()</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.CreateDate</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.UpdateDate</td>
-                                <td scope="row">@fullTaskDTO.TaskDTO.CompletionDate</td>
-                                <td scope="row">@fullTaskDTO.TaskDTO.Cost</td>
+                                @if (fullTaskDTO.TaskDTO.CompletionDate.Year < 2)
+                                {
+                                    <td scope="row">-</td>
+                                }
+                                else
+                                {
+                                    <td scope="row">@fullTaskDTO.TaskDTO.CompletionDate</td>
+                                }
+                                <td scope="row">@string.Format($"{@fullTaskDTO.TaskDTO.Cost:f2}")</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Comment</td>
                                 <td scope="row">@fullTaskDTO.TaskDTO.Complexity</td>
                                 @if (User.IsInRole("ProjectManager"))
                                 {
-                                    <td class="col-1 px-4">
+                                    <td class="pl-4 col-1">
+                                        <div class="dropdown">
+                                            @if (fullTaskDTO.ConditionName == "ForConsideration")
+                                            {
+                                                <button class="btn btn-warning btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Options
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                                    Options
+                                                </button>
+                                            }
 
-                                        <a class="icons" data-title="Edit" asp-action="Edit" asp-route-id="@fullTaskDTO.TaskDTO.Id" asp-controller="Task">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                 class="bi bi-pencil-square" viewBox="0 0 20 20">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                                <path fill-rule="evenodd"
-                                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                            </svg>
-                                        </a>
+                                            <ul class="dropdown-menu iconsPadding2" aria-labelledby="dropdownMenuLink">
 
-                                        <a class="icons third" data-title="Remove" asp-controller="Task" asp-route-id="@fullTaskDTO.TaskDTO.Id" asp-action="Delete">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                 class="bi bi-trash" viewBox="0 0 20 20">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                                <path fill-rule="evenodd"
-                                                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                            </svg>
-                                        </a>
+                                                @if (fullTaskDTO.ConditionName != "Completed" && fullTaskDTO.ReviewStageName != "Accepted")
+                                                {
+                                                    <li>
+                                                        <a class="" asp-action="Edit" asp-route-id="@fullTaskDTO.TaskDTO.Id" asp-controller="Task">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                                 class="bi bi-pencil-square" viewBox="0 0 20 20">
+                                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                                                <path fill-rule="evenodd"
+                                                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                                            </svg>
+                                                            Edit
+                                                        </a>
+                                                    </li>
+                                                }
 
+                                                <li>
+                                                    <a class="" asp-controller="Task" asp-route-id="@fullTaskDTO.TaskDTO.Id" asp-action="Delete">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                                             class="bi bi-trash" viewBox="0 0 20 20">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                        </svg>
+                                                        Remove
+                                                    </a>
+                                                </li>
+
+                                                @if (fullTaskDTO.ConditionName == "ForConsideration")
+                                                {
+                                                    <li><hr class="dropdown-divider"></li>
+
+                                                    <li>
+                                                        <a class="col-11 btn btn-success"
+                                                           asp-route-command="Accept"
+                                                           asp-route-projectId="@ViewBag.projectId"
+                                                           asp-route-stepId="@ViewBag.Step.Id"
+                                                           asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-controller="Task" asp-action="UpdateCondition" role="button">Accept</a>
+
+
+                                                    </li>
+
+                                                    <li>
+                                                        <a class="col-11 btn btn-warning"
+                                                           asp-route-command="Revision"
+                                                           asp-route-projectId="@ViewBag.projectId"
+                                                           asp-route-stepId="@ViewBag.Step.Id"
+                                                           asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-controller="Task" asp-action="UpdateCondition" role="button">Revision</a>
+
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                        </div>
                                     </td>
+
                                 }
                                 @if (User.IsInRole("Employee"))
                                 {
-                                    <td class="col-1 px-4">
-                                        <a class="icons" data-title="Edit" asp-action="Edit" asp-route-id="@fullTaskDTO.TaskDTO.Id" asp-controller="Task">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                                 class="bi bi-pencil-square" viewBox="0 0 20 20">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                                <path fill-rule="evenodd"
-                                                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                            </svg>
-                                        </a>
+                                    <td class="col-1 px-2">
+                                        @if (fullTaskDTO.ConditionName == "ForConsideration" || fullTaskDTO.ConditionName == "Completed")
+                                        {
+                                            <a class="col-12 btn btn-secondary" href="#" role="button">Done</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="col-12 btn btn-success"
+                                               asp-route-command=""
+                                               asp-route-projectId="@ViewBag.projectId"
+                                               asp-route-stepId="@ViewBag.Step.Id"
+                                               asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-controller="Task" asp-action="UpdateCondition" role="button">Done</a>
+                                        }
                                     </td>
                                 }
+
                             </tr>
                             i++;
                         } }

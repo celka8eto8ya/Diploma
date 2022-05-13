@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Onion.Infrastructure.Data;
 
 namespace Onion.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220505091713_ChangedEffect")]
+    partial class ChangedEffect
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,9 +240,6 @@ namespace Onion.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("CT_T")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CalculateDate")
                         .HasColumnType("datetime2");
 
@@ -277,10 +276,13 @@ namespace Onion.Infrastructure.Migrations
                     b.Property<int>("NPV_YearsAmount")
                         .HasColumnType("int");
 
-                    b.Property<double>("OT")
+                    b.Property<double>("PCT_A")
                         .HasColumnType("float");
 
                     b.Property<double>("PCT_T")
+                        .HasColumnType("float");
+
+                    b.Property<double>("POA")
                         .HasColumnType("float");
 
                     b.Property<double>("POT")

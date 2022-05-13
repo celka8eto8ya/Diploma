@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Collections.Generic;
@@ -14,25 +15,38 @@ namespace Onion.WebApp.Controllers
         private readonly IReviewStage _reviewStageService;
         private readonly ITask _taskService;
         private readonly IProject _projectService;
+        private readonly IEmployee _employeeService;
+        private readonly ITeam _teamService;
+
 
         public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService,
-             IProject projectService)
+             IProject projectService, IEmployee employeeService, ITeam teamService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _taskService = taskService;
             _projectService = projectService;
+            _employeeService = employeeService;
+            _teamService = teamService;
         }
 
 
         [HttpGet]
-        public IActionResult Show(int id)
+        public IActionResult Show(int id, int taskId)
         {
             StepDTO currentStep = _stepService.GetById(id);
             ViewBag.projectId = (int)_projectService.GetById((int)currentStep.ProjectId).Id;
             ViewBag.Step = currentStep;
-            return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
+            ViewBag.taskId = taskId;
+
+            if (User.IsInRole("Employee"))
+            {
+                int employeeId = _employeeService.GetByEmailEntity(User.Identity.Name);
+                return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id && x.TaskDTO.EmployeeId == employeeId));
+            }
+            else
+                return View(_taskService.GetList().Where(x => x.TaskDTO.StepId == id));
         }
 
         [HttpGet]
@@ -128,5 +142,58 @@ namespace Onion.WebApp.Controllers
             _taskService.Delete(id);
             return RedirectToAction("Show", "Task", new { id = stepId });
         }
+
+
+        [HttpGet]
+        public IActionResult Setting(int id, int stepId, int some)
+        {
+            EmployeeDTO currentEmployee = _employeeService.GetById(id);
+            ViewBag.Employee = currentEmployee;
+
+            ProjectDTO currentProject = _projectService.GetById(
+            _teamService.GetById((int)currentEmployee.TeamId).ProjectId);
+            ViewBag.Project = currentProject;
+
+            var steps = _stepService.GetList().Where(x => x.StepDTO.ProjectId == currentProject.Id);
+            ViewBag.Steps = steps;
+
+            var firstStep = steps.FirstOrDefault();
+            ViewBag.stepId = firstStep.StepDTO.Id;
+            if (stepId > 0)
+                ViewBag.stepId = stepId;
+
+            var tasks = _taskService.GetList();
+            return View(tasks.Where(x => x.TaskDTO.StepId == ViewBag.stepId
+                && x.ConditionName != Enums.Conditions.Completed.ToString()
+                    && x.ReviewStageName != Enums.ReviewStages.Accepted.ToString()
+                        && (_taskService.GetById(x.TaskDTO.Id).EmployeeId == currentEmployee.Id
+                            || _taskService.GetById(x.TaskDTO.Id).EmployeeId == null)));
+        }
+
+
+        [HttpPost]
+        public IActionResult Setting(int id, int stepId)
+            => RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
+
+        public IActionResult SetTask(int id, int taskId, int stepId)
+        {
+            if (taskId > 0)
+                _taskService.SetTask(taskId, id);
+
+            return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
+        }
+
+        public IActionResult UpdateCondition(int taskId, int stepId, int projectId, string command)
+        {
+            string role = "";
+            if (User.IsInRole("Employee"))
+                role = "Employee";
+            else if (User.IsInRole("ProjectManager"))
+                role = "ProjectManager";
+
+            _taskService.UpdateCondition(taskId, role, projectId, User.Identity.Name, command);
+            return RedirectToAction("Show", "Task", new { id = stepId });
+        }
+
     }
 }

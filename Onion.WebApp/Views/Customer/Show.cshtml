@@ -2,7 +2,7 @@
 
 <div class="container mainSize col-12">
     <div class="row rowSize">
-        
+
         <div class="col CreateProj">
             @if (User.IsInRole("Admin"))
             {
@@ -71,7 +71,7 @@
                                 <td scope="row">@customerDTO.CreateDate.ToShortDateString()</td>
                                 <td scope="row">@customerDTO.UpdateDate.ToShortDateString()</td>
                                 <td scope="row">@customerDTO.PhoneNumber</td>
-                                <td scope="row">@customerDTO.InvestmentAmount</td>
+                                <td scope="row">@string.Format($"{@customerDTO.InvestmentAmount:f2}") </td>
                                 <td scope="row">@customerDTO.CooperationTime</td>
                                 <td scope="row">@customerDTO.ProjectName</td>
                                 @if (User.IsInRole("Admin"))
