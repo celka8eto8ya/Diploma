@@ -78,6 +78,8 @@ namespace Onion.WebApp
             services.AddTransient<INotification, NotificationService>();
             services.AddTransient<IGenericRepository<Effect>, SQLRepository<Effect>>();
             services.AddTransient<IEffect, EffectService>();
+            services.AddTransient<IGenericRepository<Operation>, SQLRepository<Operation>>();
+            services.AddTransient<IOperation, OperationService>();
 
 
 

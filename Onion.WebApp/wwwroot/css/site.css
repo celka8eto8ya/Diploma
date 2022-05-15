@@ -272,10 +272,12 @@ input[type="checkbox"].input-validation-error {
     background-color: #3569f8;
     color: #FFF;
 }
+
 .labelPadding {
     padding-bottom: -20px;
     margin-bottom: -20px;
 }
+
 table td {
     overflow-wrap: normal; /* не поддерживает IE, Firefox; является копией word-wrap */
     word-wrap: break-word;
@@ -284,3 +286,20 @@ table td {
     hyphens: manual; /* значение auto не поддерживается Chrome */
     /*width: 50%;*/
 }
+
+.historyTable {
+    overflow: scroll;
+}
+
+    .historyTable > table > thead > tr > th {
+        padding: 0 10px;
+        text-align: center;
+        vertical-align:middle;
+        overflow: hidden;
+    }
+
+    .historyTable > table > tbody > tr > td {
+        text-align: right;
+        padding: 0 5px;
+        overflow: hidden;
+    }

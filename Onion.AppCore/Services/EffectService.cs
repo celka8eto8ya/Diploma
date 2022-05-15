@@ -10,11 +10,6 @@ namespace Onion.AppCore.Services
 {
     public class EffectService : IEffect
     {
-        private readonly IGenericRepository<Step> _stepRepository;
-        private readonly IGenericRepository<Condition> _conditionRepository;
-        private readonly IGenericRepository<ReviewStage> _reviewStageRepository;
-        private readonly IGenericRepository<Task> _taskRepository;
-
         private readonly IGenericRepository<Effect> _effectRepository;
         private readonly IGenericRepository<Team> _teamRepository;
         private readonly IGenericRepository<Employee> _employeeRepository;
@@ -22,17 +17,10 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<DashBoard> _dashBoardRepository;
 
 
-        public EffectService(IGenericRepository<Step> stepRepository, IGenericRepository<Condition> conditionRepository,
-            IGenericRepository<ReviewStage> reviewStageRepository, IGenericRepository<Task> taskRepository,
-            IGenericRepository<Effect> effectRepository, IGenericRepository<Team> teamRepository,
+        public EffectService(IGenericRepository<Effect> effectRepository, IGenericRepository<Team> teamRepository,
             IGenericRepository<Employee> employeeRepository, IGenericRepository<PersonalFile> personalFileRepository,
             IGenericRepository<DashBoard> dashBoardRepository)
         {
-            _stepRepository = stepRepository;
-            _conditionRepository = conditionRepository;
-            _reviewStageRepository = reviewStageRepository;
-            _taskRepository = taskRepository;
-
             _effectRepository = effectRepository;
             _teamRepository = teamRepository;
             _employeeRepository = employeeRepository;
@@ -62,10 +50,12 @@ namespace Onion.AppCore.Services
                 NPV_DiscountRate = x.NPV_DiscountRate,
                 NPV_YearsAmount = x.NPV_YearsAmount,
                 NPV_CashFlows = JsonConvert.DeserializeObject<double[]>(x.NPV_CashFlows),
+                NPV_CashFlowsString = x.NPV_CashFlows,
 
                 IRR_InitialInvestments = x.IRR_InitialInvestments,
                 IRR_YearsAmount = x.IRR_YearsAmount,
                 IRR_CashFlows = JsonConvert.DeserializeObject<double[]>(x.IRR_CashFlows),
+                IRR_CashFlowsString = x.IRR_CashFlows,
 
                 ProjectId = x.ProjectId
             });

@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Onion.AppCore.DTO.EffectDTO>
+
+<div class="container mainSize col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Effect. History</li>
+        </ol>
+    </nav>
+
+    <div class="row rowSize ">
+
+        <h2 class="text-center col-12 mb-4">History Effect. by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+
+        <div class=" col-12 CreateProj justify-content-center">
+            <div class="historyTable">
+
+                <table class=" table table-bordered table-striped table-hover table-sm border-dark pt-4 ">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">
+                                №
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Calculate Date</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">IRR</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">ROI</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">NPV</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">ETC</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">CT_T</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">PCT_T</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">POT</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">OT</a>
+                            </th>
+
+                            <th scope="col">
+                                <a class="m-1">ROI Expenses Amount</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">ROI Investments Income</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">ROI Investments Amount</a>
+                            </th>
+
+                            <th scope="col">
+                                <a class="m-1">NPV Initial Investments</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">NPV Discount Rate</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">NPV Years Amount</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">NPV Cash Flows</a>
+                            </th>
+
+                            <th scope="col">
+                                <a class="m-1">IRR Initial Investments</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">IRR Years Amount</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">IRR Cash Flows</a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1;
+
+                            foreach (var effectDTO in Model)
+                            {
+                                <tr>
+
+                                    <td scope="row">@i</td>
+                                    <td scope="row">@effectDTO.CalculateDate</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.IRR:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.ROI:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.NPV:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.ETC:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.CT_T:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.PCT_T:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.POT:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.OT:f2}")</td>
+
+                                    <td scope="row">@string.Format($"{@effectDTO.ROI_ExpensesAmount:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.ROI_InvestmentsIncome:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.ROI_InvestmentsAmount:f2}")</td>
+
+                                    <td scope="row">@string.Format($"{@effectDTO.NPV_InitialInvestments:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.NPV_DiscountRate:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.NPV_YearsAmount:f2}")</td>
+                                    <td scope="row">@effectDTO.NPV_CashFlowsString</td>
+
+                                    <td scope="row">@string.Format($"{@effectDTO.IRR_InitialInvestments:f2}")</td>
+                                    <td scope="row">@string.Format($"{@effectDTO.IRR_YearsAmount:f2}")</td>
+                                    <td scope="row">@effectDTO.IRR_CashFlowsString</td>
+
+                                </tr>
+                                i++;
+                            } }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

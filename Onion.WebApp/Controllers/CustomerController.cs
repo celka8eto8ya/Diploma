@@ -2,6 +2,7 @@
 using System.Linq;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
+using Onion.AppCore;
 
 namespace Onion.WebApp.Controllers
 {
@@ -9,11 +10,14 @@ namespace Onion.WebApp.Controllers
     {
         private readonly ICustomer _customerService;
         private readonly IProject _projectService;
+        private readonly IOperation _operationService;
 
-        public CustomerController(ICustomer customerService, IProject projectService)
+
+        public CustomerController(ICustomer customerService, IProject projectService, IOperation operationService)
         {
             _customerService = customerService;
             _projectService = projectService;
+            _operationService = operationService;
         }
 
 
@@ -37,6 +41,8 @@ namespace Onion.WebApp.Controllers
             if (!_customerService.IsUniqueFullCustomer(fullCustomerDTO))
             {
                 _customerService.Create(fullCustomerDTO);
+                _operationService.Create(Enums.OperationTypes.Create.ToString(),
+                        Enums.ObjectNames.Customer.ToString(), fullCustomerDTO.CustomerDTO.Name, User.Identity.Name, fullCustomerDTO.CustomerDTO.ProjectId);
                 return Redirect("~/Customer/Show");
             }
             else
@@ -49,7 +55,10 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
+            var customerDTO = _customerService.GetList().First(x => x.Id == id);
             _customerService.Delete(id);
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(),
+                Enums.ObjectNames.Customer.ToString(), customerDTO.Name, User.Identity.Name, customerDTO.ProjectId);
             return Redirect("~/Customer/Show");
         }
 
@@ -74,6 +83,8 @@ namespace Onion.WebApp.Controllers
                 if (!_customerService.IsUniqueCustomer(customerDTO))
                 {
                     _customerService.Update(customerDTO);
+                    _operationService.Create(Enums.OperationTypes.Update.ToString(),
+                        Enums.ObjectNames.Customer.ToString(), customerDTO.Name, User.Identity.Name, customerDTO.ProjectId);
                     return Redirect("~/Customer/Show");
                 }
                 else

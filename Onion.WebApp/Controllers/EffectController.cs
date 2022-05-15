@@ -54,6 +54,15 @@ namespace Onion.WebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult History(int id)
+        {
+            ViewBag.Project = _projectService.GetById(id);
+
+            return View(_effectService.GetList().Where(x=> x.ProjectId == id));
+        }
+
+
 
     }
 }

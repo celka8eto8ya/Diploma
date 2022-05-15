@@ -40,32 +40,20 @@
                     <div id="collapseOne" class="accordion-collapse collapse show " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
 
-                            <form class="row mt-2 mb-2 col-12 justify-content-center" asp-action="Show" asp-controller="Employee" asp-anti-forgery="true" method="post" enctype="multipart/form-data">
+                            <div class="row mt-2 mb-2 col-12 justify-content-center">
                                 <div class="col-2 pr-0">
                                     <label class="form-label text-right">Calculating Date:</label>
                                 </div>
 
                                 <div class="col-3 pl-0 mr-3">
-                                    <select name="departmentId" class="form-select form-control" aria-label="Select">
-                                        @*@foreach (var department in @ViewBag.Departments)
-                                            {
-                                                @if (@ViewBag.departmentId != null && @ViewBag.departmentId == department.Id)
-                                                {
-                                                    <option class="form-control" selected value="@department.Id">@department.Name</option>
-                                                }
-                                                else
-                                                {
-                                                    <option class="form-control" value="@department.Id">@department.Name</option>
-                                                }
-                                            }*@
-                                        <option class="form-control" selected value="@ViewBag.EffectDTO.CalculateDate">@ViewBag.EffectDTO.CalculateDate</option>
-                                    </select>
+                                    <input type="text" class="form-control" value="@ViewBag.EffectDTO.CalculateDate" readonly />
                                 </div>
 
                                 <div class="col-2 row justify-content-between px-4">
-                                    <input type="submit" class="btn btn-primary col-12 NewProject " value="Filter">
+                                    <a asp-action="History" asp-route-id="@ViewBag.Project.Id" asp-controller="Effect" 
+                                       class="btn btn-primary col-12 NewProject ">History</a>
                                 </div>
-                            </form>
+                            </div>
 
                             <div class="card-body row justify-content-around">
 
@@ -99,7 +87,7 @@
                                     <div class="card-header">NPV = @string.Format($"{@ViewBag.EffectDTO.NPV:f2}") m.u.</div>
                                     <div class="card-body">
                                         <h5 class="card-title">Net Present Value</h5>
-                                        <p class="card-text">
+                                        <p class="card-text text-left">
                                             The sum of the discounted values of the payment stream, reduced to today.
                                             The NPV indicator is the difference between all cash inflows and outflows, reduced to the
                                             current point in time (the moment the investment project is evaluated).
@@ -111,22 +99,32 @@
                                     <div class="card-header">ETC = @string.Format($"{@ViewBag.EffectDTO.ETC:f2}") $</div>
                                     <div class="card-body">
                                         <h5 class="card-title">Employee Time Cost</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text text-left">
+                                            Expenses for employees for the entire time of their presence on this project.
+                                            The value is calculated if there is an established salary in the personal files of the project employees.
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
                                     <div class="card-header">CT_T = @string.Format($"{@ViewBag.EffectDTO.CT_T:f0}")</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Completion Tasks – Time</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <h5 class="card-title">Total Completion Tasks – Time (Hours)</h5>
+                                        <p class="card-text text-left">
+                                            The total amount of time spent on the tasks of an employee of this project.
+                                            This value is expressed in hours.
+                                        </p>
                                     </div>
                                 </div>
+
                                 <div class="card text-dark bg-info mb-3" style="max-width: 18rem;">
                                     <div class="card-header">PCT_T = @string.Format($"{@ViewBag.EffectDTO.PCT_T:f2}") %</div>
                                     <div class="card-body">
                                         <h5 class="card-title">Percent Completion Tasks – Time</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text text-left">
+                                            Expresses the ratio of the total amount of time spent on the task to the time
+                                            allocated for its execution. Units of measure - percent.
+                                        </p>
                                     </div>
                                 </div>
 
@@ -134,15 +132,21 @@
                                     <div class="card-header">POT = @string.Format($"{@ViewBag.EffectDTO.POT:f2}") %</div>
                                     <div class="card-body">
                                         <h5 class="card-title">Percent Overdue Tasks- Time</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <p class="card-text text-left">
+                                            Expresses the ratio of the total amount of time by which the task was overdue to the
+                                            time allocated for its execution. Units of measure - percent.
+                                        </p>
                                     </div>
                                 </div>
 
                                 <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-                                    <div class="card-header">OT = @string.Format($"{@ViewBag.EffectDTO.OT:f0}")</div>
+                                    <div class="card-header ">OT = @string.Format($"{@ViewBag.EffectDTO.OT:f0}")</div>
                                     <div class="card-body">
-                                        <h5 class="card-title">Total Overdue Tasks - Time</h5>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <h5 class="card-title">Total Overdue Tasks - Time (Hours)</h5>
+                                        <p class="card-text text-left">
+                                            Reflects the total amount of time by which the tasks of the project were overdue
+                                            (by all employees on the project). Units of measurement - hours.
+                                        </p>
                                     </div>
                                 </div>
 

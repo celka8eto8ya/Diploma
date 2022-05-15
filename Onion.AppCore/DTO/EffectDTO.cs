@@ -23,11 +23,13 @@ namespace Onion.AppCore.DTO
         public double NPV_DiscountRate { get; set; }
         public int NPV_YearsAmount { get; set; }
         public double[] NPV_CashFlows { get; set; }
+        public string NPV_CashFlowsString { get; set; }
 
         public double IRR_InitialInvestments { get; set; }
         public double IRR_DiscountRate { get; set; }
         public int IRR_YearsAmount { get; set; }
         public double[] IRR_CashFlows { get; set; }
+        public string IRR_CashFlowsString { get; set; }
 
 
         public int ProjectId { get; set; }

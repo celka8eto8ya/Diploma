@@ -9,10 +9,10 @@
             Customer,
             Admin
         }
-       public enum  AccessLevels
+        public enum AccessLevels
         {
             Low,
-            Medium, 
+            Medium,
             High,
             Setting
         }
@@ -20,17 +20,33 @@
         public enum Conditions
         {
             Completed,
-            ForImplementation, 
-            InProgress, 
+            ForImplementation,
+            InProgress,
             ForConsideration
         }
 
         public enum ReviewStages
         {
-            Accepted, 
-            ForRevision, 
-            ForConsideration, 
+            Accepted,
+            ForRevision,
+            ForConsideration,
             None
+        }
+
+        public enum OperationTypes
+        {
+            Create,
+            Update,
+            Delete
+        }
+
+        public enum ObjectNames
+        {
+            Customer,
+            Employee,
+            Project,
+            Task,
+            DashBoard
         }
     }
 }
