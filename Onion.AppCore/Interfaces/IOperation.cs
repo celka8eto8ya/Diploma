@@ -7,5 +7,7 @@ namespace Onion.AppCore.Interfaces
     {
         IEnumerable<OperationDTO> GetList();
         void Create(string type, string object0, string name, string author, int projectId);
+        byte[] ExportToWord(IEnumerable<OperationDTO> operationDTO);
+        byte[] ExportToXML(IEnumerable<OperationDTO> operationDTO);
     }
 }
