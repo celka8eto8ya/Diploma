@@ -37,16 +37,21 @@
         {
             Create,
             Update,
-            Delete
+            Delete,
+            Open,
+            Calculate
         }
 
         public enum ObjectNames
         {
             Customer,
-            Employee,
             Project,
-            Task,
-            DashBoard
+            DashBoard,
+            Document,
+            Effect,
+            Team,
+            Step,
+            Task
         }
     }
 }

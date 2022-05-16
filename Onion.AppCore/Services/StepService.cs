@@ -49,8 +49,8 @@ namespace Onion.AppCore.Services
            => _stepRepository.GetList().Any(x => x.Name == stepDTO.Name && x.Id != stepDTO.Id);
 
 
-        public void Create(StepDTO stepDTO)
-           => _stepRepository.Create(new Step()
+        public Step Create(StepDTO stepDTO)
+           => _stepRepository.CreateEntity(new Step()
            {
                Name = stepDTO.Name,
                Description = stepDTO.Description,

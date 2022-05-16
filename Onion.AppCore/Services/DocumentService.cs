@@ -13,9 +13,7 @@ namespace Onion.AppCore.Services
         private readonly IGenericRepository<Document> _documentRepository;
 
         public DocumentService(IGenericRepository<Document> documentRepository)
-        {
-            _documentRepository = documentRepository;
-        }
+            => _documentRepository = documentRepository;
 
 
         public IEnumerable<DocumentDTO> GetList()
@@ -38,7 +36,7 @@ namespace Onion.AppCore.Services
            => _documentRepository.GetList().Any(x => x.Name == documentDTO.FormFile.FileName && x.Id != documentDTO.Id);
 
 
-        public void Create(DocumentDTO documentDTO)
+        public Document Create(DocumentDTO documentDTO)
         {
             byte[] fileData = null;
             using (var binaryReader = new BinaryReader(documentDTO.FormFile.OpenReadStream()))
@@ -46,7 +44,7 @@ namespace Onion.AppCore.Services
                 fileData = binaryReader.ReadBytes((int)documentDTO.FormFile.Length);
             };
 
-            _documentRepository.Create(new Document()
+            return _documentRepository.CreateEntity(new Document()
             {
                 Name = documentDTO.FormFile.FileName,
                 File = fileData,
@@ -54,7 +52,7 @@ namespace Onion.AppCore.Services
                 CreateDate = documentDTO.CreateDate,
                 AddDate = DateTime.Now,
                 Adder = documentDTO.Adder,
-                Size = documentDTO.FormFile.Length*BankData.ByteToMB,
+                Size = documentDTO.FormFile.Length * BankData.ByteToMB,
 
                 ProjectId = documentDTO.ProjectId
             });
@@ -81,7 +79,6 @@ namespace Onion.AppCore.Services
                 ProjectId = document.ProjectId
             };
         }
-
 
     }
 }

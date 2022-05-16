@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Linq;
@@ -9,10 +10,13 @@ namespace Onion.WebApp.Controllers
     {
         private readonly ITeam _teamService;
         private readonly IProject _projectService;
-        public TeamController(ITeam teamService, IProject projectService)
+        private readonly IOperation _operationService;
+
+        public TeamController(ITeam teamService, IProject projectService, IOperation operationService)
         {
             _teamService = teamService;
             _projectService = projectService;
+            _operationService = operationService;
         }
 
 
@@ -42,7 +46,9 @@ namespace Onion.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _teamService.Create(teamDTO);
+                    var team = _teamService.Create(teamDTO);
+                    _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.Team.ToString(),
+                        team.Name, User.Identity.Name, team.ProjectId);
                     ViewBag.CreateResult = "Team is successfully created!";
                 }
                 else
@@ -76,6 +82,8 @@ namespace Onion.WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     _teamService.Update(teamDTO);
+                    _operationService.Create(Enums.OperationTypes.Update.ToString(), Enums.ObjectNames.Team.ToString(),
+                       teamDTO.Name, User.Identity.Name, teamDTO.ProjectId);
                     ViewBag.CreateResult = "Team is successfully edited!";
                 }
                 else
@@ -93,8 +101,11 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
+            var team = _teamService.GetById(id);
             _teamService.Delete(id);
-            return Redirect("~/Team/Show");
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(), Enums.ObjectNames.Team.ToString(),
+                      team.Name, User.Identity.Name, team.ProjectId);
+            return RedirectToAction("Show", "Team", new { id = team.ProjectId });
         }
 
     }

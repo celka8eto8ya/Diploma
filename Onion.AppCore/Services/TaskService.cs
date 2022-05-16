@@ -58,7 +58,7 @@ namespace Onion.AppCore.Services
            => _taskRepository.GetList().Any(x => x.Name == taskDTO.Name && x.Id != taskDTO.Id);
 
 
-        public void Create(TaskDTO taskDTO)
+        public Task Create(TaskDTO taskDTO)
         {
             Task task = _taskRepository.CreateEntity(new Task()
             {
@@ -79,6 +79,7 @@ namespace Onion.AppCore.Services
             Step step = _stepRepository.GetById((int)task.StepId);
             step.TaskAmount++;
             _stepRepository.Update(step);
+            return task;
         }
 
         public void Delete(int id)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Linq;
@@ -9,11 +10,13 @@ namespace Onion.WebApp.Controllers
     {
         private readonly IDocument _documentService;
         private readonly IProject _projectService;
+        private readonly IOperation _operationService;
 
-        public DocumentController(IDocument documentService, IProject projectService)
+        public DocumentController(IDocument documentService, IProject projectService, IOperation operationService)
         {
             _documentService = documentService;
             _projectService = projectService;
+            _operationService = operationService;
         }
 
 
@@ -42,7 +45,9 @@ namespace Onion.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _documentService.Create(documentDTO);
+                    var document = _documentService.Create(documentDTO);
+                    _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.Document.ToString(),
+                        document.Name, User.Identity.Name, document.ProjectId);
                     ViewBag.CreateResult = "Document is successfully created!";
                 }
                 else
@@ -60,9 +65,11 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            int projectId = (int)_documentService.GetById(id).ProjectId;
+            var document = _documentService.GetById(id);
             _documentService.Delete(id);
-            return RedirectToAction("Show", "Document", new { id = projectId });
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(), Enums.ObjectNames.Document.ToString(),
+                document.Name, User.Identity.Name, document.ProjectId);
+            return RedirectToAction("Show", "Document", new { id = document.ProjectId });
         }
 
 
@@ -71,6 +78,9 @@ namespace Onion.WebApp.Controllers
             var document = _documentService.GetById(id);
             byte[] fileContent = document.File;
             var currentFileType = document.Type;
+
+            _operationService.Create(Enums.OperationTypes.Open.ToString(), Enums.ObjectNames.Document.ToString(),
+               document.Name, User.Identity.Name, document.ProjectId);
 
             if (currentFileType != null)
                 return File(fileContent, currentFileType);

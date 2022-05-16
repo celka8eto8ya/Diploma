@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Collections;
@@ -16,9 +17,11 @@ namespace Onion.WebApp.Controllers
         private readonly ICustomer _customerService;
         private readonly INotification _notificationService;
         private readonly ITask _taskService;
+        private readonly IOperation _operationService;
 
         public ProjectController(IProject projectService, ICondition conditionService, IReviewStage reviewStageService,
-            IEmployee employeeService, ICustomer customerService, INotification notificationService, ITask taskService)
+            IEmployee employeeService, ICustomer customerService, INotification notificationService, ITask taskService,
+            IOperation operationService)
         {
             _projectService = projectService;
             _conditionService = conditionService;
@@ -27,6 +30,7 @@ namespace Onion.WebApp.Controllers
             _customerService = customerService;
             _notificationService = notificationService;
             _taskService = taskService;
+            _operationService = operationService;
         }
 
 
@@ -67,7 +71,6 @@ namespace Onion.WebApp.Controllers
             => View();
 
 
-
         //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult Create(ProjectDTO projectDTO)
@@ -76,7 +79,10 @@ namespace Onion.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _projectService.Create(projectDTO);
+                    var project = _projectService.Create(projectDTO);
+                    _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.Project.ToString(),
+                        project.Name, User.Identity.Name, project.Id);
+
                     ViewBag.CreateResult = "Project is successfully created!";
                 }
                 else
@@ -90,6 +96,8 @@ namespace Onion.WebApp.Controllers
             }
             return View();
         }
+       
+        
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -110,6 +118,8 @@ namespace Onion.WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     _projectService.Update(projectDTO);
+                    _operationService.Create(Enums.OperationTypes.Update.ToString(), Enums.ObjectNames.Project.ToString(),
+                       projectDTO.Name, User.Identity.Name, projectDTO.Id);
                     ViewBag.CreateResult = "Project is successfully edited!";
                 }
                 else
@@ -127,6 +137,7 @@ namespace Onion.WebApp.Controllers
             //_projectService.Update(projectDTO);
             //return Redirect("~/Project/Show");
         }
+
 
         public IActionResult Delete(int id)
         {

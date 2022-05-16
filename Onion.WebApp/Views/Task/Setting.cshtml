@@ -129,11 +129,13 @@
                                 <td class="col-1 px-2">
                                     @if (fullTaskDTO.TaskDTO.EmployeeId == null)
                                     {
-                                        <a class="col-12 btn btn-success" asp-route-stepId="@ViewBag.stepId" asp-route-id="@ViewBag.Employee.Id" asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-controller="Task" asp-action="SetTask" role="button">Set</a>
+                                        <a class="col-12 btn btn-success" asp-route-stepId="@ViewBag.stepId" asp-route-id="@ViewBag.Employee.Id" 
+                                           asp-route-taskId="@fullTaskDTO.TaskDTO.Id"  asp-route-operationType="Set" asp-controller="Task" asp-action="SetTask" role="button">Set</a>
                                     }
                                     else
                                     {
-                                        <a class="col-12 btn btn-danger" asp-route-stepId="@ViewBag.stepId" asp-route-id="@ViewBag.Employee.Id" asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-controller="Task" asp-action="SetTask" role="button">Remove</a>
+                                        <a class="col-12 btn btn-danger" asp-route-stepId="@ViewBag.stepId" asp-route-id="@ViewBag.Employee.Id" 
+                                           asp-route-taskId="@fullTaskDTO.TaskDTO.Id" asp-route-operationType="UnSet" asp-controller="Task" asp-action="SetTask" role="button">Remove</a>
                                     }
                                 </td>
 

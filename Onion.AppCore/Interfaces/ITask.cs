@@ -1,4 +1,5 @@
 ﻿using Onion.AppCore.DTO;
+using Onion.AppCore.Entities;
 using System.Collections.Generic;
 
 namespace Onion.AppCore.Interfaces
@@ -6,7 +7,7 @@ namespace Onion.AppCore.Interfaces
    public interface ITask
     {
         IEnumerable<FullTaskDTO> GetList();
-        void Create(TaskDTO taskDTO);
+        Task Create(TaskDTO taskDTO);
         void Update(TaskDTO taskDTO);
         void Delete(int id);
         TaskDTO GetById(int id);

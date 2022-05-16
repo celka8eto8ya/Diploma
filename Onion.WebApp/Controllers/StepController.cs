@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Linq;
@@ -11,14 +12,16 @@ namespace Onion.WebApp.Controllers
         private readonly ICondition _conditionService;
         private readonly IReviewStage _reviewStageService;
         private readonly IProject _projectService;
+        private readonly IOperation _operationService;
 
         public StepController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService,
-            IProject projectService)
+            IProject projectService, IOperation operationService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
             _reviewStageService = reviewStageService;
             _projectService = projectService;
+            _operationService = operationService;
         }
 
 
@@ -28,7 +31,6 @@ namespace Onion.WebApp.Controllers
             ViewBag.Project = _projectService.GetById(id);
             return View(_stepService.GetList().Where(x => x.StepDTO.ProjectId == id));
         }
-
 
 
         [HttpGet]
@@ -47,7 +49,9 @@ namespace Onion.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _stepService.Create(stepDTO);
+                    var step = _stepService.Create(stepDTO);
+                    _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.Step.ToString(),
+                       step.Name, User.Identity.Name, (int)step.ProjectId);
                     ViewBag.CreateResult = "Step is successfully created!";
                 }
                 else
@@ -91,6 +95,8 @@ namespace Onion.WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     _stepService.Update(stepDTO);
+                    _operationService.Create(Enums.OperationTypes.Update.ToString(), Enums.ObjectNames.Step.ToString(),
+                      stepDTO.Name, User.Identity.Name, (int)stepDTO.ProjectId);
                     ViewBag.CreateResult = "Step is successfully edited!";
                 }
                 else
@@ -108,9 +114,11 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            int projectId = (int)_stepService.GetById(id).ProjectId;
+            var stepDTO = _stepService.GetById(id);
             _stepService.Delete(id);
-            return RedirectToAction("Show", "Step", new { id = projectId});
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(), Enums.ObjectNames.Step.ToString(),
+                    stepDTO.Name, User.Identity.Name, (int)stepDTO.ProjectId);
+            return RedirectToAction("Show", "Step", new { id = stepDTO .ProjectId});
         }
     }
 }

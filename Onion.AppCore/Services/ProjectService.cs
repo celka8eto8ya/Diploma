@@ -43,8 +43,8 @@ namespace Onion.AppCore.Services
                 ReviewStageName = _reviewStageRepository.GetById(x.ReviewStageId).Name
             });
 
-        public void Create(ProjectDTO projectDTO)
-            => _projectRepository.Create(new Project()
+        public Project Create(ProjectDTO projectDTO)
+            => _projectRepository.CreateEntity(new Project()
             {
                 Name = projectDTO.Name,
                 Deadline = projectDTO.Deadline,
@@ -85,8 +85,6 @@ namespace Onion.AppCore.Services
 
             return projectDTO;
         }
-
-
 
         public void Update(ProjectDTO projectDTO)
             => _projectRepository.Update(new Project()

@@ -42,7 +42,8 @@ namespace Onion.AppCore.Services
         public void Update(PersonalFileDTO personalFileDTO)
             => _personalFileRepository.Update(new PersonalFile
             {
-                Id = _personalFileRepository.GetList().First(x => x.EmployeeId == personalFileDTO.Id).Id,
+                //Id = _personalFileRepository.GetList().First(x => x.EmployeeId == personalFileDTO.Id).Id,
+                Id = personalFileDTO.Id,
                 ProjectsDone = personalFileDTO.ProjectsDone,
                 TotalTimeInProjects = personalFileDTO.TotalTimeInProjects,
                 AVGProjectTime = personalFileDTO.AVGProjectTime,

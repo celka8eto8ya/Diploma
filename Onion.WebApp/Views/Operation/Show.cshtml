@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Onion.AppCore.DTO.OperationDTO>
+
+<div class="container mainSize col-12">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Project/Show">Projects</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Operations</li>
+        </ol>
+    </nav>
+
+    <div class="row rowSize ">
+
+        <h2 class="text-center col-12 mb-4">Operations by Project: <span class="badge bg-secondary text-white">@ViewBag.Project.Name</span></h2>
+
+        <div class=" col-12 CreateProj justify-content-center">
+            <div class="historyTable">
+
+                <table class=" table table-bordered table-striped table-hover table-sm border-dark pt-4 ">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                №
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Name</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Type</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Date</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Author</a>
+                            </th>
+                            <th scope="col">
+                                <a class="m-1">Object</a>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int i = 1;
+
+                            foreach (var operationDTO in Model)
+                            {
+                                <tr>
+
+                                    <td scope="row">@i</td>
+                                    <td scope="row">@operationDTO.Name</td>
+                                    <td scope="row">@operationDTO.Type</td>
+                                    <td scope="row">@operationDTO.Date</td>
+                                    <td scope="row">@operationDTO.Author</td>
+                                    <td scope="row">@operationDTO.Object</td>
+
+                                </tr>
+                                i++;
+                            } }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

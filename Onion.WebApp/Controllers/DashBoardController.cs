@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Onion.AppCore;
 using Onion.AppCore.DTO;
 using Onion.AppCore.Interfaces;
 using System.Linq;
@@ -14,10 +15,12 @@ namespace Onion.WebApp.Controllers
         private readonly ITeam _teamService;
         private readonly IPersonalFile _personalFileService;
         private readonly ITask _taskService;
+        private readonly IOperation _operationService;
 
 
         public DashBoardController(IDashBoard dashBoardService, IDepartment departmentService, IEmployee employeeService,
-            IProject projectService, ITeam teamService, IPersonalFile personalFileService, ITask taskService)
+            IProject projectService, ITeam teamService, IPersonalFile personalFileService, ITask taskService,
+            IOperation operationService)
         {
             _dashBoardService = dashBoardService;
             _departmentService = departmentService;
@@ -26,7 +29,7 @@ namespace Onion.WebApp.Controllers
             _teamService = teamService;
             _personalFileService = personalFileService;
             _taskService = taskService;
-
+            _operationService = operationService;
         }
 
         [HttpGet]
@@ -108,38 +111,32 @@ namespace Onion.WebApp.Controllers
             if (set != null)
             {
                 _dashBoardService.Create(dashBoardDTO, teamId);
+                _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.DashBoard.ToString(),
+                    ViewBag.proName, User.Identity.Name, projectId);
 
                 var personalFileDTO = _personalFileService.GetByEmployeeId(id);
                 personalFileDTO.SetProjectDate = System.DateTime.Now;
-                _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+                _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().
+                    ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
                 _personalFileService.Update(personalFileDTO);
                 ViewBag.CreateResult = "Set in project is successfully created!";
             }
 
-            //return Redirect("~/Employee/Show");
-
             return View();
-            //if (!_employeeService.IsUniqueFullEmployee(fullEmployeeDTO))
-            //{
-            //    _employeeService.Create(fullEmployeeDTO);
-            //    return Redirect("~/Employee/Show");
-            //}
-            //else
-            //{
-            //    ModelState.AddModelError("", "Employee already exists!");
-            //    ViewBag.Roles = _roleService.GetList();
-            //    ViewBag.Departments = _departmentService.GetList();
-            //    return View();
-            //}
         }
 
         public IActionResult DeleteSetting(int id)
         {
             var personalFileDTO = _personalFileService.GetByEmployeeId(id);
-            _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
+            _taskService.GetList().Where(x => x.TaskDTO.EmployeeId == personalFileDTO.EmployeeId).ToList().
+                ForEach(y => personalFileDTO.AVGTaskCost += y.TaskDTO.Cost);
             _personalFileService.Update(personalFileDTO);
-            
+            var employee = _employeeService.GetById(id);
+            int projectId = _projectService.GetById(_teamService.GetById((int)employee.TeamId).ProjectId).Id;
+
             _dashBoardService.Delete(id);
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(), Enums.ObjectNames.DashBoard.ToString(),
+                    employee.FullName, User.Identity.Name, projectId);
             return Redirect("~/Employee/Show");
         }
 

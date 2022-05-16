@@ -22,9 +22,8 @@ namespace Onion.AppCore.Services
         }
 
 
-        public void Create(TeamDTO teamDTO)
-        {
-            Team team = new Team()
+        public Team Create(TeamDTO teamDTO)
+            => _teamRepository.CreateEntity(new Team()
             {
                 Name = teamDTO.Name,
                 HeadName = teamDTO.HeadName,
@@ -32,20 +31,17 @@ namespace Onion.AppCore.Services
                 EmployeeAmount = 0,
                 Technologies = teamDTO.Technologies,
                 ProjectId = teamDTO.ProjectId
-            };
+            });
 
-            _teamRepository.Create(team);
-        }
 
         public void Delete(int id)
-        {
-            _teamRepository.Delete(id);
-        }
+            => _teamRepository.Delete(id);
+
 
         public TeamDTO GetById(int id)
         {
             Team team = _teamRepository.GetById(id);
-            TeamDTO teamDTO = new TeamDTO()
+            return new TeamDTO()
             {
                 Id = team.Id,
                 Name = team.Name,
@@ -55,8 +51,6 @@ namespace Onion.AppCore.Services
                 Technologies = team.Technologies,
                 ProjectId = team.ProjectId
             };
-
-            return teamDTO;
         }
 
         public void Update(TeamDTO teamDTO)
@@ -70,6 +64,7 @@ namespace Onion.AppCore.Services
                 Technologies = teamDTO.Technologies,
                 ProjectId = teamDTO.ProjectId
             });
+
 
         public bool IsUnique(TeamDTO teamDTO)
            => _teamRepository.GetList().Any(x => x.Name == teamDTO.Name && x.Id != teamDTO.Id);

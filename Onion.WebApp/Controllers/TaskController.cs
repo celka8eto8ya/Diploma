@@ -17,10 +17,11 @@ namespace Onion.WebApp.Controllers
         private readonly IProject _projectService;
         private readonly IEmployee _employeeService;
         private readonly ITeam _teamService;
+        private readonly IOperation _operationService;
 
 
         public TaskController(IStep stepService, ICondition conditionService, IReviewStage reviewStageService, ITask taskService,
-             IProject projectService, IEmployee employeeService, ITeam teamService)
+             IProject projectService, IEmployee employeeService, ITeam teamService, IOperation operationService)
         {
             _stepService = stepService;
             _conditionService = conditionService;
@@ -29,6 +30,7 @@ namespace Onion.WebApp.Controllers
             _projectService = projectService;
             _employeeService = employeeService;
             _teamService = teamService;
+            _operationService = operationService;
         }
 
 
@@ -68,7 +70,10 @@ namespace Onion.WebApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _taskService.Create(taskDTO);
+                    var task = _taskService.Create(taskDTO);
+                    int projectId = (int)_stepService.GetById((int)task.StepId).ProjectId;
+                    _operationService.Create(Enums.OperationTypes.Create.ToString(), Enums.ObjectNames.Task.ToString(),
+                        task.Name, User.Identity.Name, projectId);
                     ViewBag.CreateResult = "Task is successfully created!";
                 }
                 else
@@ -120,6 +125,9 @@ namespace Onion.WebApp.Controllers
                 if (ModelState.IsValid)
                 {
                     _taskService.Update(taskDTO);
+
+                    _operationService.Create(Enums.OperationTypes.Update.ToString(), Enums.ObjectNames.Task.ToString(),
+                       taskDTO.Name, User.Identity.Name, ViewBag.projectId);
                     ViewBag.CreateResult = "Task is successfully edited!";
                 }
                 else
@@ -138,9 +146,12 @@ namespace Onion.WebApp.Controllers
 
         public IActionResult Delete(int id)
         {
-            int stepId = (int)_taskService.GetById(id).StepId;
+            var task = _taskService.GetById(id);
+            int projectId = (int)_stepService.GetById((int)task.StepId).ProjectId;
             _taskService.Delete(id);
-            return RedirectToAction("Show", "Task", new { id = stepId });
+            _operationService.Create(Enums.OperationTypes.Delete.ToString(), Enums.ObjectNames.Task.ToString(),
+                task.Name, User.Identity.Name, projectId);
+            return RedirectToAction("Show", "Task", new { id = task.StepId });
         }
 
 
@@ -175,13 +186,20 @@ namespace Onion.WebApp.Controllers
         public IActionResult Setting(int id, int stepId)
             => RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
 
-        public IActionResult SetTask(int id, int taskId, int stepId)
+
+        public IActionResult SetTask(int id, int taskId, int stepId, string operationType)
         {
             if (taskId > 0)
                 _taskService.SetTask(taskId, id);
 
+            var task = _taskService.GetById(taskId);
+            int projectId = (int)_stepService.GetById((int)task.StepId).ProjectId;
+            _operationService.Create(operationType, Enums.ObjectNames.Task.ToString(),
+               task.Name, User.Identity.Name, projectId);
+
             return RedirectToAction("Setting", "Task", new { id = id, stepId = stepId });
         }
+
 
         public IActionResult UpdateCondition(int taskId, int stepId, int projectId, string command)
         {
@@ -191,7 +209,11 @@ namespace Onion.WebApp.Controllers
             else if (User.IsInRole("ProjectManager"))
                 role = "ProjectManager";
 
+            var task = _taskService.GetById(taskId);
             _taskService.UpdateCondition(taskId, role, projectId, User.Identity.Name, command);
+            _operationService.Create(command, Enums.ObjectNames.Task.ToString(),
+                task.Name, User.Identity.Name, projectId);
+
             return RedirectToAction("Show", "Task", new { id = stepId });
         }
 

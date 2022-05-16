@@ -110,7 +110,7 @@ namespace Onion.AppCore.Services
             return summ - initial;
         }
 
-        public void Create(EffectDTO effectDTO)
+        public Effect Create(EffectDTO effectDTO)
         {
             var projectTeams = _teamRepository.GetList().Where(x => x.ProjectId == effectDTO.ProjectId).ToList();
             var employees = _employeeRepository.GetList().ToList();
@@ -164,7 +164,7 @@ namespace Onion.AppCore.Services
                     _dashBoardRepository.GetList().First(x => x.EmployeeId == projectPersonalFiles[i].EmployeeId).SetDate).TotalDays
                         * projectPersonalFiles[i].AVGSalary / 30.0;
 
-            _effectRepository.Create(new Effect()
+           return _effectRepository.CreateEntity(new Effect()
             {
                 CalculateDate = DateTime.Now,
                 IRR = IRRCalculate(effectDTO),
